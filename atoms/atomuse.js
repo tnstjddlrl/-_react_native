@@ -1,0 +1,1 @@
+// const [atbase64, setatbase64] = useRecoilState(imagebase64) //베이스64로 묶은 이미지

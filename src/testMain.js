@@ -25,6 +25,9 @@ export default TestMain = () => {
             <TouchableWithoutFeedback onPress={() => navigation.navigate('사진촬영')}>
                 <Text style={{ fontSize: 20 }}>사진 촬영</Text>
             </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('스크롤메인')}>
+                <Text style={{ fontSize: 20 }}>스크롤 메인</Text>
+            </TouchableWithoutFeedback>
         </View>
     )
 }

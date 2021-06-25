@@ -20,7 +20,7 @@ const PictureCheck = () => {
 
     return (
         <View style={{ width: '100%', height: '100%' }}>
-            <Image source={{ uri: 'data:jpeg/png;base64,' + atbase64 }} style={{ flex: 1, backgroundColor: 'skyblue' }}></Image>
+            <Image source={{ uri: 'data:jpeg/png;base64,' + atbase64 }} style={{ width: 100, height: 200, backgroundColor: 'skyblue' }}></Image>
         </View>
     )
 }

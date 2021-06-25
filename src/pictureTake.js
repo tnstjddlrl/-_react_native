@@ -37,7 +37,7 @@ export default PictureTake = () => {
         const options = { quality: 0.5, base64: true };
         const data = await camera.takePictureAsync(options);
         //  eslint-disable-next-line
-        setatbase64(data.base64)
+        setatbase64(data.base64);
         console.log(data.base64);
 
         navigation.navigate('사진보기')
@@ -45,7 +45,7 @@ export default PictureTake = () => {
 
 
     return (
-        <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: 'white' }}>
+        <View style={{ width: '100%', height: '100%', alignItems: "center", backgroundColor: 'white' }}>
             <RNCamera
                 ref={camera}
                 style={{ width: chwidth, height: chheight - 200, alignSelf: "center", backgroundColor: 'white' }}
@@ -60,19 +60,27 @@ export default PictureTake = () => {
             // onGoogleVisionBarcodesDetected={({ barcodes }) => {
             //   console.log(barcodes);
             // }}
-
             >
+                {/* 
+                <BarcodeMask
+                    width={'90%'} height={'70%'} showAnimatedLine={false} outerMaskOpacity={0.3}
+                /> */}
+
                 {({ camera, status, recordAudioPermissionStatus }) => {
                     if (status !== 'READY') return <PendingView />;
                     return (
-                        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'flex-end', flex: 1 }}>
                             <TouchableOpacity onPress={() => takePicture(camera)} style={styles.capture}>
-                                <Text style={{ fontSize: 14 }}> SNAP </Text>
+                                <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'white' }}></View>
                             </TouchableOpacity>
                         </View>
                     );
                 }}
+
+
+
             </RNCamera>
+
 
         </View>
     )
@@ -85,8 +93,7 @@ const PendingView = () => (
             backgroundColor: 'lightgreen',
             justifyContent: 'center',
             alignItems: 'center',
-        }}
-    >
+        }}>
         <Text>Waiting</Text>
     </View>
 );
@@ -104,12 +111,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 20,
+        width: 60,
+        height: 60,
+        borderRadius: 40,
+        borderWidth: 2,
+        borderColor: 'white',
+        opacity: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30
     },
 });

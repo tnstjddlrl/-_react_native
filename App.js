@@ -26,6 +26,7 @@ import pictureTake from './src/pictureTake';
 import testMain from './src/testMain';
 import PictureCheck from './src/pictureCheck';
 import ScrollMain from './src/scrollMain';
+import Weather from './src/weather';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ export default APP = () => {
           <Stack.Screen name="사진촬영" component={pictureTake} />
           <Stack.Screen name="사진보기" component={PictureCheck} />
           <Stack.Screen name="스크롤메인" component={ScrollMain} />
+          <Stack.Screen name="날씨테스트" component={Weather} />
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

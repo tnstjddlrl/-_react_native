@@ -23,6 +23,8 @@ const Weather = () => {
 
     const [dayUv, setdayUv] = useState(0)
 
+    const [pm10, setPm10] = useState(0)
+    const [pm25, setPm25] = useState(0)
 
     useEffect(() => {
 
@@ -61,6 +63,27 @@ const Weather = () => {
                     .then(function () {
                         // always executed
                     });
+
+                axios.get('http://api.openweathermap.org/data/2.5/air_pollution?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&appid=4c0e7c89ac35917a4adadc0c95b8392c',
+                ).then(function (response) {
+                    console.log(response.data.list[0].components.pm10)
+                    console.log(response.data.list[0].components.pm2_5)
+
+                    setPm10(response.data.list[0].components.pm10)
+                    setPm25(response.data.list[0].components.pm2_5)
+
+                })
+                    .catch(function (error) {
+                        // handle error
+                        console.log(error);
+                    })
+                    .then(function () {
+                        // always executed
+                    });
+
+
+                Math.round((new Date()).getTime() / 1000)
+
             },
             (error) => {
                 // See error code charts below.
@@ -84,9 +107,12 @@ const Weather = () => {
 
                 <Text> 자외선 지수 : {dayUv}</Text>
                 {dayUv < 2 && <Text>낮음</Text>}
-                {2 < dayUv && dayUv < 5 && <Text>보통</Text>}
-                {5 < dayUv && dayUv < 7 && <Text>높음</Text>}
-                {7 < dayUv && <Text>매우 높음</Text>}
+                {(2 <= dayUv && dayUv <= 5) && <Text> 보통</Text>}
+                {(5 < dayUv && dayUv <= 7) && <Text> 높음</Text>}
+                {(7 < dayUv) && <Text> 매우 높음</Text>}
+
+                <Text> 미세먼지 : {pm10} </Text>
+                <Text > 초미세먼지 : {pm25} </Text>
             </View>
         </View>
     )

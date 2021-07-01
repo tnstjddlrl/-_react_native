@@ -1,4 +1,3 @@
-
 import PushNotification from "react-native-push-notification";
 
 PushNotification.createChannel(

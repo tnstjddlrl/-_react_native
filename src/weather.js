@@ -22,9 +22,12 @@ const Weather = () => {
     const [dayMinTemp, setdayMinTemp] = useState(0)
 
     const [dayUv, setdayUv] = useState(0)
+    const [uvString, setUvString] = useState('')
 
     const [pm10, setPm10] = useState(0)
     const [pm25, setPm25] = useState(0)
+
+    const [totalAir, setTotalAir] = useState('측정중')
 
     useEffect(() => {
 
@@ -35,6 +38,7 @@ const Weather = () => {
 
                 // 
 
+                //현재 온도 받아오기
                 axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=daily&appid=4c0e7c89ac35917a4adadc0c95b8392c',
                 ).then(function (response) {
                     setcurHumi(response.data.current.humidity);
@@ -50,11 +54,27 @@ const Weather = () => {
                     });
 
 
+                //오늘 최고 최저 온도 받아오기 및 자외선 지수
                 axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=current&appid=4c0e7c89ac35917a4adadc0c95b8392c',
                 ).then(function (response) {
                     setdayUv(response.data.daily[0].uvi)
                     setdayMaxTemp(response.data.daily[0].temp.max - 273.15)
                     setdayMinTemp(response.data.daily[0].temp.min - 273.15)
+
+
+                    if (response.data.daily[0].uvi < 2) {
+                        setUvString('낮음')
+                    } else if (response.data.daily[0].uvi >= 2 && response.data.daily[0].uvi < 5) {
+                        setUvString('보통')
+                    } else if (response.data.daily[0].uvi >= 5 && response.data.daily[0].uvi <= 7) {
+                        setUvString('높음')
+                    } else if (response.data.daily[0].uvi > 7) {
+                        setUvString('매우 높음')
+                    } else {
+                        setUvString('서버 오류')
+                    }
+
+
                 })
                     .catch(function (error) {
                         // handle error
@@ -64,13 +84,38 @@ const Weather = () => {
                         // always executed
                     });
 
+                //미세먼지 및 종합대기상황
                 axios.get('http://api.openweathermap.org/data/2.5/air_pollution?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&appid=4c0e7c89ac35917a4adadc0c95b8392c',
                 ).then(function (response) {
                     console.log(response.data.list[0].components.pm10)
                     console.log(response.data.list[0].components.pm2_5)
+                    console.log(response.data.list[0].main.aqi)
 
                     setPm10(response.data.list[0].components.pm10)
                     setPm25(response.data.list[0].components.pm2_5)
+
+
+                    switch (response.data.list[0].main.aqi) {
+                        case 1:
+                            setTotalAir('매우 좋음')
+                            break;
+                        case 2:
+                            setTotalAir('좋음')
+                            break;
+                        case 3:
+                            setTotalAir('보통')
+                            break;
+                        case 4:
+                            setTotalAir('나쁨')
+                            break;
+                        case 5:
+                            setTotalAir('매우 나쁨')
+                            break;
+
+                        default:
+                            setTotalAir('서버 오류')
+                            break;
+                    }
 
                 })
                     .catch(function (error) {
@@ -81,8 +126,6 @@ const Weather = () => {
                         // always executed
                     });
 
-
-                Math.round((new Date()).getTime() / 1000)
 
             },
             (error) => {
@@ -105,14 +148,11 @@ const Weather = () => {
                 <Text> 최고 온도 : {dayMaxTemp.toFixed(1)}</Text>
                 <Text> 최저 온도 : {dayMinTemp.toFixed(1)}</Text>
 
-                <Text> 자외선 지수 : {dayUv}</Text>
-                {dayUv < 2 && <Text>낮음</Text>}
-                {(2 <= dayUv && dayUv <= 5) && <Text> 보통</Text>}
-                {(5 < dayUv && dayUv <= 7) && <Text> 높음</Text>}
-                {(7 < dayUv) && <Text> 매우 높음</Text>}
-
-                <Text> 미세먼지 : {pm10} </Text>
-                <Text > 초미세먼지 : {pm25} </Text>
+                <Text> 자외선 지수 : {dayUv} ( {uvString} )</Text>
+                <Text></Text>
+                <Text> 미세먼지 : {pm10.toFixed(0)} </Text>
+                <Text > 초미세먼지 : {pm25.toFixed(0)} </Text>
+                <Text> 종합 대기상황 : {totalAir} </Text>
             </View>
         </View>
     )

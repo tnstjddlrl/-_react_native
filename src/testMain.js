@@ -18,7 +18,7 @@ export default TestMain = () => {
 
     const navigation = useNavigation()
 
-    LocalNotification()
+    // LocalNotification()
 
     return (
         <View>
@@ -38,6 +38,11 @@ export default TestMain = () => {
             <TouchableWithoutFeedback onPress={() => navigation.navigate('구매테스트')}>
                 <Text style={{ fontSize: 20 }}>구매 테스트</Text>
             </TouchableWithoutFeedback>
+
+            <TouchableWithoutFeedback onPress={() => LocalNotification()}>
+                <Text style={{ fontSize: 20 }}>알림 테스트</Text>
+            </TouchableWithoutFeedback>
+
         </View>
     )
 }

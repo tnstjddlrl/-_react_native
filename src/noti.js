@@ -18,8 +18,9 @@ PushNotification.createChannel(
 export const LocalNotification = () => {
     PushNotification.localNotificationSchedule({
         channelId: 'com.notify',
-        message: 'My local push notification', // (required)
-        date: new Date(Date.now() + 3 * 1000),
+        title: '테스트',
+        message: '안녕하세요! 테스트 알림입니다!', // (required)
+        date: new Date(Date.now() + 1 * 1000),
         playSound: true, // (optional) default: true
         soundName: 'default',
     });

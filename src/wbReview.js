@@ -39,15 +39,12 @@ const WbBuy = () => {
                 onLoadEnd={() => {
                     rnw.postMessage('hello')
                 }}
-                source={{ uri: 'https://msearch.shopping.naver.com/search/all?query=부케가르니%20핸드크림&bt=2&frm=MOSCPRO' }}
+                source={{ uri: 'https://msearch.shopping.naver.com/search/all?query=부케가르니 핸드크림&bt=2&frm=MOSCPRO' }}
                 style={{ width: '100%', height: '100%' }}
                 onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
             />
 
         </SafeAreaView>
-
-
-
     )
 }
 

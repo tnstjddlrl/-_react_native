@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useRef, useState, useEffect } from 'react';
 import {
     SafeAreaView,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 
 import Geolocation from 'react-native-geolocation-service';
+import axios from 'axios';
 
 const Weather = () => {
 

@@ -11,11 +11,14 @@ import {
     Dimensions,
     TouchableWithoutFeedback
 } from 'react-native';
+import { LocalNotification } from './noti';
 
 
 export default TestMain = () => {
 
     const navigation = useNavigation()
+
+    LocalNotification()
 
     return (
         <View>

@@ -43,6 +43,10 @@ export default TestMain = () => {
                 <Text style={{ fontSize: 20 }}>알림 테스트</Text>
             </TouchableWithoutFeedback>
 
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('예약 알림 테스트')}>
+                <Text style={{ fontSize: 20 }}>예약 알림 테스트</Text>
+            </TouchableWithoutFeedback>
+
         </View>
     )
 }

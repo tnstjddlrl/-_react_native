@@ -9,7 +9,8 @@ import {
     Text,
     useColorScheme,
     View,
-    Dimensions
+    Dimensions,
+    Alert
 } from 'react-native';
 
 import { RNCamera } from 'react-native-camera';
@@ -32,24 +33,15 @@ export default BarcodeCheck = () => {
             // console.log(response);
             const $ = cheerio.load(response.data);
 
-            // console.log($("div.container renewal div.subCont div div.productDetailView").children("div.productTit"))
-
-            // console.log($('div.productDetailView').find('div.productTit').text().replace(/(\s*)/g, ""))
-
             var test = $('div.productDetailView').find('div.productTit').text().replace(/(\s*)/g, "");
 
             console.log(test.substring(13, test.length))
             setproduct(test.substring(13, test.length))
-
-
         })
             .catch(function (error) {
-                // handle error
+                Alert.alert('인터넷 연결을 확인')
                 console.log(error);
             })
-            .then(function () {
-                // always executed
-            });
     }
 
 
@@ -61,10 +53,10 @@ export default BarcodeCheck = () => {
                 type={RNCamera.Constants.Type.back}
                 flashMode={RNCamera.Constants.FlashMode.auto}
                 androidCameraPermissionOptions={{
-                    title: 'Permission to use camera',
-                    message: 'We need your permission to use your camera',
-                    buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel',
+                    title: '카메라 사용 권한',
+                    message: '카메라 사용 권한 허용이 필요합니다.',
+                    buttonPositive: '확인',
+                    buttonNegative: '거절',
                 }}
                 // onGoogleVisionBarcodesDetected={({ barcodes }) => {
                 //   console.log(barcodes);
@@ -73,9 +65,7 @@ export default BarcodeCheck = () => {
                     setTimeout(() => {
                         barcodeCheck(data.data)
                     }, 500);
-                }}
-
-            >
+                }}>
                 <BarcodeMask
                     width={300} height={200} showAnimatedLine={true} outerMaskOpacity={0.8}
                 />

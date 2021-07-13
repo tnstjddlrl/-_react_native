@@ -33,10 +33,6 @@ const Weather = () => {
 
         Geolocation.getCurrentPosition(
             (position) => {
-                // console.log(position.coords.latitude);
-                // console.log(position.coords.longitude);
-
-                // 
 
                 //현재 온도 받아오기
                 axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=daily&appid=4c0e7c89ac35917a4adadc0c95b8392c',
@@ -57,10 +53,10 @@ const Weather = () => {
                 //오늘 최고 최저 온도 받아오기 및 자외선 지수
                 axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=current&appid=4c0e7c89ac35917a4adadc0c95b8392c',
                 ).then(function (response) {
+
                     setdayUv(response.data.daily[0].uvi)
                     setdayMaxTemp(response.data.daily[0].temp.max - 273.15)
                     setdayMinTemp(response.data.daily[0].temp.min - 273.15)
-
 
                     if (response.data.daily[0].uvi < 2) {
                         setUvString('낮음')
@@ -74,15 +70,12 @@ const Weather = () => {
                         setUvString('서버 오류')
                     }
 
-
-                })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .then(function () {
-                        // always executed
-                    });
+                }).catch(function (error) {
+                    // handle error
+                    console.log(error);
+                }).then(function () {
+                    // always executed
+                });
 
                 //미세먼지 및 종합대기상황
                 axios.get('http://api.openweathermap.org/data/2.5/air_pollution?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&appid=4c0e7c89ac35917a4adadc0c95b8392c',
@@ -117,14 +110,12 @@ const Weather = () => {
                             break;
                     }
 
-                })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .then(function () {
-                        // always executed
-                    });
+                }).catch(function (error) {
+                    // handle error
+                    console.log(error);
+                }).then(function () {
+                    // always executed
+                });
 
 
             },

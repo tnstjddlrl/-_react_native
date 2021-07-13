@@ -37,11 +37,10 @@ export default BarcodeCheck = () => {
 
             console.log(test.substring(13, test.length))
             setproduct(test.substring(13, test.length))
+        }).catch(function (error) {
+            Alert.alert('인터넷 연결을 확인')
+            console.log(error);
         })
-            .catch(function (error) {
-                Alert.alert('인터넷 연결을 확인')
-                console.log(error);
-            })
     }
 
 

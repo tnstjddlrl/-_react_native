@@ -56,11 +56,7 @@ export default PictureTake = () => {
                     message: '카메라 권한이 필요합니다!',
                     buttonPositive: '확인',
                     buttonNegative: '취소',
-                }}
-            // onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            //   console.log(barcodes);
-            // }}
-            >
+                }}>
                 {/* 
                 <BarcodeMask
                     width={'90%'} height={'70%'} showAnimatedLine={false} outerMaskOpacity={0.3}

@@ -23,7 +23,7 @@ const chwidth = Dimensions.get('window').width
 
 const Productregist = () => {
 
-    const [onChangeValue, setOnChangeValue] = React.useState(48)
+    const [onChangeValue, setOnChangeValue] = React.useState(49)
 
     const [leftmonth, setLeftmonth] = useState(0)
 
@@ -33,25 +33,25 @@ const Productregist = () => {
             case 0:
                 setLeftmonth(0)
                 break;
-            case 8:
+            case 9:
                 setLeftmonth(1)
                 break;
-            case 16:
+            case 17:
                 setLeftmonth(2)
                 break;
-            case 24:
+            case 25:
                 setLeftmonth(3)
                 break;
-            case 33:
+            case 34:
                 setLeftmonth(4)
                 break;
-            case 40:
+            case 41:
                 setLeftmonth(5)
                 break;
-            case 48:
+            case 49:
                 setLeftmonth(6)
                 break;
-            case 56:
+            case 57:
                 setLeftmonth(7)
                 break;
             case 64:
@@ -145,7 +145,7 @@ const Productregist = () => {
                                 <Text style={{ fontSize: 18, marginTop: 25, marginBottom: 20 }}>유통기한 알람</Text>
 
                                 <Slider
-                                    defaultValue={48}
+                                    defaultValue={49}
                                     colorScheme="cyan"
                                     onChange={(v) => {
                                         setOnChangeValue(Math.floor(v))

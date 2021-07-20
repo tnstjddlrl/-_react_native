@@ -29,6 +29,7 @@ import ScrollMain from './src/scrollMain';
 import Weather from './src/weather';
 import WbBuy from './src/wbBuy';
 import Reservation from './src/reservation';
+import Productregist from './src/productregist';
 
 const Stack = createStackNavigator();
 
@@ -39,7 +40,11 @@ export default APP = () => {
       <NavigationContainer>
         <Stack.Navigator headerMode={'none'}>
           <Stack.Screen name="메인" component={testMain} />
+
           <Stack.Screen name="바코드체크" component={barcodeCheck} />
+          <Stack.Screen name="제품등록" component={Productregist} />
+
+
           <Stack.Screen name="사진촬영" component={pictureTake} />
           <Stack.Screen name="사진보기" component={PictureCheck} />
           <Stack.Screen name="스크롤메인" component={ScrollMain} />

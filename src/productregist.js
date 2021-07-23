@@ -29,21 +29,8 @@ import {
     BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 
-import { Calendar, CalendarList, Agenda, } from 'react-native-calendars';
-import { LocaleConfig } from 'react-native-calendars';
-
 import DatePicker from 'react-native-date-picker'
 
-import DateTimePicker from '@react-native-community/datetimepicker';
-
-LocaleConfig.locales['fr'] = {
-    monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-    monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-    dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-    today: 'Aujourd\'hui'
-};
-LocaleConfig.defaultLocale = 'fr';
 
 const chwidth = Dimensions.get('window').width
 

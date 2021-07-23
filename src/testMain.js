@@ -49,6 +49,10 @@ export default TestMain = () => {
                 <Text style={{ fontSize: 20 }}>제품등록</Text>
             </TouchableWithoutFeedback>
 
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('제품위치')}>
+                <Text style={{ fontSize: 20 }}>제품위치</Text>
+            </TouchableWithoutFeedback>
+
         </View>
     )
 }

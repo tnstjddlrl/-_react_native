@@ -30,6 +30,7 @@ import Weather from './src/weather';
 import WbBuy from './src/wbBuy';
 import Reservation from './src/reservation';
 import Productregist from './src/productregist';
+import ProductAddr from './src/productAddr';
 
 const Stack = createStackNavigator();
 
@@ -42,7 +43,9 @@ export default APP = () => {
           <Stack.Screen name="메인" component={testMain} />
 
           <Stack.Screen name="바코드체크" component={barcodeCheck} />
+
           <Stack.Screen name="제품등록" component={Productregist} />
+          <Stack.Screen name="제품위치" component={ProductAddr} />
 
 
           <Stack.Screen name="사진촬영" component={pictureTake} />

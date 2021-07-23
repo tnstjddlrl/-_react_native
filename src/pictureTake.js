@@ -25,10 +25,8 @@ const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
 
 export default PictureTake = () => {
-    const camera = useRef()
-    const [barcc, setBarcc] = useState('바코드 탐지중!')
-    const [product, setproduct] = useState('')
 
+    const camera = useRef()
     const navigation = useNavigation()
 
     const [atbase64, setatbase64] = useRecoilState(imagebase64)
@@ -48,7 +46,7 @@ export default PictureTake = () => {
         <View style={{ width: '100%', height: '100%', alignItems: "center", backgroundColor: 'white' }}>
             <RNCamera
                 ref={camera}
-                style={{ width: chwidth, height: chheight - 200, alignSelf: "center", backgroundColor: 'white' }}
+                style={{ width: chwidth, height: '100%', alignSelf: "center", backgroundColor: 'white' }}
                 type={RNCamera.Constants.Type.back}
                 flashMode={RNCamera.Constants.FlashMode.auto}
                 androidCameraPermissionOptions={{
@@ -57,25 +55,50 @@ export default PictureTake = () => {
                     buttonPositive: '확인',
                     buttonNegative: '취소',
                 }}>
-                {/* 
-                <BarcodeMask
-                    width={'90%'} height={'70%'} showAnimatedLine={false} outerMaskOpacity={0.3}
-                /> */}
 
                 {({ camera, status, recordAudioPermissionStatus }) => {
                     if (status !== 'READY') return <PendingView />;
                     return (
                         <View style={{ alignItems: 'center', justifyContent: 'flex-end', flex: 1 }}>
                             <TouchableOpacity onPress={() => takePicture(camera)} style={styles.capture}>
-                                <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'white' }}></View>
+                                <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text style={{}}>촬영</Text>
+                                </View>
                             </TouchableOpacity>
                         </View>
                     );
                 }}
-
-
-
             </RNCamera>
+
+            {/* 헤더 시작 */}
+            <View style={{ width: '100%', height: 60, justifyContent: 'center', position: 'absolute', backgroundColor: 'rgba(51, 51, 51,0.6)' }}>
+
+                <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+
+                    {/* < 시작 */}
+                    <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
+                        <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                            <View style={{ left: 4.5, top: 4.5 }}>
+                                <Text style={{}}>뒤</Text>
+                            </View>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    {/* < 끝 */}
+
+                    <Text style={{ fontSize: 20, color: 'black', fontWeight: 'bold' }}>화장품을 찍어주세요</Text>
+
+
+                    <View style={{ width: 40, height: 40 }}>
+
+                    </View>
+
+
+                </View>
+
+            </View>
+            {/* 헤더 끝 */}
+
+
 
 
         </View>

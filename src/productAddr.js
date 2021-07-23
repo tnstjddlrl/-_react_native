@@ -50,6 +50,7 @@ const ProductAddr = () => {
             {/* 헤더 끝 */}
 
             <View style={{ flex: 1 }}>
+
                 <ScrollView style={{}}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
                         <Text style={{}}>아이콘</Text>
@@ -64,16 +65,9 @@ const ProductAddr = () => {
 
                     </View>
 
-
                 </ScrollView>
 
-
             </View>
-
-
-
-
-
 
             {/* 하단 버튼 시작 */}
             <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
@@ -84,11 +78,6 @@ const ProductAddr = () => {
             </View>
 
             {/* 하단 버튼 끝 */}
-
-
-
-
-
 
         </SafeAreaView>
     )

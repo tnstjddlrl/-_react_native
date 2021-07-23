@@ -1,6 +1,4 @@
-import axios from 'axios';
 import React, { useRef, useState } from 'react';
-const cheerio = require('cheerio');
 import {
     SafeAreaView,
     ScrollView,
@@ -43,7 +41,7 @@ export default PictureTake = () => {
 
 
     return (
-        <View style={{ width: '100%', height: '100%', alignItems: "center", backgroundColor: 'white' }}>
+        <SafeAreaView style={{ width: '100%', height: '100%', alignItems: "center", backgroundColor: 'white' }}>
             <RNCamera
                 ref={camera}
                 style={{ width: chwidth, height: '100%', alignSelf: "center", backgroundColor: 'white' }}
@@ -101,7 +99,7 @@ export default PictureTake = () => {
 
 
 
-        </View>
+        </SafeAreaView>
     )
 }
 

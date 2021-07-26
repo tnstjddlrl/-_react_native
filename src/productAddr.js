@@ -9,8 +9,10 @@ import {
     Text,
     Dimensions,
     TouchableWithoutFeedback,
-    StyleSheet
+    StyleSheet,
+    Image,
 } from 'react-native';
+
 
 
 import {
@@ -25,6 +27,9 @@ import {
 } from "native-base"
 
 const chwidth = Dimensions.get('window').width
+
+const check_img = require('../img/light/check.png')
+
 
 
 const ProductAddr = () => {
@@ -117,149 +122,150 @@ const ProductAddr = () => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>
+        <NativeBaseProvider>
+            <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>
 
-            {/* 헤더 시작 */}
-            <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
-                <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                    {/* < 시작 */}
-                    <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{}}>뒤</Text>
+                {/* 헤더 시작 */}
+                <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
+                    <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                        {/* < 시작 */}
+                        <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ left: 4.5, top: 4.5 }}>
+                                <ChevronLeftIcon />
+                            </View>
                         </View>
-                    </View>
-                    {/* < 끝 */}
-                    <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>
-                    <View style={{ width: 40, height: 40 }}>
-                    </View>
+                        {/* < 끝 */}
+                        <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>
+                        <View style={{ width: 40, height: 40 }}>
+                        </View>
 
+                    </View>
                 </View>
-            </View>
-            {/* 헤더 끝 */}
+                {/* 헤더 끝 */}
 
-            <View style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
 
-                <ScrollView style={{}}>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
-                        <Text style={{}}>아이콘</Text>
-                        <Text style={{ fontSize: 18 }}>화장품을 놓은 위치를 터치해주세요.</Text>
-                    </View>
+                    <ScrollView style={{}}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
+                            <Text style={{}}>아이콘</Text>
+                            <Text style={{ fontSize: 18 }}>화장품을 놓은 위치를 터치해주세요.</Text>
+                        </View>
 
-                    <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 15, marginBottom: 20 }}>
-                        <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>위 칸</Text>
+                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 15, marginBottom: 20 }}>
+                            <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>위 칸</Text>
 
-                            <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('u1')}>
-                                    {u1 ?
-                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'black', boderwidth: 1, borderColor: 'skyblue' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('u1')}>
+                                        {u1 ?
+                                            <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'black', boderwidth: 1, borderColor: 'skyblue' }}>
+                                                <Image source={{ check_img }}></Image>
+                                            </View>
+                                            :
+                                            <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                        </View>
-                                        :
+                                            </View>
+                                        }
+                                    </TouchableWithoutFeedback>
+
+                                    <TouchableWithoutFeedback onPress={() => touchpd('u2')}>
                                         <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
                                         </View>
-                                    }
-                                </TouchableWithoutFeedback>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('u2')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('u3')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('u3')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('u4')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('u4')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('u5')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('u5')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('u6')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
-
-                                <TouchableWithoutFeedback onPress={() => touchpd('u6')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
-
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
 
+                                </View>
                             </View>
                         </View>
-                    </View>
 
-                    <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 20, elevation: 15, marginBottom: 20 }}>
-                        <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>아래 칸</Text>
+                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 20, elevation: 15, marginBottom: 20 }}>
+                            <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>아래 칸</Text>
 
-                            <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('d1')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('d1')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('d2')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('d2')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('d3')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('d3')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('d4')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('d4')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('d5')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('d5')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-                                <TouchableWithoutFeedback onPress={() => touchpd('d6')}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    <TouchableWithoutFeedback onPress={() => touchpd('d6')}>
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                    </View>
-                                </TouchableWithoutFeedback>
+                                        </View>
+                                    </TouchableWithoutFeedback>
 
-
+                                </View>
                             </View>
                         </View>
-                    </View>
 
-                </ScrollView>
+                    </ScrollView>
 
-            </View>
-
-            {/* 하단 버튼 시작 */}
-            <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
-                {/* 파랑버튼 */}
-                <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
-                    <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
                 </View>
-            </View>
 
-            {/* 하단 버튼 끝 */}
+                {/* 하단 버튼 시작 */}
+                <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
+                    {/* 파랑버튼 */}
+                    <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
+                        <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
+                    </View>
+                </View>
 
-        </SafeAreaView>
+                {/* 하단 버튼 끝 */}
+
+            </SafeAreaView>
+        </NativeBaseProvider>
     )
 }
 

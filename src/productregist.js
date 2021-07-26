@@ -143,7 +143,6 @@ const Productregist = () => {
 
                             </View>
 
-
                         </View>
 
                     </View>
@@ -159,9 +158,9 @@ const Productregist = () => {
 
                                     {/*  */}
                                     <Text style={{ fontSize: 18 }}>제품명</Text>
-
-                                    <TextInput style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }} placeholder={'제품명을 입력해주세요.'}></TextInput>
-
+                                    <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
+                                        <TextInput style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'제품명을 입력해주세요.'}></TextInput>
+                                    </View>
 
                                     {/*  */}
                                     <Text style={{ fontSize: 18, marginTop: 25 }}>화장품 종류</Text>
@@ -207,8 +206,6 @@ const Productregist = () => {
 
                                     </View>
 
-
-
                                     {/*  */}
                                     <Text style={{ fontSize: 18, marginTop: 25 }}>유통기한 설정</Text>
 
@@ -221,7 +218,6 @@ const Productregist = () => {
                                         </View>
                                     </TouchableWithoutFeedback>
 
-
                                     {/*  */}
                                     <Text style={{ fontSize: 18, marginTop: 25, marginBottom: 20 }}>유통기한 알람</Text>
 
@@ -230,10 +226,8 @@ const Productregist = () => {
                                         colorScheme="cyan"
                                         onChange={(v) => {
                                             setOnChangeValue(Math.floor(v))
-                                        }}
-                                    >
+                                        }}>
                                         <Slider.Track bg='gray.100' borderWidth={3} borderColor={'rgb(216,216,216)'}>
-                                            {/* <Slider.FilledTrack /> */}
                                         </Slider.Track>
                                         <Slider.Thumb bg='rgb(233,31,54)'>
                                             <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20 }}>

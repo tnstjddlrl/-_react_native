@@ -6,9 +6,7 @@ import {
     StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
     View,
-    Dimensions,
     TouchableWithoutFeedback
 } from 'react-native';
 import { LocalNotification } from './noti';
@@ -23,6 +21,7 @@ export default TestMain = () => {
             <TouchableWithoutFeedback onPress={() => navigation.navigate('바코드체크')}>
                 <Text style={{ fontSize: 20 }}>바코드 스캔</Text>
             </TouchableWithoutFeedback>
+
             <TouchableWithoutFeedback onPress={() => navigation.navigate('사진촬영')}>
                 <Text style={{ fontSize: 20 }}>사진 촬영</Text>
             </TouchableWithoutFeedback>

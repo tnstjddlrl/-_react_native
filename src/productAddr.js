@@ -54,15 +54,77 @@ const ProductAddr = () => {
                 <ScrollView style={{}}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
                         <Text style={{}}>아이콘</Text>
-                        <Text style={{ fontSize: 18 }}>제품 놓을 위치 터치</Text>
+                        <Text style={{ fontSize: 18 }}>화장품을 놓은 위치를 터치해주세요.</Text>
                     </View>
 
-                    <View style={{ width: chwidth - 40, height: 100, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 20, elevation: 15, marginBottom: 20 }}>
+                    <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 15, marginBottom: 20 }}>
+                        <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>위 칸</Text>
 
+                            <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+
+                            </View>
+                        </View>
                     </View>
 
-                    <View style={{ width: chwidth - 40, height: 100, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 10, elevation: 15, marginBottom: 20 }}>
+                    <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 20, elevation: 15, marginBottom: 20 }}>
+                        <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 10, alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>아래 칸</Text>
 
+                            <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                </View>
+
+
+                            </View>
+                        </View>
                     </View>
 
                 </ScrollView>

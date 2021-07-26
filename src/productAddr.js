@@ -28,6 +28,94 @@ const chwidth = Dimensions.get('window').width
 
 
 const ProductAddr = () => {
+
+    const [u1, setu1] = useState(false);
+    const [u2, setu2] = useState(false);
+    const [u3, setu3] = useState(false);
+    const [u4, setu4] = useState(false);
+    const [u5, setu5] = useState(false);
+    const [u6, setu6] = useState(false);
+
+    const [d1, setd1] = useState(false);
+    const [d2, setd2] = useState(false);
+    const [d3, setd3] = useState(false);
+    const [d4, setd4] = useState(false);
+    const [d5, setd5] = useState(false);
+    const [d6, setd6] = useState(false);
+
+
+    function touchpd(who) {
+        setu1(false)
+        setu2(false)
+        setu3(false)
+        setu4(false)
+        setu5(false)
+        setu6(false)
+        setd1(false)
+        setd2(false)
+        setd3(false)
+        setd4(false)
+        setd5(false)
+        setd6(false)
+
+        switch (who) {
+            case 'u1':
+                console.log('u1')
+                setu1(true)
+
+                break;
+            case 'u2':
+                console.log('u2')
+
+                break;
+            case 'u3':
+                console.log('u3')
+
+                break;
+            case 'u4':
+                console.log('u4')
+
+                break;
+            case 'u5':
+                console.log('u5')
+
+                break;
+            case 'u6':
+                console.log('u6')
+
+                break;
+            case 'd1':
+                console.log('d1')
+
+                break;
+            case 'd2':
+                console.log('d2')
+
+                break;
+            case 'd3':
+                console.log('d3')
+
+                break;
+            case 'd4':
+                console.log('d4')
+
+                break;
+            case 'd5':
+                console.log('d5')
+
+                break;
+            case 'd6':
+                console.log('d6')
+
+                break;
+
+        }
+    }
+
+
+
+
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>
 
@@ -63,29 +151,47 @@ const ProductAddr = () => {
 
                             <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                <TouchableWithoutFeedback onPress={() => touchpd('u1')}>
+                                    {u1 ?
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'black', boderwidth: 1, borderColor: 'skyblue' }}>
 
-                                </View>
+                                        </View>
+                                        :
+                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                        </View>
+                                    }
+                                </TouchableWithoutFeedback>
 
-                                </View>
+                                <TouchableWithoutFeedback onPress={() => touchpd('u2')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                </View>
+                                <TouchableWithoutFeedback onPress={() => touchpd('u3')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                </View>
+                                <TouchableWithoutFeedback onPress={() => touchpd('u4')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                </View>
+                                <TouchableWithoutFeedback onPress={() => touchpd('u5')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                </View>
+                                <TouchableWithoutFeedback onPress={() => touchpd('u6')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+
+                                    </View>
+                                </TouchableWithoutFeedback>
 
 
                             </View>
@@ -98,29 +204,41 @@ const ProductAddr = () => {
 
                             <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                <TouchableWithoutFeedback onPress={() => touchpd('d1')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                <TouchableWithoutFeedback onPress={() => touchpd('d2')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                <TouchableWithoutFeedback onPress={() => touchpd('d3')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                <TouchableWithoutFeedback onPress={() => touchpd('d4')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                <TouchableWithoutFeedback onPress={() => touchpd('d5')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
-                                <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
+                                <TouchableWithoutFeedback onPress={() => touchpd('d6')}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'gray' }}>
 
-                                </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
 
 
                             </View>

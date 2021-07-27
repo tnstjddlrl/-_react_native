@@ -28,6 +28,10 @@ const Realmain = () => {
     const menu = require('../img/light/menu3.png')
     const plus = require('../img/light/plus.png')
 
+    const info1 = require('../img/light/info1.png');
+    const info2 = require('../img/light/info2.png');
+    const info3 = require('../img/light/info3.png');
+
 
     return (
         <SafeAreaView style={{ width: '100%', height: '100%' }}>
@@ -52,25 +56,44 @@ const Realmain = () => {
             {/* 날씨 정보 시작 */}
             <View style={{ flexDirection: 'row', marginBottom: -40 }}>
                 <View style={{ width: chwidth / 4, height: 150 }}>
-                    <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1 }}>
-
-
+                    <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
+                        <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                            <Text>자외선</Text>
+                            <AutoHeightImage source={info1} width={chwidth / 9}></AutoHeightImage>
+                            <Text style={{ fontSize: 12, color: '#666666' }}>6 높음</Text>
+                        </View>
                     </LinearGradient>
                 </View>
 
-                <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)' }}>
-
+                <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
+                    <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                        <Text>습도</Text>
+                        <AutoHeightImage source={info2} width={chwidth / 11}></AutoHeightImage>
+                        <Text style={{ fontSize: 12, color: '#666666' }}>60%</Text>
+                    </View>
                 </View>
 
                 <View style={{ width: chwidth / 4, height: 150 }}>
-                    <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1 }}>
-
-
+                    <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
+                        <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                            <Text>미세먼지</Text>
+                            <AutoHeightImage source={info3} width={chwidth / 10}></AutoHeightImage>
+                            <Text style={{ fontSize: 12, color: '#666666', letterSpacing: -0.8 }}>19㎍/m³ 좋음</Text>
+                        </View>
                     </LinearGradient>
                 </View>
 
-                <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)' }}>
+                <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
+                    <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                        <Text>오늘의 날씨</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ color: 'skyblue', fontSize: 13 }}>18°</Text>
+                            <Text>/</Text>
+                            <Text style={{ color: 'red', fontSize: 13 }}>25°</Text>
+                        </View>
+                        <Text style={{ fontSize: 12, color: '#666666' }}>구름 많음</Text>
 
+                    </View>
                 </View>
 
             </View>

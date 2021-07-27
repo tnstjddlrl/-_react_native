@@ -29,34 +29,37 @@ const Weather = () => {
 
     const [totalAir, setTotalAir] = useState('측정중')
 
+    const [description, setdescription] = useState('')
+
     useEffect(() => {
 
         Geolocation.getCurrentPosition(
             (position) => {
 
-                //현재 온도 받아오기
-                axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=daily&appid=4c0e7c89ac35917a4adadc0c95b8392c',
-                ).then(function (response) {
-                    setcurHumi(response.data.current.humidity);
-                    setcurTemp(response.data.current.temp - 273.15);
-                    // setcurTemp((old) => Math.round(...old * 1000) / 1000)
-                })
-                    .catch(function (error) {
-                        // handle error
-                        console.log(error);
-                    })
-                    .then(function () {
-                        // always executed
-                    });
+                // //현재 온도 받아오기
+                // axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=daily&appid=4c0e7c89ac35917a4adadc0c95b8392c',
+                // ).then(function (response) {
+                //     // setcurTemp((old) => Math.round(...old * 1000) / 1000)
+                // })
+                //     .catch(function (error) {
+                //         // handle error
+                //         console.log(error);
+                //     })
+                //     .then(function () {
+                //         // always executed
+                //     });
 
 
                 //오늘 최고 최저 온도 받아오기 및 자외선 지수
-                axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=current&appid=4c0e7c89ac35917a4adadc0c95b8392c',
+                axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=current&lang=kr&appid=4c0e7c89ac35917a4adadc0c95b8392c',
                 ).then(function (response) {
-
+                    console.log(response.data.daily[0])
+                    console.log(response.data.daily[0].weather.description)
                     setdayUv(response.data.daily[0].uvi)
+                    setcurHumi(response.data.daily[0].humidity)
                     setdayMaxTemp(response.data.daily[0].temp.max - 273.15)
                     setdayMinTemp(response.data.daily[0].temp.min - 273.15)
+                    setdescription(response.data.daily[0].weather.description)
 
                     if (response.data.daily[0].uvi < 2) {
                         setUvString('낮음')
@@ -138,6 +141,8 @@ const Weather = () => {
 
                 <Text> 최고 온도 : {dayMaxTemp.toFixed(1)}</Text>
                 <Text> 최저 온도 : {dayMinTemp.toFixed(1)}</Text>
+
+                <Text>현재 날씨 : {description} </Text>
 
                 <Text> 자외선 지수 : {dayUv} ( {uvString} )</Text>
                 <Text></Text>

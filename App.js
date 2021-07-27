@@ -31,6 +31,7 @@ import WbBuy from './src/wbBuy';
 import Reservation from './src/reservation';
 import Productregist from './src/productregist';
 import ProductAddr from './src/productAddr';
+import Realmain from './src/realmain';
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,8 @@ export default APP = () => {
           <Stack.Screen name="날씨테스트" component={Weather} />
           <Stack.Screen name="구매테스트" component={WbBuy} />
           <Stack.Screen name="예약 알림 테스트" component={Reservation} />
+          <Stack.Screen name="실제 메인" component={Realmain} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>

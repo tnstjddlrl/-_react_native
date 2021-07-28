@@ -43,10 +43,11 @@ export default APP = () => {
         <Stack.Navigator headerMode={'none'}>
           <Stack.Screen name="메인" component={testMain} />
 
-          <Stack.Screen name="바코드체크" component={barcodeCheck} />
 
+          <Stack.Screen name="바코드체크" component={barcodeCheck} />
           <Stack.Screen name="제품등록" component={Productregist} />
           <Stack.Screen name="제품위치" component={ProductAddr} />
+          <Stack.Screen name="실제 메인" component={Realmain} />
 
 
           <Stack.Screen name="사진촬영" component={pictureTake} />
@@ -55,7 +56,6 @@ export default APP = () => {
           <Stack.Screen name="날씨테스트" component={Weather} />
           <Stack.Screen name="구매테스트" component={WbBuy} />
           <Stack.Screen name="예약 알림 테스트" component={Reservation} />
-          <Stack.Screen name="실제 메인" component={Realmain} />
 
         </Stack.Navigator>
       </NavigationContainer>

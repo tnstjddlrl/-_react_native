@@ -259,6 +259,8 @@ const Productregist = () => {
                     </View>
 
                     {/* 하단 버튼 끝 */}
+
+
                     <BottomSheetModal
                         ref={bottomSheetModalRef}
                         index={1}

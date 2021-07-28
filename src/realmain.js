@@ -11,6 +11,7 @@ import {
     TouchableWithoutFeedback,
     StyleSheet,
     Image,
+    Modal,
 } from 'react-native';
 
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -19,6 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
+import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
 
 
 const chwidth = Dimensions.get('window').width
@@ -36,10 +38,27 @@ const info1 = require('../img/light/info1.png');
 const info2 = require('../img/light/info2.png');
 const info3 = require('../img/light/info3.png');
 
+const close = require('../img/light/close.png');
+const category = require('../img/light/category.png');
+const edit = require('../img/light/edit.png');
+const date_icon = require('../img/light/date_icon.png');
+const cart_icon = require('../img/light/cart_icon.png');
+const review_icon = require('../img/light/review_icon.png');
+
+const icon3 = require('../img/light/icon3.png');
+
+
+
+
+
+
+
 const Realmain = () => {
 
     const [version, setversion] = useState(true)
+    const [modalView, setModalView] = useState(false)
 
+    // 날씨 관련 변수들
     const [curHumi, setcurHumi] = useState(0)
 
     const [dayMaxTemp, setdayMaxTemp] = useState(0)
@@ -54,7 +73,7 @@ const Realmain = () => {
     const [totalAir, setTotalAir] = useState('측정중')
 
     const [description, setdescription] = useState('')
-
+    // 
 
 
     useEffect(() => {
@@ -194,7 +213,7 @@ const Realmain = () => {
         <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
 
             {/* 헤더 시작 */}
-            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 20, backgroundColor: 'white' }}>
+            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 15, backgroundColor: 'white' }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <AutoHeightImage source={logo} width={chwidth / 3}></AutoHeightImage>
                     <AutoHeightImage source={tuto} width={chwidth / 12}></AutoHeightImage>
@@ -203,35 +222,39 @@ const Realmain = () => {
             {/* 헤더 끝 */}
 
             {/* 본문 시작 */}
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
 
                 {version ?
-                    <View style={{}}>
+                    <View style={{ flex: 1 }}>
 
-                        <View style={{}}>
+                        <View style={{ width: chwidth, height: '49%', backgroundColor: 'white' }}>
                             <ScrollView style={{}} horizontal>
 
                             </ScrollView>
                         </View>
 
+                        <View style={{ width: chwidth, height: '2%', backgroundColor: 'rgb(242,242,242)' }}></View>
 
-                        <View style={{}}>
 
+                        <View style={{ width: chwidth, height: '49%', backgroundColor: 'white' }}>
+                            <ScrollView style={{}} horizontal>
+
+                            </ScrollView>
                         </View>
 
                     </View>
 
                     :
                     <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <View style={{ width: chwidth - 60, height: '45%', backgroundColor: 'rgb(245,245,245)', borderRadius: 18, elevation: 20, margin: 10 }}>
+                        <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
                             <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
-                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>2층 화장품 목록</Text>
+                                <Text style={{ color: '#ffffff', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>2층 화장품 목록</Text>
                             </View>
 
-                            <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+                            <ScrollView style={{ backgroundColor: 'rgb(245,245,245)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
 
                                 {/* 맨위가 본체 */}
-                                <TouchableWithoutFeedback onPress={() => { console.log('클릭') }}>
+                                <TouchableWithoutFeedback onPress={() => { console.log('클릭'), setModalView(true) }}>
                                     <View style={{ alignItems: 'center', }}>
                                         <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
                                             <Text style={{ width: chwidth - 190 }} numberOfLines={1}>화장품</Text>
@@ -287,12 +310,12 @@ const Realmain = () => {
                         </View>
 
 
-                        <View style={{ width: chwidth - 60, height: '45%', backgroundColor: 'rgb(245,245,245)', borderRadius: 18, elevation: 20, margin: 10 }}>
+                        <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
                             <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
                                 <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>1층 화장품 목록</Text>
                             </View>
 
-                            <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+                            <ScrollView style={{ backgroundColor: 'rgb(245,245,245)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
 
                                 <View style={{ alignItems: 'center', }}>
                                     <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
@@ -445,6 +468,96 @@ const Realmain = () => {
 
             </View>
             {/* 푸터 끝 */}
+
+            <Modal visible={modalView} animationType={'slide'} transparent={true}>
+                <TouchableWithoutFeedback onPress={() => { console.log('클릭'), setModalView(false) }}>
+                    <View style={{ width: '100%', height: '100%', backgroundColor: 'rgba(64, 64, 64,0.5)', position: 'absolute' }}></View>
+                </TouchableWithoutFeedback>
+
+
+                <View style={{ width: '100%', height: '100%', justifyContent: 'flex-end' }}>
+                    <View style={{ width: chwidth, backgroundColor: 'white', borderTopRightRadius: 45, borderTopLeftRadius: 45 }}>
+
+                        {/* 모달 헤더 시작 */}
+                        <View style={{ backgroundColor: 'rgb(30,43,245)', borderTopRightRadius: 45, borderTopLeftRadius: 45 }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginTop: 25, marginLeft: 25, marginBottom: 18 }}>제품상세 보기</Text>
+                                <TouchableWithoutFeedback onPress={() => { setModalView(false) }}>
+                                    <AutoHeightImage source={close} width={30} style={{ marginRight: 25 }}></AutoHeightImage>
+                                </TouchableWithoutFeedback>
+                            </View>
+                        </View>
+                        {/* 모달 헤더 끝 */}
+
+                        <View style={{ alignItems: 'center', }}>
+
+                            <View style={{ width: chwidth - 50, marginTop: 15, marginBottom: 30 }}>
+
+                                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>화장품 이름</Text>
+
+                                <View style={{ width: chwidth - 50, borderWidth: 0.5, marginTop: 15, marginBottom: 15, borderColor: 'rgb(153,153,153)' }}></View>
+
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <AutoHeightImage source={category} width={18}></AutoHeightImage>
+                                        <Text style={{ fontSize: 15 }}>  분류 : 대분류/소분류</Text>
+                                    </View>
+
+                                    <View style={{ backgroundColor: 'rgb(236,236,236)', borderRadius: 3 }}>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center', margin: 5, marginLeft: 10, marginright: 10 }}>
+                                            <AutoHeightImage source={edit} width={15}></AutoHeightImage>
+                                            <Text style={{ color: 'gray' }}>  수정 </Text>
+                                        </View>
+                                    </View>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <AutoHeightImage source={date_icon} width={18}></AutoHeightImage>
+                                        <Text style={{ fontSize: 15 }}>  유통기한 : 2022-06-02/</Text>
+                                        <Text style={{ color: 'red', fontSize: 15 }}>남은 일수 363일</Text>
+                                    </View>
+                                </View>
+
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
+
+                                    <TouchableWithoutFeedback onPress={() => { }}>
+                                        <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
+                                                <AutoHeightImage source={cart_icon} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: 'rgb(30,43,245)', fontWeight: 'bold', marginTop: -3 }}> 구매하기</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableWithoutFeedback>
+
+                                    <TouchableWithoutFeedback onPress={() => { }}>
+                                        <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
+                                                <AutoHeightImage source={review_icon} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: 'rgb(30,43,245)', fontWeight: 'bold', marginTop: -3 }}> 후기보기</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableWithoutFeedback>
+
+                                    <TouchableWithoutFeedback onPress={() => { }}>
+                                        <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
+                                                <AutoHeightImage source={icon3} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: 'rgb(30,43,245)', fontWeight: 'bold', marginTop: -3 }}> 삭제</Text>
+                                            </View>
+                                        </View>
+                                    </TouchableWithoutFeedback>
+
+                                </View>
+
+                            </View>
+
+
+                        </View>
+
+                    </View>
+                </View>
+            </Modal>
 
 
         </SafeAreaView>

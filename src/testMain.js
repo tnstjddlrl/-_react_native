@@ -57,6 +57,7 @@ export default TestMain = () => {
                 <Text style={{ fontSize: 20, margin: 20 }}>메인</Text>
             </TouchableWithoutFeedback>
 
+
         </View>
     )
 }

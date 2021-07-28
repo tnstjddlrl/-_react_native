@@ -231,13 +231,15 @@ const Realmain = () => {
                             <ScrollView style={{}} showsVerticalScrollIndicator={false}>
 
                                 {/* 맨위가 본체 */}
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{ width: chwidth - 190 }} numberOfLines={1}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                <TouchableWithoutFeedback onPress={() => { console.log('클릭') }}>
+                                    <View style={{ alignItems: 'center', }}>
+                                        <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                            <Text style={{ width: chwidth - 190 }} numberOfLines={1}>화장품</Text>
+                                            <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                        </View>
+                                        <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
                                     </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
+                                </TouchableWithoutFeedback>
 
                                 <View style={{ alignItems: 'center', }}>
                                     <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>

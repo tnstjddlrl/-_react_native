@@ -151,7 +151,7 @@ const ProductAddr = () => {
                             <Text style={{ fontSize: 18 }}>화장품을 놓은 위치를 터치해주세요.</Text>
                         </View>
 
-                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 15, marginBottom: 20 }}>
+                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
                             <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>위 칸</Text>
 
@@ -204,7 +204,7 @@ const ProductAddr = () => {
                             </View>
                         </View>
 
-                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 20, elevation: 15, marginBottom: 20 }}>
+                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 20, elevation: 10, marginBottom: 20 }}>
                             <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>아래 칸</Text>
 

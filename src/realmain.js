@@ -38,7 +38,8 @@ const info3 = require('../img/light/info3.png');
 
 const Realmain = () => {
 
-    const [curTemp, setcurTemp] = useState(0)
+    const [version, setversion] = useState(true)
+
     const [curHumi, setcurHumi] = useState(0)
 
     const [dayMaxTemp, setdayMaxTemp] = useState(0)
@@ -53,6 +54,8 @@ const Realmain = () => {
     const [totalAir, setTotalAir] = useState('측정중')
 
     const [description, setdescription] = useState('')
+
+
 
     useEffect(() => {
 
@@ -164,7 +167,6 @@ const Realmain = () => {
                         case 5:
                             setTotalAir('매우 나쁨')
                             break;
-
                         default:
                             setTotalAir('서버 오류')
                             break;
@@ -189,11 +191,11 @@ const Realmain = () => {
     }, [])
 
     return (
-        <SafeAreaView style={{ width: '100%', height: '100%' }}>
+        <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
 
             {/* 헤더 시작 */}
-            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 15, backgroundColor: 'white' }}>
-                <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 20, backgroundColor: 'white' }}>
+                <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <AutoHeightImage source={logo} width={chwidth / 3}></AutoHeightImage>
                     <AutoHeightImage source={tuto} width={chwidth / 12}></AutoHeightImage>
                 </View>
@@ -203,10 +205,153 @@ const Realmain = () => {
             {/* 본문 시작 */}
             <View style={{ flex: 1 }}>
 
+                {version ?
+                    <View style={{}}>
+
+                        <View style={{}}>
+                            <ScrollView style={{}} horizontal>
+
+                            </ScrollView>
+                        </View>
+
+
+                        <View style={{}}>
+
+                        </View>
+
+                    </View>
+
+                    :
+                    <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-around' }}>
+                        <View style={{ width: chwidth - 60, height: '45%', backgroundColor: 'rgb(245,245,245)', borderRadius: 18, elevation: 20, margin: 10 }}>
+                            <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
+                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>2층 화장품 목록</Text>
+                            </View>
+
+                            <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+
+                                {/* 맨위가 본체 */}
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{ width: chwidth - 190 }} numberOfLines={1}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+
+                            </ScrollView>
+
+                        </View>
+
+
+                        <View style={{ width: chwidth - 60, height: '45%', backgroundColor: 'rgb(245,245,245)', borderRadius: 18, elevation: 20, margin: 10 }}>
+                            <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
+                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>1층 화장품 목록</Text>
+                            </View>
+
+                            <ScrollView style={{}} showsVerticalScrollIndicator={false}>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+                                <View style={{ alignItems: 'center', }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                                        <Text style={{}}>화장품</Text>
+                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
+                                    </View>
+                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                                </View>
+
+
+                            </ScrollView>
+
+                        </View>
+
+                    </View>
+
+                }
+
 
             </View>
             {/* 본문 끝 */}
-
 
             {/* 날씨 정보 시작 */}
             <View style={{ flexDirection: 'row', marginBottom: -40 }}>
@@ -261,25 +406,38 @@ const Realmain = () => {
                 <View style={{ width: chwidth - 20, height: '100%', marginLeft: 10, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '75%' }}>
-                        <View style={{ alignItems: 'center' }}>
-                            <AutoHeightImage source={text1} width={chwidth / 15}></AutoHeightImage>
-                            <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>텍스트 버전</Text>
-                        </View>
+                        <TouchableWithoutFeedback onPress={() => {
+                            if (version)
+                                setversion(false);
+                            else
+                                setversion(true);
+                        }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <AutoHeightImage source={text1} width={chwidth / 15}></AutoHeightImage>
+                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>텍스트 버전</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
 
-                        <View style={{ alignItems: 'center' }}>
-                            <AutoHeightImage source={dark} width={chwidth / 15}></AutoHeightImage>
-                            <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>다크 모드</Text>
-                        </View>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <AutoHeightImage source={dark} width={chwidth / 15}></AutoHeightImage>
+                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>다크 모드</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
 
-                        <View style={{ alignItems: 'center' }}>
-                            <AutoHeightImage source={menu} width={chwidth / 15}></AutoHeightImage>
-                            <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>환경설정</Text>
-                        </View>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <AutoHeightImage source={menu} width={chwidth / 15}></AutoHeightImage>
+                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>환경설정</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
 
-                    <View style={{ alignItems: 'center' }}>
-                        <AutoHeightImage source={plus} width={chwidth / 3.5}></AutoHeightImage>
-                    </View>
+                    <TouchableWithoutFeedback onPress={() => { }}>
+                        <View style={{ alignItems: 'center' }}>
+                            <AutoHeightImage source={plus} width={chwidth / 3.5}></AutoHeightImage>
+                        </View>
+                    </TouchableWithoutFeedback>
 
                 </View>
 

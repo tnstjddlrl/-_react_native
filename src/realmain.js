@@ -469,6 +469,7 @@ const Realmain = () => {
             </View>
             {/* 푸터 끝 */}
 
+            {/* 화장품 상세보기 모달 시작 */}
             <Modal visible={modalView} animationType={'slide'} transparent={true}>
                 <TouchableWithoutFeedback onPress={() => { console.log('클릭'), setModalView(false) }}>
                     <View style={{ width: '100%', height: '100%', backgroundColor: 'rgba(64, 64, 64,0.5)', position: 'absolute' }}></View>
@@ -558,6 +559,7 @@ const Realmain = () => {
                     </View>
                 </View>
             </Modal>
+            {/* 화장품 상세보기 모달 끝 */}
 
 
         </SafeAreaView>

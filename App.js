@@ -32,6 +32,8 @@ import Reservation from './src/reservation';
 import Productregist from './src/productregist';
 import ProductAddr from './src/productAddr';
 import Realmain from './src/realmain';
+import Login from './register/login';
+import Register from './register/register';
 
 const Stack = createStackNavigator();
 
@@ -48,6 +50,9 @@ export default APP = () => {
           <Stack.Screen name="제품등록" component={Productregist} />
           <Stack.Screen name="제품위치" component={ProductAddr} />
           <Stack.Screen name="실제 메인" component={Realmain} />
+          <Stack.Screen name="로그인" component={Login} />
+          <Stack.Screen name="회원가입" component={Register} />
+
 
 
           <Stack.Screen name="사진촬영" component={pictureTake} />

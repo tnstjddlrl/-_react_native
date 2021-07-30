@@ -30,7 +30,9 @@ import {
 } from '@gorhom/bottom-sheet';
 
 import DatePicker from 'react-native-date-picker'
+import AutoHeightImage from 'react-native-auto-height-image';
 
+const back = require('../img/light/back.png')
 
 const chwidth = Dimensions.get('window').width
 
@@ -129,11 +131,11 @@ const Productregist = () => {
                         <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
 
                             {/* < 시작 */}
-                            <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
-                                <View style={{ left: 4.5, top: 4.5 }}>
-                                    <ChevronLeftIcon />
+                            <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
+                                <View style={{ width: 40, height: 40, borderRadius: 25, alignItems: 'center', justifyContent: 'center', }}>
+                                    <AutoHeightImage source={back} width={35}></AutoHeightImage>
                                 </View>
-                            </View>
+                            </TouchableWithoutFeedback>
                             {/* < 끝 */}
 
                             <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>

@@ -31,6 +31,7 @@ const chwidth = Dimensions.get('window').width
 
 const check_img = require('../img/light/check.png')
 const loca_img = require('../img/light/location_icon.png')
+const back = require('../img/light/back.png')
 
 
 const ProductAddr = () => {
@@ -130,11 +131,11 @@ const ProductAddr = () => {
                 <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
                     <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                         {/* < 시작 */}
-                        <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
-                            <View style={{ left: 4.5, top: 4.5 }}>
-                                <ChevronLeftIcon />
+                        <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
+                            <View style={{ width: 40, height: 40, borderRadius: 25, alignItems: 'center', justifyContent: 'center', }}>
+                                <AutoHeightImage source={back} width={35}></AutoHeightImage>
                             </View>
-                        </View>
+                        </TouchableWithoutFeedback>
                         {/* < 끝 */}
                         <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>
                         <View style={{ width: 40, height: 40 }}>

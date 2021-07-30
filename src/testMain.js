@@ -57,6 +57,15 @@ export default TestMain = () => {
                 <Text style={{ fontSize: 20, margin: 20 }}>메인</Text>
             </TouchableWithoutFeedback>
 
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('로그인')}>
+                <Text style={{ fontSize: 20, margin: 20 }}>로그인</Text>
+            </TouchableWithoutFeedback>
+
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('회원가입')}>
+                <Text style={{ fontSize: 20, margin: 20 }}>회원가입</Text>
+            </TouchableWithoutFeedback>
+
+
 
         </View>
     )

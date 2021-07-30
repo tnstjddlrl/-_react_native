@@ -18,9 +18,13 @@ import { useRecoilState } from 'recoil';
 
 import { imagebase64 } from '../atoms/atom';
 import { useNavigation } from '@react-navigation/native';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
+
+const cameras = require('../img/light/camera.png')
+const back = require('../img/light/back.png')
 
 export default PictureTake = () => {
 
@@ -59,9 +63,10 @@ export default PictureTake = () => {
                     return (
                         <View style={{ alignItems: 'center', justifyContent: 'flex-end', flex: 1 }}>
                             <TouchableOpacity onPress={() => takePicture(camera)} style={styles.capture}>
-                                <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+                                {/* <View style={{ width: 50, height: 50, borderRadius: 40, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
                                     <Text style={{}}>촬영</Text>
-                                </View>
+                                </View> */}
+                                <AutoHeightImage source={cameras} width={110}></AutoHeightImage>
                             </TouchableOpacity>
                         </View>
                     );
@@ -76,9 +81,7 @@ export default PictureTake = () => {
                     {/* < 시작 */}
                     <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
                         <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
-                            <View style={{ left: 4.5, top: 4.5 }}>
-                                <Text style={{}}>뒤</Text>
-                            </View>
+                            <AutoHeightImage source={back} width={30}></AutoHeightImage>
                         </View>
                     </TouchableWithoutFeedback>
                     {/* < 끝 */}

@@ -215,8 +215,8 @@ const Realmain = () => {
             {/* 헤더 시작 */}
             <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 15, backgroundColor: 'white' }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <AutoHeightImage source={logo} width={chwidth / 3}></AutoHeightImage>
-                    <AutoHeightImage source={tuto} width={chwidth / 12}></AutoHeightImage>
+                    <AutoHeightImage source={logo} width={140}></AutoHeightImage>
+                    <AutoHeightImage source={tuto} width={35}></AutoHeightImage>
                 </View>
             </View>
             {/* 헤더 끝 */}

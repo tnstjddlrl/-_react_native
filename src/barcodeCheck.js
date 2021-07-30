@@ -23,6 +23,8 @@ const chheight = Dimensions.get('screen').height
 
 const back = require('../img/light/back.png')
 
+
+
 export default BarcodeCheck = () => {
     const camera = useRef()
     const [barcc, setBarcc] = useState('바코드 탐지중!')
@@ -61,9 +63,7 @@ export default BarcodeCheck = () => {
                     buttonPositive: '확인',
                     buttonNegative: '거절',
                 }}
-                // onGoogleVisionBarcodesDetected={({ barcodes }) => {
-                //   console.log(barcodes);
-                // }}
+
                 onBarCodeRead={(data) => {
                     setTimeout(() => {
                         barcodeCheck(data.data)

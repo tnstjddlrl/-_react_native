@@ -25,11 +25,12 @@ import {
     CheckIcon,
     ChevronLeftIcon
 } from "native-base"
+import AutoHeightImage from 'react-native-auto-height-image';
 
 const chwidth = Dimensions.get('window').width
 
 const check_img = require('../img/light/check.png')
-
+const loca_img = require('../img/light/location_icon.png')
 
 
 const ProductAddr = () => {
@@ -146,9 +147,9 @@ const ProductAddr = () => {
                 <View style={{ flex: 1 }}>
 
                     <ScrollView style={{}}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 30 }}>
-                            <Text style={{}}>아이콘</Text>
-                            <Text style={{ fontSize: 18 }}>화장품을 놓은 위치를 터치해주세요.</Text>
+                        <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+                            <AutoHeightImage source={loca_img} width={30}></AutoHeightImage>
+                            <Text style={{ fontSize: 18, marginTop: 10 }}>화장품을 놓은 위치를 터치해주세요.</Text>
                         </View>
 
                         <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
@@ -204,7 +205,7 @@ const ProductAddr = () => {
                             </View>
                         </View>
 
-                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 20, elevation: 10, marginBottom: 20 }}>
+                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 5, elevation: 10, marginBottom: 20 }}>
                             <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
                                 <Text style={{ fontSize: 18, fontWeight: 'bold' }}>아래 칸</Text>
 

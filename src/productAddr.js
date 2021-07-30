@@ -13,18 +13,6 @@ import {
     Image,
 } from 'react-native';
 
-
-
-import {
-    Slider,
-    Stack,
-    Box,
-    Center,
-    NativeBaseProvider,
-    Select,
-    CheckIcon,
-    ChevronLeftIcon
-} from "native-base"
 import AutoHeightImage from 'react-native-auto-height-image';
 
 const chwidth = Dimensions.get('window').width
@@ -50,7 +38,12 @@ const ProductAddr = () => {
     const [d5, setd5] = useState('f');
     const [d6, setd6] = useState('f');
 
+    // 상태 불러오기!
+    useEffect(() => {
 
+    }, [])
+
+    // 각각 클릭이벤트 통합
     function touchpd(who) {
         setu1('f')
         setu2('f')
@@ -68,8 +61,9 @@ const ProductAddr = () => {
         switch (who) {
             case 'u1':
                 console.log('u1')
-                setu1('t')
-
+                if (u1 !== 'i') {
+                    setu1('t')
+                }
                 break;
             case 'u2':
                 console.log('u2')

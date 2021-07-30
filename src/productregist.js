@@ -33,6 +33,7 @@ import DatePicker from 'react-native-date-picker'
 import AutoHeightImage from 'react-native-auto-height-image';
 
 const back = require('../img/light/back.png')
+const dateicon = require('../img/light/date.png')
 
 const chwidth = Dimensions.get('window').width
 
@@ -215,7 +216,7 @@ const Productregist = () => {
                                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, alignItems: 'center', }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', width: chwidth - 100, height: 40, justifyContent: 'space-between', alignItems: 'center', justifyContent: 'space-between' }}>
                                                 <Text style={{ fontSize: 15 }}> {dateText} </Text>
-                                                <Text style={{ fontSize: 15 }}>아이콘</Text>
+                                                <AutoHeightImage source={dateicon} width={18}></AutoHeightImage>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
@@ -267,8 +268,7 @@ const Productregist = () => {
                         ref={bottomSheetModalRef}
                         index={1}
                         snapPoints={snapPoints}
-                        onChange={handleSheetChanges}
-                    >
+                        onChange={handleSheetChanges}>
                         <View style={{ flex: 1, }}>
                             <DatePicker
                                 style={{ width: chwidth, marginTop: 50 }}

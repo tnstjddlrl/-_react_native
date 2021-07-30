@@ -97,7 +97,7 @@ const Login = () => {
                         {/* 비밀번호 */}
                         <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 30 }}>
-                            <TextInput onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
+                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
                         </View>
 
                         {/* 비밀번호끝 */}

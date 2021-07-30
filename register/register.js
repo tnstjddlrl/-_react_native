@@ -85,7 +85,7 @@ const Register = () => {
                 <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
                     <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                         {/* < 시작 */}
-                        <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
+                        <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭'), navigation.goBack() }}>
                             <View style={{ width: 40, height: 40, borderRadius: 25, alignItems: 'center', justifyContent: 'center', }}>
                                 <AutoHeightImage source={back} width={35}></AutoHeightImage>
                             </View>
@@ -114,7 +114,7 @@ const Register = () => {
                         {/* 비밀번호 */}
                         <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                            <TextInput onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
+                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
                         </View>
 
                         {/* 비밀번호끝 */}
@@ -122,7 +122,7 @@ const Register = () => {
                         {/* 비밀번호 */}
                         <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호 확인</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 0 }}>
-                            <TextInput onChangeText={setpwdc} value={pwdc} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
+                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwdc} value={pwdc} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
                         </View>
 
                         {/* 비밀번호끝 */}

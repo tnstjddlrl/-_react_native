@@ -31,13 +31,18 @@ import {
 
 import DatePicker from 'react-native-date-picker'
 import AutoHeightImage from 'react-native-auto-height-image';
+import { useNavigation } from '@react-navigation/native';
 
 const back = require('../img/light/back.png')
 const dateicon = require('../img/light/date.png')
 
 const chwidth = Dimensions.get('window').width
 
+const thisday = new Date(Date.now());
+
 const Productregist = () => {
+
+    const navigation = useNavigation()
 
     const [onChangeValue, setOnChangeValue] = React.useState(49)
 
@@ -132,7 +137,7 @@ const Productregist = () => {
                         <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
 
                             {/* < 시작 */}
-                            <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
+                            <TouchableWithoutFeedback onPress={() => { navigation.goBack(); }}>
                                 <View style={{ width: 40, height: 40, borderRadius: 25, alignItems: 'center', justifyContent: 'center', }}>
                                     <AutoHeightImage source={back} width={35}></AutoHeightImage>
                                 </View>
@@ -212,7 +217,7 @@ const Productregist = () => {
                                     {/*  */}
                                     <Text style={{ fontSize: 18, marginTop: 25 }}>유통기한 설정</Text>
 
-                                    <TouchableWithoutFeedback onPress={() => { console.log("날짜 선택"), handlePresentModalPress() }}>
+                                    <TouchableWithoutFeedback onPress={() => { handlePresentModalPress() }}>
                                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, alignItems: 'center', }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', width: chwidth - 100, height: 40, justifyContent: 'space-between', alignItems: 'center', justifyContent: 'space-between' }}>
                                                 <Text style={{ fontSize: 15 }}> {dateText} </Text>
@@ -279,7 +284,7 @@ const Productregist = () => {
                             />
                             <View style={{ justifyContent: 'flex-end', flex: 1 }}>
                                 <TouchableWithoutFeedback onPress={() => handlePresentModalcancel()}>
-                                    <View style={{ width: chwidth, height: 60, backgroundColor: 'gray', alignItems: 'center', justifyContent: 'center' }}>
+                                    <View style={{ width: chwidth, height: 60, backgroundColor: 'rgb(9,24,255)', alignItems: 'center', justifyContent: 'center' }}>
                                         <Text style={{ fontSize: 18, color: 'white' }}>완료</Text>
                                     </View>
                                 </TouchableWithoutFeedback>

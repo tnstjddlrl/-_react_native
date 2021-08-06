@@ -35,11 +35,11 @@ export default PictureTake = () => {
     const [atbase64, setatbase64] = useRecoilState(imagebase64)
 
     const takePicture = async function (camera) {
-        const options = { quality: 0.3, base64: true, width: 800 };
+        const options = { quality: 0.3, base64: true, width: 800, fixOrientation: true };
         const data = await camera.takePictureAsync(options);
         //  eslint-disable-next-line
         setatbase64(data.base64);
-        console.log(data.base64);
+        console.log(data.pictureOrientation);
 
         // imgpost(data.base64);
         setTimeout(() => {

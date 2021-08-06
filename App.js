@@ -43,14 +43,14 @@ export default APP = () => {
     <RecoilRoot>
       <NavigationContainer>
         <Stack.Navigator headerMode={'none'}>
-          <Stack.Screen name="메인" component={testMain} />
+          <Stack.Screen name="로그인" component={Login} />
+          {/* <Stack.Screen name="메인" component={testMain} /> */}
 
 
           <Stack.Screen name="바코드체크" component={barcodeCheck} />
           <Stack.Screen name="제품등록" component={Productregist} />
           <Stack.Screen name="제품위치" component={ProductAddr} />
           <Stack.Screen name="실제 메인" component={Realmain} />
-          <Stack.Screen name="로그인" component={Login} />
           <Stack.Screen name="회원가입" component={Register} />
           <Stack.Screen name="사진촬영" component={pictureTake} />
 

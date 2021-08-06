@@ -8,3 +8,5 @@
 // const [atexp, setAtexp] = useRecoilState(pexp)  //제품 유통기한
 // const [atexpDate, setAtexpDate] = useRecoilState(pexpDate) //제품유통기한 알람일
 // const [atlocation,setatlocation] = useRecoilState(placation) //위 아래 칸 설정
+
+//const [atlist, setatlist] = useRecoilState(plist) //제품 리스트

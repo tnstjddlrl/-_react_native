@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect, } from 'react';
 const cheerio = require('cheerio');
 import {
     SafeAreaView,
@@ -11,7 +11,8 @@ import {
     View,
     Dimensions,
     Alert,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    BackHandler
 } from 'react-native';
 
 import { RNCamera } from 'react-native-camera';
@@ -29,6 +30,19 @@ const back = require('../img/light/back.png')
 
 
 export default BarcodeCheck = () => {
+
+    const backAction = () => {
+        navigation.goBack()
+        return true;
+    };
+
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+
+        return () =>
+            BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }, []);
+
     const navigation = useNavigation()
     const camera = useRef()
     const [barcc, setBarcc] = useState('바코드 탐지중!')
@@ -142,7 +156,7 @@ export default BarcodeCheck = () => {
                 <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
 
                     {/* < 시작 */}
-                    <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
+                    <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭'), navigation.goBack() }}>
                         <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
                             <AutoHeightImage source={back} width={30}></AutoHeightImage>
                         </View>

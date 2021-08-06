@@ -12,6 +12,7 @@ import {
     StyleSheet,
     Image,
     Modal,
+    PermissionsAndroid
 } from 'react-native';
 
 import AutoHeightImage from 'react-native-auto-height-image';
@@ -20,13 +21,20 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
-import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { pid } from '../atoms/atom';
+import { pid, plist } from '../atoms/atom';
 import { useRecoilState } from 'recoil';
 
 
 const chwidth = Dimensions.get('window').width
+
+var now = new Date();
+
+var year = now.getFullYear();   // 연도
+var month = now.getMonth() + 1;   // 월    
+var day = now.getDate();        // 일
+
+var endDate = new Date(year, month, day);
 
 
 
@@ -51,11 +59,6 @@ const cart_icon = require('../img/light/cart_icon.png');
 const review_icon = require('../img/light/review_icon.png');
 
 const icon3 = require('../img/light/icon3.png');
-
-
-
-
-
 
 
 const Realmain = () => {
@@ -84,144 +87,191 @@ const Realmain = () => {
 
     const [atid, setAtid] = useRecoilState(pid); //사용자 아이디
 
+    const [atlist, setatlist] = useRecoilState(plist)
+
+
+
+    const backAction = () => {
+        Alert.alert("앱 종료", "앱을 종료하시겠습니까?", [
+            {
+                text: "취소",
+                onPress: () => null,
+                style: "cancel"
+            },
+            { text: "확인", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+    };
+
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+
+        return () =>
+            BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }, []);
+
+    // useEffect(() => {
+    //     requestPermission()
+    // }, [])
+
+
+    async function requestPermission() {
+        try {
+            if (Platform.OS === "ios") {
+                return await Geolocation.requestAuthorization("always");
+            } // 안드로이드 위치 정보 수집 권한 요청 
+            if (Platform.OS === "android") {
+                return await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,);
+            }
+        } catch (e) { console.log(e); }
+    }
 
 
     useEffect(() => {
+        requestPermission().then(result => {
+            console.log({ result });
+            if (result === "granted") {
+                Geolocation.getCurrentPosition(
+                    (position) => {
 
-        Geolocation.getCurrentPosition(
-            (position) => {
+                        //오늘 최고 최저 온도 받아오기 및 자외선 지수
+                        axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=current&appid=4c0e7c89ac35917a4adadc0c95b8392c',
+                        ).then(function (response) {
+                            // console.log(response.data.daily[0])
+                            // console.log(response.data.daily[0].weather[0].icon)
+                            setdayUv(response.data.daily[0].uvi)
+                            setcurHumi(response.data.daily[0].humidity)
+                            setdayMaxTemp(response.data.daily[0].temp.max - 273.15)
+                            setdayMinTemp(response.data.daily[0].temp.min - 273.15)
+                            // setdescription(response.data.daily[0].weather[0].icon)
 
-                //오늘 최고 최저 온도 받아오기 및 자외선 지수
-                axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=current&appid=4c0e7c89ac35917a4adadc0c95b8392c',
-                ).then(function (response) {
-                    // console.log(response.data.daily[0])
-                    // console.log(response.data.daily[0].weather[0].icon)
-                    setdayUv(response.data.daily[0].uvi)
-                    setcurHumi(response.data.daily[0].humidity)
-                    setdayMaxTemp(response.data.daily[0].temp.max - 273.15)
-                    setdayMinTemp(response.data.daily[0].temp.min - 273.15)
-                    // setdescription(response.data.daily[0].weather[0].icon)
+                            if (response.data.daily[0].uvi < 2) {
+                                setUvString('낮음')
+                            } else if (response.data.daily[0].uvi >= 2 && response.data.daily[0].uvi < 5) {
+                                setUvString('보통')
+                            } else if (response.data.daily[0].uvi >= 5 && response.data.daily[0].uvi <= 7) {
+                                setUvString('높음')
+                            } else if (response.data.daily[0].uvi > 7) {
+                                setUvString('매우 높음')
+                            } else {
+                                setUvString('서버 오류')
+                            }
 
-                    if (response.data.daily[0].uvi < 2) {
-                        setUvString('낮음')
-                    } else if (response.data.daily[0].uvi >= 2 && response.data.daily[0].uvi < 5) {
-                        setUvString('보통')
-                    } else if (response.data.daily[0].uvi >= 5 && response.data.daily[0].uvi <= 7) {
-                        setUvString('높음')
-                    } else if (response.data.daily[0].uvi > 7) {
-                        setUvString('매우 높음')
-                    } else {
-                        setUvString('서버 오류')
-                    }
+                            switch (response.data.daily[0].weather[0].icon) {
+                                case '01d':
+                                case '01n':
+                                    setdescription('맑음')
+                                    break;
 
-                    switch (response.data.daily[0].weather[0].icon) {
-                        case '01d':
-                        case '01n':
-                            setdescription('맑음')
-                            break;
+                                case '02d':
+                                case '02n':
+                                    setdescription('구름 조금')
+                                    break;
 
-                        case '02d':
-                        case '02n':
-                            setdescription('구름 조금')
-                            break;
+                                case '03d':
+                                case '03n':
+                                    setdescription('구름 많음')
+                                    break;
 
-                        case '03d':
-                        case '03n':
-                            setdescription('구름 많음')
-                            break;
+                                case '04d':
+                                case '04n':
+                                    setdescription('구름 많음')
+                                    break;
 
-                        case '04d':
-                        case '04n':
-                            setdescription('구름 많음')
-                            break;
+                                case '09d':
+                                case '09n':
+                                    setdescription('소나기')
+                                    break;
 
-                        case '09d':
-                        case '09n':
-                            setdescription('소나기')
-                            break;
+                                case '10d':
+                                case '10n':
+                                    setdescription('비')
+                                    break;
 
-                        case '10d':
-                        case '10n':
-                            setdescription('비')
-                            break;
+                                case '11d':
+                                case '11n':
+                                    setdescription('뇌우')
+                                    break;
 
-                        case '11d':
-                        case '11n':
-                            setdescription('뇌우')
-                            break;
+                                case '13d':
+                                case '13n':
+                                    setdescription('눈')
+                                    break;
 
-                        case '13d':
-                        case '13n':
-                            setdescription('눈')
-                            break;
+                                case '50d':
+                                case '50n':
+                                    setdescription('안개')
+                                    break;
 
-                        case '50d':
-                        case '50n':
-                            setdescription('안개')
-                            break;
+                            }
 
-                    }
+                        }).catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        }).then(function () {
+                            // always executed
+                        });
 
-                }).catch(function (error) {
-                    // handle error
-                    console.log(error);
-                }).then(function () {
-                    // always executed
-                });
+                        //미세먼지 및 종합대기상황
+                        axios.get('http://api.openweathermap.org/data/2.5/air_pollution?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&appid=4c0e7c89ac35917a4adadc0c95b8392c',
+                        ).then(function (response) {
+                            console.log(response.data.list[0].components.pm10)
+                            console.log(response.data.list[0].components.pm2_5)
+                            console.log(response.data.list[0].main.aqi)
 
-                //미세먼지 및 종합대기상황
-                axios.get('http://api.openweathermap.org/data/2.5/air_pollution?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&appid=4c0e7c89ac35917a4adadc0c95b8392c',
-                ).then(function (response) {
-                    console.log(response.data.list[0].components.pm10)
-                    console.log(response.data.list[0].components.pm2_5)
-                    console.log(response.data.list[0].main.aqi)
-
-                    setPm10(response.data.list[0].components.pm10)
-                    setPm25(response.data.list[0].components.pm2_5)
-
-
-                    switch (response.data.list[0].main.aqi) {
-                        case 1:
-                            setTotalAir('매우 좋음')
-                            break;
-                        case 2:
-                            setTotalAir('좋음')
-                            break;
-                        case 3:
-                            setTotalAir('보통')
-                            break;
-                        case 4:
-                            setTotalAir('나쁨')
-                            break;
-                        case 5:
-                            setTotalAir('매우 나쁨')
-                            break;
-                        default:
-                            setTotalAir('서버 오류')
-                            break;
-                    }
-
-                }).catch(function (error) {
-                    // handle error
-                    console.log(error);
-                }).then(function () {
-                    // always executed
-                });
+                            setPm10(response.data.list[0].components.pm10)
+                            setPm25(response.data.list[0].components.pm2_5)
 
 
-            },
-            (error) => {
-                // See error code charts below.
-                console.log(error.code, error.message);
-            },
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-        );
+                            switch (response.data.list[0].main.aqi) {
+                                case 1:
+                                    setTotalAir('매우 좋음')
+                                    break;
+                                case 2:
+                                    setTotalAir('좋음')
+                                    break;
+                                case 3:
+                                    setTotalAir('보통')
+                                    break;
+                                case 4:
+                                    setTotalAir('나쁨')
+                                    break;
+                                case 5:
+                                    setTotalAir('매우 나쁨')
+                                    break;
+                                default:
+                                    setTotalAir('서버 오류')
+                                    break;
+                            }
+
+                        }).catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        }).then(function () {
+                            // always executed
+                        });
+
+
+                    },
+                    (error) => {
+                        // See error code charts below.
+                        console.log(error.code, error.message);
+                    },
+                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+                );
+
+            }
+        });
 
     }, [])
 
-    useEffect(() => {
+
+    const unsubscribe = navigation.addListener('focus', () => {
         getproduct()
-    }, [])
+    });
+    useEffect(() => {
+        return () => unsubscribe();
+    });
 
     function getproduct() {
         axios.get('http://ip1004.hostingbox.co.kr/', {
@@ -234,11 +284,148 @@ const Realmain = () => {
             if (res.data == 'empty') {
                 Alert.alert('화장품을 등록해보세요!')
             } else {
-                console.log(res.data[0].name)
+                setatlist(res.data)
             }
 
         })
 
+    }
+
+    function delprod(no) {
+        axios.get('http://ip1004.hostingbox.co.kr/', {
+            params: {
+                type: 'del_product',
+                no: no,
+            }
+        }).then(async (res) => {
+
+            if (res.data == 'del_suc') {
+                Alert.alert('삭제완료!')
+                setModalView(false)
+            } else {
+                Alert.alert('서버오류', '잠시후 다시 시도해주세요.')
+                setModalView(false)
+            }
+
+        })
+    }
+
+    const [modalname, setModalname] = useState('')
+    const [modalcategory, setModalcategory] = useState('')
+    const [modaldate, setModaldate] = useState('')
+    const [modalexpLeft, setModalexpLeft] = useState('')
+
+
+
+    const TextItem = (prop) => {
+
+        var exp = prop.expiration.split('-')
+
+        var stDate = new Date(exp[0], exp[1], exp[2]);
+
+        var btMs = stDate.getTime() - endDate.getTime();
+        var btDay = btMs / (1000 * 60 * 60 * 24);
+
+        function clickpp() {
+            setModalname(prop.name)
+            setModalcategory(prop.category)
+            setModaldate(prop.expiration)
+            setModalexpLeft(btDay)
+
+            setModalView(true)
+        }
+
+        return (
+            <TouchableWithoutFeedback onPress={() => { console.log('클릭'), clickpp() }}>
+                <View style={{ alignItems: 'center', }}>
+                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
+                        <Text style={{ width: chwidth - 190 }} numberOfLines={1}>{prop.name}</Text>
+                        <Text style={{ color: 'rgb(13,120,159)' }}>{btDay}일 남음</Text>
+                    </View>
+                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                </View>
+            </TouchableWithoutFeedback>
+        )
+    }
+
+    const TextuPush = () => {
+        var list = [];
+
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 'u') {
+                list.push(<TextItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
+            }
+        }
+
+        return list
+    }
+
+    const TextdPush = () => {
+        var list = [];
+
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 'd') {
+                list.push(<TextItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
+            }
+        }
+
+        return list
+    }
+
+    const ImageItem = (prop) => {
+        var exp = prop.expiration.split('-')
+
+        var stDate = new Date(exp[0], exp[1], exp[2]);
+
+        var btMs = stDate.getTime() - endDate.getTime();
+        var btDay = btMs / (1000 * 60 * 60 * 24);
+
+        function clickpp() {
+            setModalname(prop.name)
+            setModalcategory(prop.category)
+            setModaldate(prop.expiration)
+            setModalexpLeft(btDay)
+
+            setModalView(true)
+        }
+        return (
+            <TouchableWithoutFeedback onPress={() => { clickpp() }}>
+                <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: chwidth / 3.3, height: '80%', borderRadius: 200, backgroundColor: 'rgb(204,204,204)', marginLeft: 8, marginRight: 8, elevation: 10, }}>
+                        <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: '100%', borderRadius: 200, }} ></Image>
+                    </View>
+                    <View style={{ borderRadius: 100, backgroundColor: 'blue', marginTop: -20, elevation: 10 }}>
+                        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={['rgba(36,175,248,1)', 'rgba(30,45,245,0)']} style={{ borderRadius: 100 }}>
+                            <Text style={{ color: 'white', margin: 8, fontSize: 15, fontWeight: 'bold' }}>{btDay}일 남음</Text>
+                        </LinearGradient>
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
+        )
+    }
+
+    const ImageuPush = () => {
+        var list = [];
+
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 'u') {
+                list.push(<ImageItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
+            }
+        }
+
+        return list
+    }
+
+
+    const ImagedPush = () => {
+        var list = [];
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 'd') {
+                list.push(<ImageItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
+            }
+        }
+
+        return list
     }
 
     return (
@@ -260,8 +447,8 @@ const Realmain = () => {
                     <View style={{ flex: 1 }}>
 
                         <View style={{ width: chwidth, height: '49%', backgroundColor: 'white' }}>
-                            <ScrollView style={{}} horizontal>
-
+                            <ScrollView style={{}} horizontal showsHorizontalScrollIndicator={false}>
+                                <ImageuPush></ImageuPush>
                             </ScrollView>
                         </View>
 
@@ -269,8 +456,8 @@ const Realmain = () => {
 
 
                         <View style={{ width: chwidth, height: '49%', backgroundColor: 'white' }}>
-                            <ScrollView style={{}} horizontal>
-
+                            <ScrollView style={{}} horizontal showsHorizontalScrollIndicator={false}>
+                                <ImagedPush></ImagedPush>
                             </ScrollView>
                         </View>
 
@@ -280,61 +467,12 @@ const Realmain = () => {
                     <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-around' }}>
                         <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
                             <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
-                                <Text style={{ color: '#ffffff', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>2층 화장품 목록</Text>
+                                <Text style={{ color: '#ffffff', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>위 칸 화장품 목록</Text>
                             </View>
 
                             <ScrollView style={{ backgroundColor: 'rgb(245,245,245)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
 
-                                {/* 맨위가 본체 */}
-                                <TouchableWithoutFeedback onPress={() => { console.log('클릭'), setModalView(true) }}>
-                                    <View style={{ alignItems: 'center', }}>
-                                        <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                            <Text style={{ width: chwidth - 190 }} numberOfLines={1}>화장품</Text>
-                                            <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                        </View>
-                                        <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                    </View>
-                                </TouchableWithoutFeedback>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
+                                <TextuPush></TextuPush>
 
 
                             </ScrollView>
@@ -344,58 +482,12 @@ const Realmain = () => {
 
                         <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
                             <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
-                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>1층 화장품 목록</Text>
+                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>아래 칸 화장품 목록</Text>
                             </View>
 
                             <ScrollView style={{ backgroundColor: 'rgb(245,245,245)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
 
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
-
-                                <View style={{ alignItems: 'center', }}>
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                                        <Text style={{}}>화장품</Text>
-                                        <Text style={{ color: 'rgb(13,120,159)' }}>150일 남음</Text>
-                                    </View>
-                                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
-                                </View>
+                                <TextdPush></TextdPush>
 
 
                             </ScrollView>
@@ -498,7 +590,7 @@ const Realmain = () => {
                         </TouchableWithoutFeedback>
                     </View>
 
-                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('제품등록') }}>
+                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('바코드체크') }}>
                         <View style={{ alignItems: 'center' }}>
                             <AutoHeightImage source={plus} width={chwidth / 3.5}></AutoHeightImage>
                         </View>
@@ -534,14 +626,14 @@ const Realmain = () => {
 
                             <View style={{ width: chwidth - 50, marginTop: 15, marginBottom: 30 }}>
 
-                                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>화장품 이름</Text>
+                                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{modalname}</Text>
 
                                 <View style={{ width: chwidth - 50, borderWidth: 0.5, marginTop: 15, marginBottom: 15, borderColor: 'rgb(153,153,153)' }}></View>
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <AutoHeightImage source={category} width={18}></AutoHeightImage>
-                                        <Text style={{ fontSize: 15 }}>  분류 : 대분류/소분류</Text>
+                                        <Text style={{ fontSize: 15 }}>  분류 : {modalcategory}</Text>
                                     </View>
 
                                     <View style={{ backgroundColor: 'rgb(236,236,236)', borderRadius: 3 }}>
@@ -555,8 +647,8 @@ const Realmain = () => {
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                         <AutoHeightImage source={date_icon} width={18}></AutoHeightImage>
-                                        <Text style={{ fontSize: 15 }}>  유통기한 : 2022-06-02/</Text>
-                                        <Text style={{ color: 'red', fontSize: 15 }}>남은 일수 363일</Text>
+                                        <Text style={{ fontSize: 15 }}>  유통기한 : {modaldate}/</Text>
+                                        <Text style={{ color: 'red', fontSize: 15 }}>남은 일수 {modalexpLeft}일</Text>
                                     </View>
                                 </View>
 

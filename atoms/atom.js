@@ -40,3 +40,14 @@ export const placation = atom({
     key: 'placation',
     default: '',
 });
+
+export const isdark = atom({
+    key: 'isdark',
+    default: 'no',
+});
+
+export const plist = atom({
+    key: 'plist',
+    default: [],
+});
+

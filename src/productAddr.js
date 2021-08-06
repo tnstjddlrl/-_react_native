@@ -17,7 +17,7 @@ import {
 
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useRecoilState } from 'recoil';
-import { imagebase64, pcategory, pexp, pexpDate, placation, pname } from '../atoms/atom';
+import { imagebase64, pcategory, pexp, pexpDate, placation, pname, plist } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -38,6 +38,9 @@ const ProductAddr = () => {
     const [atexpDate, setAtexpDate] = useRecoilState(pexpDate) //제품유통기한 알람일
     const [atlocation, setatlocation] = useRecoilState(placation) //위 아래 칸 설정
     const [atbase64, setatbase64] = useRecoilState(imagebase64) //베이스64로 묶은 이미지
+
+    const [atlist, setatlist] = useRecoilState(plist) //제품 리스트
+
 
     // 상태 불러오기!
     useEffect(() => {
@@ -73,6 +76,19 @@ const ProductAddr = () => {
                     }).then(async (res) => {
                         console.log(res)
                         console.log(res.data)
+
+                        if (res.data == 'register_suc') {
+                            setAtname('')
+                            setAtcategory('')
+                            setAtexp('')
+                            setAtexpDate('')
+                            setatlocation('')
+                            setatbase64('')
+
+                            navigation.navigate('실제 메인')
+                        } else {
+                            Alert.alert('서버 오류입니다.', '잠시후 다시 시도해주세요.')
+                        }
                     })
 
                 } catch (error) {
@@ -81,6 +97,54 @@ const ProductAddr = () => {
             }, 300);
             return
         }
+    }
+
+
+    const ImageItem = (prop) => {
+        return (
+            <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
+                <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 9, height: 110, borderRadius: 50 }} ></Image>
+            </View>
+        )
+    }
+
+
+
+    const ImageUPush = () => {
+        var list = []
+        var pushs = 0
+
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 'u' && pushs < 6) {
+                list.push(<ImageItem key={i} img={atlist[i].img}></ImageItem>)
+                pushs++
+            }
+        }
+
+        for (var i = 0; i < 6 - pushs; i++) {
+            list.push(<ImageItem key={i} img={'none'}></ImageItem>)
+        }
+
+        return list
+    }
+
+
+    const ImageDPush = () => {
+        var list = []
+        var pushs = 0
+
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 'd' && pushs < 6) {
+                list.push(<ImageItem key={i} img={atlist[i].img}></ImageItem>)
+                pushs++
+            }
+        }
+
+        for (var i = 0; i < 6 - pushs; i++) {
+            list.push(<ImageItem key={i} img={'none'}></ImageItem>)
+        }
+
+        return list
     }
 
     return (
@@ -120,29 +184,7 @@ const ProductAddr = () => {
 
                                 {/* 개별 화장품 부분 */}
                                 <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
+                                    <ImageUPush></ImageUPush>
                                 </View>
                                 {/* 개별 화장품 부분  끝*/}
 
@@ -158,29 +200,7 @@ const ProductAddr = () => {
 
                                 <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
 
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
-
-                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
-
-                                    </View>
+                                    <ImageDPush></ImageDPush>
 
                                 </View>
                             </View>

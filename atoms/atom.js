@@ -11,6 +11,11 @@ export const imagebase64 = atom({
     default: '',
 });
 
+export const pid = atom({
+    key: 'pid',
+    default: '',
+});
+
 export const pname = atom({
     key: 'pname',
     default: '',
@@ -28,5 +33,10 @@ export const pexp = atom({
 
 export const pexpDate = atom({
     key: 'pexpDate',
+    default: '',
+});
+
+export const placation = atom({
+    key: 'placation',
     default: '',
 });

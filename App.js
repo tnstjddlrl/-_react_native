@@ -52,10 +52,10 @@ export default APP = () => {
           <Stack.Screen name="실제 메인" component={Realmain} />
           <Stack.Screen name="로그인" component={Login} />
           <Stack.Screen name="회원가입" component={Register} />
-
-
-
           <Stack.Screen name="사진촬영" component={pictureTake} />
+
+
+
           <Stack.Screen name="사진보기" component={PictureCheck} />
           <Stack.Screen name="스크롤메인" component={ScrollMain} />
           <Stack.Screen name="날씨테스트" component={Weather} />

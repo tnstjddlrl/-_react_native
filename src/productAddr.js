@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import React, { useCallback, useMemo, useRef, useEffect, useState } from 'react';
 import {
     Alert,
@@ -15,6 +16,8 @@ import {
 } from 'react-native';
 
 import AutoHeightImage from 'react-native-auto-height-image';
+import { useRecoilState } from 'recoil';
+import { imagebase64, pcategory, pexp, pexpDate, placation, pname } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -29,10 +32,18 @@ const ProductAddr = () => {
 
     const [u1, setu1] = useState('a');
 
+    const [atname, setAtname] = useRecoilState(pname)   //제품이름
+    const [atcategory, setAtcategory] = useRecoilState(pcategory) //제품카테고리
+    const [atexp, setAtexp] = useRecoilState(pexp)  //제품 유통기한
+    const [atexpDate, setAtexpDate] = useRecoilState(pexpDate) //제품유통기한 알람일
+    const [atlocation, setatlocation] = useRecoilState(placation) //위 아래 칸 설정
+    const [atbase64, setatbase64] = useRecoilState(imagebase64) //베이스64로 묶은 이미지
+
     // 상태 불러오기!
     useEffect(() => {
 
     }, [])
+
 
     // 각각 클릭이벤트 통합
     function clickOK() {
@@ -40,7 +51,35 @@ const ProductAddr = () => {
             Alert.alert('칸 선택이 되지 않았습니다.')
             return
         } else {
+            setatlocation(u1)
 
+            setTimeout(() => {
+                try {
+                    axios.post('http://ip1004.hostingbox.co.kr/post.php', {
+                        type: 'new_product',
+                        id: 'test1',
+                        name: atname,
+                        category: atcategory,
+                        expiration: atexp,
+                        alert_config: atexp == atexpDate ? 0 : 1,
+                        alert_date: atexpDate,
+                        location: u1,
+                        img: atbase64
+                        ,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+
+                    }).then(async (res) => {
+                        console.log(res)
+                        console.log(res.data)
+                    })
+
+                } catch (error) {
+                    console.log(error)
+                }
+            }, 300);
+            return
         }
     }
 
@@ -71,7 +110,7 @@ const ProductAddr = () => {
                 <ScrollView style={{}} showsVerticalScrollIndicator={false}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
                         <AutoHeightImage source={loca_img} width={30}></AutoHeightImage>
-                        <Text style={{ fontSize: 18, marginTop: 10 }}>화장품을 놓은 위치를 터치해주세요.</Text>
+                        <Text style={{ fontSize: 18, marginTop: 10 }}>화장품을 놓은 칸을 터치해주세요.</Text>
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => setu1('u')}>
@@ -119,41 +158,29 @@ const ProductAddr = () => {
 
                                 <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
 
-                                    <TouchableWithoutFeedback onPress={() => touchpd('d1')}>
-                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
 
-                                        </View>
-                                    </TouchableWithoutFeedback>
+                                    </View>
 
-                                    <TouchableWithoutFeedback onPress={() => touchpd('d2')}>
-                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
 
-                                        </View>
-                                    </TouchableWithoutFeedback>
+                                    </View>
 
-                                    <TouchableWithoutFeedback onPress={() => touchpd('d3')}>
-                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
 
-                                        </View>
-                                    </TouchableWithoutFeedback>
+                                    </View>
 
-                                    <TouchableWithoutFeedback onPress={() => touchpd('d4')}>
-                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
 
-                                        </View>
-                                    </TouchableWithoutFeedback>
+                                    </View>
 
-                                    <TouchableWithoutFeedback onPress={() => touchpd('d5')}>
-                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
 
-                                        </View>
-                                    </TouchableWithoutFeedback>
+                                    </View>
 
-                                    <TouchableWithoutFeedback onPress={() => touchpd('d6')}>
-                                        <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
+                                    <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
 
-                                        </View>
-                                    </TouchableWithoutFeedback>
+                                    </View>
 
                                 </View>
                             </View>
@@ -168,9 +195,11 @@ const ProductAddr = () => {
             {/* 하단 버튼 시작 */}
             <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
                 {/* 파랑버튼 */}
-                <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
-                    <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
-                </View>
+                <TouchableWithoutFeedback onPress={() => { clickOK() }}>
+                    <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
+                        <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
 
             {/* 하단 버튼 끝 */}

@@ -29,6 +29,8 @@ import {
 import AutoHeightImage from 'react-native-auto-height-image';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
+import { pid } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -44,6 +46,8 @@ const Login = () => {
     const [id, setid] = useState('');
     const [pwd, setpwd] = useState('');
 
+    const [atid, setAtid] = useRecoilState(pid);
+
     const request = async () => {
         console.log(id + pwd)
         await axios.get('http://ip1004.hostingbox.co.kr/', {
@@ -58,7 +62,10 @@ const Login = () => {
             if (res.data == 'login_fail') {
                 Alert.alert('아이디 혹은 비밀번호 오류입니다!')
             } else if (res.data == 'login_suc') {
-                navigation.navigate('실제 메인')
+                setAtid(id)
+                setTimeout(() => {
+                    navigation.navigate('실제 메인')
+                }, 300);
             }
 
         })
@@ -89,7 +96,7 @@ const Login = () => {
                         {/* 아이디 */}
                         <Text style={{ fontSize: 18, marginTop: 10, color: 'black' }}>아이디</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                            <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'아이디를 입력해주세요.'}></TextInput>
+                            <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'아이디를 입력해주세요.'}></TextInput>
                         </View>
 
                         {/* 아이디끝 */}
@@ -97,7 +104,7 @@ const Login = () => {
                         {/* 비밀번호 */}
                         <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 30 }}>
-                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
+                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
                         </View>
 
                         {/* 비밀번호끝 */}

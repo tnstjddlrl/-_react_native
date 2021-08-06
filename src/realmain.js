@@ -21,6 +21,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { pid } from '../atoms/atom';
+import { useRecoilState } from 'recoil';
 
 
 const chwidth = Dimensions.get('window').width
@@ -30,6 +33,8 @@ const chwidth = Dimensions.get('window').width
 const logo = require('../img/light/logo.png');
 const tuto = require('../img/light/tuto.png');
 const text1 = require('../img/light/menu1_2.png')
+const img1 = require('../img/light/menu1.png')
+
 const dark = require('../img/light/menu2_1.png')
 const menu = require('../img/light/menu3.png')
 const plus = require('../img/light/plus.png')
@@ -55,6 +60,8 @@ const icon3 = require('../img/light/icon3.png');
 
 const Realmain = () => {
 
+    const navigation = useNavigation()
+
     const [version, setversion] = useState(true)
     const [modalView, setModalView] = useState(false)
 
@@ -74,6 +81,9 @@ const Realmain = () => {
 
     const [description, setdescription] = useState('')
     // 
+
+    const [atid, setAtid] = useRecoilState(pid); //사용자 아이디
+
 
 
     useEffect(() => {
@@ -208,6 +218,28 @@ const Realmain = () => {
         );
 
     }, [])
+
+    useEffect(() => {
+        getproduct()
+    }, [])
+
+    function getproduct() {
+        axios.get('http://ip1004.hostingbox.co.kr/', {
+            params: {
+                type: 'load_product',
+                id: atid,
+            }
+        }).then(async (res) => {
+
+            if (res.data == 'empty') {
+                Alert.alert('화장품을 등록해보세요!')
+            } else {
+                console.log(res.data[0].name)
+            }
+
+        })
+
+    }
 
     return (
         <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
@@ -437,10 +469,18 @@ const Realmain = () => {
                             else
                                 setversion(true);
                         }}>
-                            <View style={{ alignItems: 'center' }}>
-                                <AutoHeightImage source={text1} width={chwidth / 15}></AutoHeightImage>
-                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>텍스트 버전</Text>
-                            </View>
+                            {version ?
+                                <View style={{ alignItems: 'center' }}>
+                                    <AutoHeightImage source={text1} width={chwidth / 15}></AutoHeightImage>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>텍스트 버전</Text>
+                                </View>
+
+                                :
+                                <View style={{ alignItems: 'center' }}>
+                                    <AutoHeightImage source={img1} width={chwidth / 15}></AutoHeightImage>
+                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>이미지 버전</Text>
+                                </View>
+                            }
                         </TouchableWithoutFeedback>
 
                         <TouchableWithoutFeedback onPress={() => { }}>
@@ -458,7 +498,7 @@ const Realmain = () => {
                         </TouchableWithoutFeedback>
                     </View>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
+                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('제품등록') }}>
                         <View style={{ alignItems: 'center' }}>
                             <AutoHeightImage source={plus} width={chwidth / 3.5}></AutoHeightImage>
                         </View>

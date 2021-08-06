@@ -32,6 +32,8 @@ import {
 import DatePicker from 'react-native-date-picker'
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
+import { pcategory, pexp, pexpDate, pname } from '../atoms/atom';
 
 const back = require('../img/light/back.png')
 const dateicon = require('../img/light/date.png')
@@ -43,19 +45,35 @@ const thisday = new Date(Date.now());
 const Productregist = () => {
 
     const navigation = useNavigation()
+    const bottomSheetModalRef = useRef(< BottomSheetModal ></BottomSheetModal>);
 
-    const [onChangeValue, setOnChangeValue] = React.useState(49)
 
     const [date, setDate] = useState(new Date(Date.now()));
 
     const [leftmonth, setLeftmonth] = useState(0)
 
+    const [atname, setAtname] = useRecoilState(pname)
+    const [atcategory, setAtcategory] = useRecoilState(pcategory)
+    const [atexp, setAtexp] = useRecoilState(pexp)
+    const [atexpDate, setAtexpDate] = useRecoilState(pexpDate)
+
+    const [name, setName] = useState('')
     const [big, setBig] = useState('')
     const [small, setSmall] = useState('')
-
     const [dateText, setDateText] = useState('')
+    const [expDate, setExpDate] = useState('')
 
-    const bottomSheetModalRef = useRef(< BottomSheetModal ></BottomSheetModal>);
+
+    useEffect(() => {
+        console.log(atname)
+        setTimeout(() => {
+            setName(atname)
+        }, 300);
+    }, [])
+
+
+
+
 
     // variables
     const snapPoints = useMemo(() => ['25%', '50%'], []);
@@ -74,11 +92,8 @@ const Productregist = () => {
         console.log('handleSheetChanges', index);
     }, []);
 
-    useEffect(() => {
-        setDateText(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
-    }, [date])
 
-
+    const [onChangeValue, setOnChangeValue] = React.useState(49)
     useEffect(() => {
         console.log(onChangeValue)
         switch (onChangeValue) {
@@ -125,6 +140,35 @@ const Productregist = () => {
 
     }, [onChangeValue])
 
+    useEffect(() => {
+        setDateText(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+    }, [date])
+
+
+    useEffect(() => {
+
+    }, [])
+
+
+    function okclick() {
+        if (name == '' && big == '' && small == '') {
+            Alert.alert('제품명 혹은 종류를 설정해주세요.')
+            return
+        }
+
+        date.setMonth(date.getMonth() + leftmonth)
+
+        setAtname(name)
+        setAtcategory(big + '/' + small)
+        setAtexp(dateText)
+        setAtexpDate(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+
+        setTimeout(() => {
+            navigation.navigate('사진촬영')
+        }, 300);
+    }
+
+
     return (
         <NativeBaseProvider>
             <BottomSheetModalProvider>
@@ -167,7 +211,7 @@ const Productregist = () => {
                                     {/*  */}
                                     <Text style={{ fontSize: 18 }}>제품명</Text>
                                     <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                                        <TextInput style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'제품명을 입력해주세요.'}></TextInput>
+                                        <TextInput onChangeText={(txt) => setName(txt)} value={name} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'제품명을 입력해주세요.'}></TextInput>
                                     </View>
 
                                     {/*  */}
@@ -261,9 +305,11 @@ const Productregist = () => {
                     {/* 하단 버튼 시작 */}
                     <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
                         {/* 파랑버튼 */}
-                        <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 20, }}>
-                            <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
-                        </View>
+                        <TouchableWithoutFeedback onPress={() => { okclick() }}>
+                            <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 20, }}>
+                                <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
 
                     {/* 하단 버튼 끝 */}

@@ -17,6 +17,9 @@ import {
 import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { useRecoilState } from 'recoil';
+import { pname } from '../atoms/atom';
+import { useNavigation } from '@react-navigation/native';
 
 const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
@@ -26,27 +29,68 @@ const back = require('../img/light/back.png')
 
 
 export default BarcodeCheck = () => {
+    const navigation = useNavigation()
     const camera = useRef()
     const [barcc, setBarcc] = useState('바코드 탐지중!')
     const [product, setproduct] = useState('')
 
+    const [atname, setAtname] = useRecoilState(pname)   //제품이름
 
 
     function barcodeCheck(pp) {
         // 8809482500662
+        var regex = /[a-z0-9]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+
         axios.get('http://www.koreannet.or.kr/home/hpisSrchGtin.gs1?gtin=' + pp,
         ).then(function (response) {
-            // console.log(response);
+
             const $ = cheerio.load(response.data);
 
-            var test = $('div.productDetailView').find('div.productTit').text().replace(/(\s*)/g, "");
+            // console.log($('div.productDetailView').find('div.productTit').text().indexOf(pp))
 
-            console.log(test.substring(13, test.length))
-            setproduct(test.substring(13, test.length))
+            var test = $('div.productDetailView').find('div.productTit').text();
+
+            var arr = test.trim().substring(13, test.length).trim().split(' ')
+            var target = arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text())
+
+            // console.log('회사명 불러오기' + $('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text())
+
+
+            // console.log(test.substring(25, test.length).split(' '))
+            // setAtomImg($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
+
+
+            if (arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text()) < 0) {
+                //회사명 미포함
+                // console.log('회사명 미포함')
+
+
+                setAtname(arr.join(' ').replace(regex, ''))
+
+                setTimeout(() => {
+                    navigation.navigate('제품등록')
+                }, 300);
+            } else {
+                //회사명 포함
+                // console.log('회사명 포함 : ' + target)
+
+                arr.splice(arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text()), 1)
+                // arr.splice(arr.length - 1, 1, arr[arr.length - 1].replace(/ /g, ""))
+
+                setAtname(arr.join(' ').replace(regex, ''))
+
+                setTimeout(() => {
+                    navigation.navigate('제품등록')
+                }, 300);
+            }
+
+
         }).catch(function (error) {
             Alert.alert('인터넷 연결을 확인')
             console.log(error);
         })
+
+
     }
 
 
@@ -82,7 +126,7 @@ export default BarcodeCheck = () => {
                 <View style={{ width: chwidth - 20, height: '100%', marginLeft: 10, alignItems: 'center', marginTop: 20 }}>
                     <Text style={{ width: chwidth - 100, textAlign: 'center', fontSize: 15, }}>인식이 안되거나 바코드가 없는 경우 아래에 {'\n'} 직접등록 버튼을 이용해주세요</Text>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
+                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('제품등록') }}>
                         <View style={{ width: chwidth - 40, marginLeft: 10, marginTop: 20, marginBottom: 20, borderRadius: 50, backgroundColor: 'rgb(9,24,255)', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ color: 'white', fontSize: 22, fontWeight: 'bold', margin: 15 }}>직접등록</Text>
                         </View>

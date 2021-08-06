@@ -19,6 +19,7 @@ import { useRecoilState } from 'recoil';
 import { imagebase64 } from '../atoms/atom';
 import { useNavigation } from '@react-navigation/native';
 import AutoHeightImage from 'react-native-auto-height-image';
+import axios from 'axios';
 
 const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
@@ -34,14 +35,34 @@ export default PictureTake = () => {
     const [atbase64, setatbase64] = useRecoilState(imagebase64)
 
     const takePicture = async function (camera) {
-        const options = { quality: 0.5, base64: true };
+        const options = { quality: 0.3, base64: true, width: 800 };
         const data = await camera.takePictureAsync(options);
         //  eslint-disable-next-line
         setatbase64(data.base64);
         console.log(data.base64);
 
-        navigation.navigate('사진보기')
+        // imgpost(data.base64);
+        setTimeout(() => {
+            navigation.navigate('제품위치')
+
+        }, 300);
     };
+
+    function imgpost(img) {
+        try {
+            axios.post('http://ip1004.hostingbox.co.kr/post.php', {
+                params: {
+                    type: 'imgtest',
+                    img: img
+
+                }
+            }).then(async (res) => {
+                console.log(res)
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
 
     return (
@@ -79,7 +100,7 @@ export default PictureTake = () => {
                 <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
 
                     {/* < 시작 */}
-                    <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭') }}>
+                    <TouchableWithoutFeedback onPress={() => { console.log('뒤클릭'), navigation.goBack() }}>
                         <View style={{ width: 40, height: 40, borderRadius: 25, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
                             <AutoHeightImage source={back} width={30}></AutoHeightImage>
                         </View>

@@ -22,7 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { pid, plist } from '../atoms/atom';
+import { buypname, pid, plist } from '../atoms/atom';
 import { useRecoilState } from 'recoil';
 
 
@@ -333,7 +333,7 @@ const Realmain = () => {
     const [modaldate, setModaldate] = useState('')
     const [modalexpLeft, setModalexpLeft] = useState('')
 
-
+    const [atbuyname, setBuyatname] = useRecoilState(buypname)   //웹뷰 제품 이름
 
     const TextItem = (prop) => {
 
@@ -350,6 +350,8 @@ const Realmain = () => {
             setModalcategory(prop.category)
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
+
+            setBuyatname(prop.name)
 
             setModalView(true)
             console.log(modalno)
@@ -374,7 +376,17 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
-                list.push(<TextItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
+                list.push(<TextItem
+                    key={i}
+                    no={atlist[i].no}
+                    name={atlist[i].name}
+                    expiration={atlist[i].expiration}
+                    alert_config={atlist[i].alert_config}
+                    alert_date={atlist[i].alert_date}
+
+                    category={atlist[i].category}
+                    img={atlist[i].img}>
+                </TextItem>)
             }
         }
 
@@ -386,7 +398,14 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'd') {
-                list.push(<TextItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
+                list.push(<TextItem
+                    key={i}
+                    no={atlist[i].no}
+                    name={atlist[i].name}
+                    expiration={atlist[i].expiration}
+                    category={atlist[i].category}
+                    img={atlist[i].img}>
+                </TextItem>)
             }
         }
 
@@ -407,6 +426,8 @@ const Realmain = () => {
             setModalcategory(prop.category)
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
+
+            setBuyatname(prop.name)
 
             setModalView(true)
 
@@ -433,7 +454,15 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
-                list.push(<ImageItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
+                list.push(<ImageItem
+                    key={i}
+                    no={atlist[i].no}
+                    name={atlist[i].name}
+                    expiration={atlist[i].expiration}
+                    category={atlist[i].category}
+                    img={atlist[i].img}>
+
+                </ImageItem>)
             }
         }
 
@@ -445,7 +474,15 @@ const Realmain = () => {
         var list = [];
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'd') {
-                list.push(<ImageItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
+                list.push(<ImageItem
+                    key={i}
+                    no={atlist[i].no}
+                    name={atlist[i].name}
+                    expiration={atlist[i].expiration}
+                    category={atlist[i].category}
+                    img={atlist[i].img}>
+
+                </ImageItem>)
             }
         }
 
@@ -678,7 +715,7 @@ const Realmain = () => {
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
 
-                                    <TouchableWithoutFeedback onPress={() => { }}>
+                                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰') }}>
                                         <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
                                                 <AutoHeightImage source={cart_icon} width={18}></AutoHeightImage>

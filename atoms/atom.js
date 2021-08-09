@@ -22,6 +22,11 @@ export const pname = atom({
     default: '',
 });
 
+export const buypname = atom({
+    key: 'buypname',
+    default: '',
+});
+
 export const pcategory = atom({
     key: 'pcategory',
     default: '',

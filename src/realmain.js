@@ -110,10 +110,6 @@ const Realmain = () => {
             BackHandler.removeEventListener("hardwareBackPress", backAction);
     }, []);
 
-    // useEffect(() => {
-    //     requestPermission()
-    // }, [])
-
 
     async function requestPermission() {
         try {
@@ -266,6 +262,7 @@ const Realmain = () => {
     }, [])
 
 
+    //화면 감지 될때마다 제품 목록 받아오기
     const unsubscribe = navigation.addListener('focus', () => {
         getproduct()
     });
@@ -273,6 +270,7 @@ const Realmain = () => {
         return () => unsubscribe();
     });
 
+    //제품 불러오기
     function getproduct() {
         axios.get('http://ip1004.hostingbox.co.kr/', {
             params: {
@@ -291,6 +289,7 @@ const Realmain = () => {
 
     }
 
+    //제품 삭제
     function delprod(no) {
         axios.get('http://ip1004.hostingbox.co.kr/', {
             params: {
@@ -310,6 +309,19 @@ const Realmain = () => {
         })
     }
 
+    //로컬 알림 함수
+    const LocalNotification = () => {
+        PushNotification.localNotificationSchedule({
+            channelId: 'com.notify',
+            title: '테스트',
+            message: '안녕하세요! 테스트 알림입니다!', // (required)
+            date: new Date(Date.now() + 1 * 1000),
+            playSound: true, // (optional) default: true
+            soundName: 'default',
+        });
+    };
+
+    //모달용 usestate
     const [modalname, setModalname] = useState('')
     const [modalcategory, setModalcategory] = useState('')
     const [modaldate, setModaldate] = useState('')

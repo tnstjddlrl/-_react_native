@@ -14,20 +14,6 @@ import {
     TextInput,
 } from 'react-native';
 
-
-
-import {
-    Slider,
-    Stack,
-    Box,
-    Center,
-    NativeBaseProvider,
-    Select,
-    CheckIcon,
-    ChevronLeftIcon
-} from "native-base"
-
-import AutoHeightImage from 'react-native-auto-height-image';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -115,66 +101,63 @@ const Login = () => {
     }, [])
 
     return (
-        <NativeBaseProvider>
-            <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>
 
-                {/* 헤더 시작 */}
-                <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
-                    <View style={{ width: chwidth, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            {/* 헤더 시작 */}
+            <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
+                <View style={{ width: chwidth, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>로그인</Text>
+                </View>
 
-                        <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>로그인</Text>
+            </View>
+            {/* 헤더 끝 */}
+
+
+            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+                <Text style={{ fontSize: 18, marginTop: 10 }}>로그인을 진행해 주세요.</Text>
+            </View>
+
+            <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                <View style={{ width: chwidth - 80, marginLeft: 20, marginTop: 20, justifyContent: 'center' }}>
+
+                    {/* 아이디 */}
+                    <Text style={{ fontSize: 18, marginTop: 10, color: 'black' }}>아이디</Text>
+                    <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
+                        <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'아이디를 입력해주세요.'}></TextInput>
                     </View>
 
-                </View>
-                {/* 헤더 끝 */}
+                    {/* 아이디끝 */}
 
-
-                <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                    <Text style={{ fontSize: 18, marginTop: 10 }}>로그인을 진행해 주세요.</Text>
-                </View>
-
-                <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
-                    <View style={{ width: chwidth - 80, marginLeft: 20, marginTop: 20, justifyContent: 'center' }}>
-
-                        {/* 아이디 */}
-                        <Text style={{ fontSize: 18, marginTop: 10, color: 'black' }}>아이디</Text>
-                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                            <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'아이디를 입력해주세요.'}></TextInput>
-                        </View>
-
-                        {/* 아이디끝 */}
-
-                        {/* 비밀번호 */}
-                        <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
-                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 30 }}>
-                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
-                        </View>
-
-                        {/* 비밀번호끝 */}
-
-                    </View>
-                </View>
-
-
-                {/* 하단 버튼 시작 */}
-                <View style={{ width: chwidth - 40, marginLeft: 20, height: 90, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-
-                    <View style={{ borderRadius: 10, borderWidth: 1, borderColor: 'rgb(30,40,245)', backgroundColor: 'white', width: chwidth / 2 - 30, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
-                        <Text style={{ fontSize: 23, color: 'rgb(30,40,245)', fontWeight: 'bold' }}>회원가입</Text>
+                    {/* 비밀번호 */}
+                    <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
+                    <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 30 }}>
+                        <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
                     </View>
 
-                    {/* 파랑버튼 */}
-                    <TouchableWithoutFeedback onPress={() => { request() }}>
-                        <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth / 2 - 30, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
-                            <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>로그인</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    {/* 비밀번호끝 */}
+
+                </View>
+            </View>
+
+
+            {/* 하단 버튼 시작 */}
+            <View style={{ width: chwidth - 40, marginLeft: 20, height: 90, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+
+                <View style={{ borderRadius: 10, borderWidth: 1, borderColor: 'rgb(30,40,245)', backgroundColor: 'white', width: chwidth / 2 - 30, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
+                    <Text style={{ fontSize: 23, color: 'rgb(30,40,245)', fontWeight: 'bold' }}>회원가입</Text>
                 </View>
 
-                {/* 하단 버튼 끝 */}
+                {/* 파랑버튼 */}
+                <TouchableWithoutFeedback onPress={() => { request() }}>
+                    <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth / 2 - 30, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
+                        <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>로그인</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
 
-            </SafeAreaView>
-        </NativeBaseProvider >
+            {/* 하단 버튼 끝 */}
+
+        </SafeAreaView>
     )
 }
 

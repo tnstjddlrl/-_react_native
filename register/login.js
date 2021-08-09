@@ -143,9 +143,11 @@ const Login = () => {
             {/* 하단 버튼 시작 */}
             <View style={{ width: chwidth - 40, marginLeft: 20, height: 90, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
 
-                <View style={{ borderRadius: 10, borderWidth: 1, borderColor: 'rgb(30,40,245)', backgroundColor: 'white', width: chwidth / 2 - 30, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
-                    <Text style={{ fontSize: 23, color: 'rgb(30,40,245)', fontWeight: 'bold' }}>회원가입</Text>
-                </View>
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('회원가입') }}>
+                    <View style={{ borderRadius: 10, borderWidth: 1, borderColor: 'rgb(30,40,245)', backgroundColor: 'white', width: chwidth / 2 - 30, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
+                        <Text style={{ fontSize: 23, color: 'rgb(30,40,245)', fontWeight: 'bold' }}>회원가입</Text>
+                    </View>
+                </TouchableWithoutFeedback>
 
                 {/* 파랑버튼 */}
                 <TouchableWithoutFeedback onPress={() => { request() }}>

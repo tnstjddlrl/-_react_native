@@ -282,6 +282,7 @@ const Realmain = () => {
         }).then(async (res) => {
 
             if (res.data == 'empty') {
+                setatlist([])
                 Alert.alert('화장품을 등록해보세요!')
             } else {
                 setatlist(res.data)

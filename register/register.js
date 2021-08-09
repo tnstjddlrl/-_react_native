@@ -29,6 +29,8 @@ import {
 import AutoHeightImage from 'react-native-auto-height-image';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
+import { pid } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -41,10 +43,20 @@ const Register = () => {
 
     const navigation = useNavigation()
 
+    const [atid, setAtid] = useRecoilState(pid); //사용자 아이디
+
     const [id, setid] = useState('');
     const [pwd, setpwd] = useState('');
     const [pwdc, setpwdc] = useState('');
     const [email, setemail] = useState('');
+
+    const storeData = async (value) => {
+        try {
+            await AsyncStorage.setItem('@user_id', value)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
 
     const request = async () => {
@@ -63,7 +75,12 @@ const Register = () => {
                 if (res.data == 'idid') {
                     Alert.alert('중복되는 아이디가 존재합니다!')
                 } else if (res.data == 'register_suc') {
-                    navigation.navigate('실제 메인')
+                    setAtid(id)
+                    storeData(id)
+
+                    setTimeout(() => {
+                        navigation.navigate('실제 메인')
+                    }, 300);
                 }
                 else if (res.data == 'register_fail') {
                     Alert.alert('서버에서 오류가 발생하였습니다.', '잠시후 다시 시도해주세요.')
@@ -106,7 +123,7 @@ const Register = () => {
                         {/* 아이디 */}
                         <Text style={{ fontSize: 18, marginTop: 10, color: 'black' }}>아이디</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                            <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'아이디를 입력해주세요.'}></TextInput>
+                            <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'아이디를 입력해주세요.'}></TextInput>
                         </View>
 
                         {/* 아이디끝 */}
@@ -114,7 +131,7 @@ const Register = () => {
                         {/* 비밀번호 */}
                         <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
+                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
                         </View>
 
                         {/* 비밀번호끝 */}
@@ -122,7 +139,7 @@ const Register = () => {
                         {/* 비밀번호 */}
                         <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호 확인</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 0 }}>
-                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwdc} value={pwdc} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
+                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwdc} value={pwdc} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
                         </View>
 
                         {/* 비밀번호끝 */}
@@ -130,7 +147,7 @@ const Register = () => {
                         {/* 비밀번호 */}
                         <Text style={{ fontSize: 18, marginTop: 20 }}>이메일</Text>
                         <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 40 }}>
-                            <TextInput onChangeText={setemail} value={email} style={{ height: 40, width: chwidth - 100, marginLeft: 10 }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
+                            <TextInput onChangeText={setemail} value={email} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
                         </View>
 
                         {/* 비밀번호끝 */}

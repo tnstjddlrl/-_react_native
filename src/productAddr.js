@@ -17,7 +17,7 @@ import {
 
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useRecoilState } from 'recoil';
-import { imagebase64, pcategory, pexp, pexpDate, placation, pname, plist } from '../atoms/atom';
+import { imagebase64, pcategory, pexp, pexpDate, placation, pname, plist, pid } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -32,6 +32,8 @@ const ProductAddr = () => {
 
     const [u1, setu1] = useState('a');
 
+
+    const [atid, setAtid] = useRecoilState(pid); //사용자 아이디
     const [atname, setAtname] = useRecoilState(pname)   //제품이름
     const [atcategory, setAtcategory] = useRecoilState(pcategory) //제품카테고리
     const [atexp, setAtexp] = useRecoilState(pexp)  //제품 유통기한
@@ -60,7 +62,7 @@ const ProductAddr = () => {
                 try {
                     axios.post('http://ip1004.hostingbox.co.kr/post.php', {
                         type: 'new_product',
-                        id: 'test1',
+                        id: atid,
                         name: atname,
                         category: atcategory,
                         expiration: atexp,

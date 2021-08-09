@@ -28,6 +28,8 @@ import {
 } from "native-base"
 import AutoHeightImage from 'react-native-auto-height-image';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
 import { pid } from '../atoms/atom';

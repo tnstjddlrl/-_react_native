@@ -26,8 +26,12 @@ import {
     CheckIcon,
     ChevronLeftIcon
 } from "native-base"
+
 import AutoHeightImage from 'react-native-auto-height-image';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
 import { pid } from '../atoms/atom';
@@ -63,6 +67,7 @@ const Login = () => {
                 Alert.alert('아이디 혹은 비밀번호 오류입니다!')
             } else if (res.data == 'login_suc') {
                 setAtid(id)
+                storeData(id)
                 setTimeout(() => {
                     navigation.navigate('실제 메인')
                 }, 300);
@@ -70,6 +75,44 @@ const Login = () => {
 
         })
     }
+
+    const storeData = async (value) => {
+        try {
+            await AsyncStorage.setItem('@user_id', value)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const getData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@user_id')
+            if (value !== null) {
+                return value
+            } else {
+                return 'first'
+            }
+        } catch (e) {
+            // error reading value
+        }
+    }
+
+    useEffect(() => {
+        getData().then((res) => {
+            if (res == 'first') {
+                console.log(res)
+                console.log('첫사용자')
+            } else {
+                console.log(res)
+                console.log('기존 사용자')
+                setAtid(res)
+
+                setTimeout(() => {
+                    navigation.navigate('실제 메인')
+                }, 100);
+            }
+        })
+    }, [])
 
     return (
         <NativeBaseProvider>

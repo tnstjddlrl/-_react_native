@@ -119,7 +119,9 @@ const Realmain = () => {
             if (Platform.OS === "android") {
                 return await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,);
             }
-        } catch (e) { console.log(e); }
+        } catch (e) {
+            console.log(e);
+        }
     }
 
 
@@ -301,9 +303,11 @@ const Realmain = () => {
             if (res.data == 'del_suc') {
                 Alert.alert('삭제완료!')
                 setModalView(false)
+                getproduct()
             } else {
                 Alert.alert('서버오류', '잠시후 다시 시도해주세요.')
                 setModalView(false)
+                getproduct()
             }
 
         })
@@ -322,6 +326,7 @@ const Realmain = () => {
     };
 
     //모달용 usestate
+    const [modalno, setModalno] = useState('')
     const [modalname, setModalname] = useState('')
     const [modalcategory, setModalcategory] = useState('')
     const [modaldate, setModaldate] = useState('')
@@ -339,12 +344,15 @@ const Realmain = () => {
         var btDay = btMs / (1000 * 60 * 60 * 24);
 
         function clickpp() {
+            setModalno(prop.no)
             setModalname(prop.name)
             setModalcategory(prop.category)
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
 
             setModalView(true)
+            console.log(modalno)
+
         }
 
         return (
@@ -365,7 +373,7 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
-                list.push(<TextItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
+                list.push(<TextItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
             }
         }
 
@@ -377,7 +385,7 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'd') {
-                list.push(<TextItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
+                list.push(<TextItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></TextItem>)
             }
         }
 
@@ -393,12 +401,15 @@ const Realmain = () => {
         var btDay = btMs / (1000 * 60 * 60 * 24);
 
         function clickpp() {
+            setModalno(prop.no)
             setModalname(prop.name)
             setModalcategory(prop.category)
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
 
             setModalView(true)
+
+            console.log(modalno)
         }
         return (
             <TouchableWithoutFeedback onPress={() => { clickpp() }}>
@@ -421,7 +432,7 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
-                list.push(<ImageItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
+                list.push(<ImageItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
             }
         }
 
@@ -433,7 +444,7 @@ const Realmain = () => {
         var list = [];
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'd') {
-                list.push(<ImageItem key={i} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
+                list.push(<ImageItem key={i} no={atlist[i].no} name={atlist[i].name} expiration={atlist[i].expiration} category={atlist[i].category} img={atlist[i].img}></ImageItem>)
             }
         }
 
@@ -684,7 +695,7 @@ const Realmain = () => {
                                         </View>
                                     </TouchableWithoutFeedback>
 
-                                    <TouchableWithoutFeedback onPress={() => { }}>
+                                    <TouchableWithoutFeedback onPress={() => { delprod(modalno) }}>
                                         <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
                                                 <AutoHeightImage source={icon3} width={18}></AutoHeightImage>

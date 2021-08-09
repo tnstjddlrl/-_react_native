@@ -1,10 +1,11 @@
 import {
-    RecoilRoot,
     atom,
-    selector,
-    useRecoilState,
-    useRecoilValue,
 } from 'recoil';
+
+export const darkmode = atom({
+    key: 'darkmode',
+    default: 'false',
+});
 
 export const imagebase64 = atom({
     key: 'imagebase64',

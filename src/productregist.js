@@ -145,9 +145,6 @@ const Productregist = () => {
     }, [date])
 
 
-    useEffect(() => {
-
-    }, [])
 
 
     function okclick() {
@@ -156,7 +153,7 @@ const Productregist = () => {
             return
         }
 
-        date.setMonth(date.getMonth() + leftmonth)
+        date.setMonth(date.getMonth() - leftmonth)
 
         setAtname(name)
         setAtcategory(big + '/' + small)

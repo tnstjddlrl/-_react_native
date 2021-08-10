@@ -53,11 +53,23 @@ const info2 = require('../img/light/info2.png');
 const info3 = require('../img/light/info3.png');
 
 const close = require('../img/light/close.png');
-const category = require('../img/light/category.png');
+
+
 const edit = require('../img/light/edit.png');
+
+const category = require('../img/light/category.png');
 const date_icon = require('../img/light/date_icon.png');
 const cart_icon = require('../img/light/cart_icon.png');
 const review_icon = require('../img/light/review_icon.png');
+
+const d_category = require('../img/dark/d_category.png');
+const d_date_icon = require('../img/dark/d_date_icon.png');
+const d_cart_icon = require('../img/dark/d_cart.png');
+const d_review_icon = require('../img/dark/d_review_icon.png');
+const d_del = require('../img/dark/d_del.png');
+
+
+
 
 const icon3 = require('../img/light/icon3.png');
 
@@ -754,7 +766,7 @@ const Realmain = () => {
                 </TouchableWithoutFeedback>
 
 
-                <View style={{ width: '100%', height: '100%', justifyContent: 'flex-end' }}>
+                <View style={{ width: '100%', height: '100%', justifyContent: 'flex-end', marginBottom: -1 }}>
                     <View style={{ width: chwidth, backgroundColor: 'white', borderTopRightRadius: 45, borderTopLeftRadius: 45 }}>
 
                         {/* 모달 헤더 시작 */}
@@ -768,18 +780,18 @@ const Realmain = () => {
                         </View>
                         {/* 모달 헤더 끝 */}
 
-                        <View style={{ alignItems: 'center', }}>
+                        <View style={{ alignItems: 'center', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(36,36,36)' }}>
 
                             <View style={{ width: chwidth - 50, marginTop: 15, marginBottom: 30 }}>
 
-                                <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{modalname}</Text>
+                                <Text style={{ fontWeight: 'bold', fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}>{modalname}</Text>
 
                                 <View style={{ width: chwidth - 50, borderWidth: 0.5, marginTop: 15, marginBottom: 15, borderColor: 'rgb(153,153,153)' }}></View>
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <AutoHeightImage source={category} width={18}></AutoHeightImage>
-                                        <Text style={{ fontSize: 15 }}>  분류 : {modalcategory}</Text>
+                                        <AutoHeightImage source={atdarkmode == 'light' ? category : d_category} width={18}></AutoHeightImage>
+                                        <Text style={{ fontSize: 15, color: atdarkmode === 'light' ? 'black' : 'white' }}>  분류 : {modalcategory}</Text>
                                     </View>
 
                                     <TouchableWithoutFeedback onPress={() => { reproduct_f() }}>
@@ -795,8 +807,8 @@ const Realmain = () => {
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <AutoHeightImage source={date_icon} width={18}></AutoHeightImage>
-                                        <Text style={{ fontSize: 15 }}>  유통기한 : {modaldate}/</Text>
+                                        <AutoHeightImage source={atdarkmode == 'light' ? date_icon : d_date_icon} width={18}></AutoHeightImage>
+                                        <Text style={{ fontSize: 15, color: atdarkmode === 'light' ? 'black' : 'white' }}>  유통기한 : {modaldate}/</Text>
                                         <Text style={{ color: 'red', fontSize: 15 }}>남은 일수 {modalexpLeft}일</Text>
                                     </View>
                                 </View>
@@ -804,28 +816,28 @@ const Realmain = () => {
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
 
                                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰') }}>
-                                        <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
-                                                <AutoHeightImage source={cart_icon} width={18}></AutoHeightImage>
-                                                <Text style={{ fontSize: 16, color: 'rgb(30,43,245)', fontWeight: 'bold', marginTop: -3 }}> 구매하기</Text>
+                                                <AutoHeightImage source={atdarkmode == 'light' ? cart_icon : d_cart_icon} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 구매하기</Text>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     <TouchableWithoutFeedback onPress={() => { }}>
-                                        <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
-                                                <AutoHeightImage source={review_icon} width={18}></AutoHeightImage>
-                                                <Text style={{ fontSize: 16, color: 'rgb(30,43,245)', fontWeight: 'bold', marginTop: -3 }}> 후기보기</Text>
+                                                <AutoHeightImage source={atdarkmode == 'light' ? review_icon : d_cart_icon} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 후기보기</Text>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     <TouchableWithoutFeedback onPress={() => { delprod(modalno) }}>
-                                        <View style={{ borderWidth: 1, borderColor: 'rgb(30,43,245)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
-                                                <AutoHeightImage source={icon3} width={18}></AutoHeightImage>
-                                                <Text style={{ fontSize: 16, color: 'rgb(30,43,245)', fontWeight: 'bold', marginTop: -3 }}> 삭제</Text>
+                                                <AutoHeightImage source={atdarkmode == 'light' ? icon3 : d_del} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 삭제</Text>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
@@ -843,7 +855,7 @@ const Realmain = () => {
             {/* 화장품 상세보기 모달 끝 */}
 
 
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 

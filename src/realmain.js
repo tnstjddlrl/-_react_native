@@ -22,7 +22,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { buypname, pid, plist } from '../atoms/atom';
+import { buypname, pid, plist, repcategory, repexp, repexpDate, repname, repNo } from '../atoms/atom';
 import { useRecoilState } from 'recoil';
 
 
@@ -325,6 +325,28 @@ const Realmain = () => {
             soundName: 'default',
         });
     };
+
+    const [reatnno, setreAtno] = useRecoilState(repNo)
+    const [reatname, setreAtname] = useRecoilState(repname)
+    const [reatcategory, setreAtcategory] = useRecoilState(repcategory)
+    const [reatexp, setreAtexp] = useRecoilState(repexp)
+    const [reatexpDate, setreAtexpDate] = useRecoilState(repexpDate)
+
+    function reproduct_f() {
+
+        setreAtno(modalno)
+        setreAtname(modalname)
+        setreAtcategory(modalcategory)
+        setreAtexp(modaldate)
+
+        setTimeout(() => {
+
+            navigation.navigate('제품수정')
+
+        }, 200);
+    }
+
+
 
     //모달용 usestate
     const [modalno, setModalno] = useState('')
@@ -697,12 +719,15 @@ const Realmain = () => {
                                         <Text style={{ fontSize: 15 }}>  분류 : {modalcategory}</Text>
                                     </View>
 
-                                    <View style={{ backgroundColor: 'rgb(236,236,236)', borderRadius: 3 }}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center', margin: 5, marginLeft: 10, marginright: 10 }}>
-                                            <AutoHeightImage source={edit} width={15}></AutoHeightImage>
-                                            <Text style={{ color: 'gray' }}>  수정 </Text>
+                                    <TouchableWithoutFeedback onPress={() => { reproduct_f() }}>
+                                        <View style={{ backgroundColor: 'rgb(236,236,236)', borderRadius: 3 }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'center', margin: 5, marginLeft: 10, marginright: 10 }}>
+                                                <AutoHeightImage source={edit} width={15}></AutoHeightImage>
+                                                <Text style={{ color: 'gray' }}>  수정 </Text>
+                                            </View>
                                         </View>
-                                    </View>
+                                    </TouchableWithoutFeedback>
+
                                 </View>
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>

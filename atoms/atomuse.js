@@ -13,7 +13,7 @@
 
 // const [atbuyname, setBuyatname] = useRecoilState(buypname) //웹뷰 제품 이름
 
-
+// const [reatnno, setreAtno] = useRecoilState(repNo) // 수정용 제품 넘버
 // const [reatname, setreAtname] = useRecoilState(repname) //수정용 이름
 // const [reatcategory, setreAtcategory] = useRecoilState(repcategory) //수정용 카테고리
 // const [reatexp, setreAtexp] = useRecoilState(repexp) //수정용 유통기한

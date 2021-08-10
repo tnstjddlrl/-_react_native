@@ -162,15 +162,16 @@ const ReproductRegist = () => {
             return
         }
 
-        date.setMonth(date.getMonth() - leftmonth)
-
         setreAtname(name)
         setreAtcategory(big + '/' + small)
         setreAtexp(dateText)
+
+        date.setMonth(date.getMonth() - leftmonth)
+
         setreAtexpDate(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
 
         setTimeout(() => {
-            navigation.navigate('사진촬영')
+            navigation.navigate('제품위치수정')
         }, 300);
     }
 
@@ -194,7 +195,7 @@ const ReproductRegist = () => {
                             </TouchableWithoutFeedback>
                             {/* < 끝 */}
 
-                            <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>
+                            <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>수정하기</Text>
 
 
                             <View style={{ width: 40, height: 40 }}>

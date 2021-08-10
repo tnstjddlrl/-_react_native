@@ -65,9 +65,10 @@ const review_icon = require('../img/light/review_icon.png');
 const d_category = require('../img/dark/d_category.png');
 const d_date_icon = require('../img/dark/d_date_icon.png');
 const d_cart_icon = require('../img/dark/d_cart.png');
-const d_review_icon = require('../img/dark/d_review_icon.png');
+const d_review_icon = require('../img/dark/d_review.png');
 const d_del = require('../img/dark/d_del.png');
 
+const d_menu2_2 = require('../img/dark/d_menu2_2.png');
 
 
 
@@ -735,8 +736,8 @@ const Realmain = () => {
 
                         <TouchableWithoutFeedback onPress={() => { darkbtn() }}>
                             <View style={{ alignItems: 'center' }}>
-                                <AutoHeightImage source={dark} width={chwidth / 15}></AutoHeightImage>
-                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>다크 모드</Text>
+                                <AutoHeightImage source={atdarkmode === 'light' ? dark : d_menu2_2} width={chwidth / 15}></AutoHeightImage>
+                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>{atdarkmode === 'light' ? '다크 모드' : '일반 모드'}</Text>
                             </View>
                         </TouchableWithoutFeedback>
 
@@ -827,7 +828,7 @@ const Realmain = () => {
                                     <TouchableWithoutFeedback onPress={() => { }}>
                                         <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
-                                                <AutoHeightImage source={atdarkmode == 'light' ? review_icon : d_cart_icon} width={18}></AutoHeightImage>
+                                                <AutoHeightImage source={atdarkmode == 'light' ? review_icon : d_review_icon} width={18}></AutoHeightImage>
                                                 <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 후기보기</Text>
                                             </View>
                                         </View>

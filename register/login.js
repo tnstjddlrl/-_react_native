@@ -20,7 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
-import { pid } from '../atoms/atom';
+import { darkmode, pid } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -37,6 +37,17 @@ const Login = () => {
     const [pwd, setpwd] = useState('');
 
     const [atid, setAtid] = useRecoilState(pid);
+
+    const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode);
+
+    const storeDark = async (value) => {
+        try {
+            await AsyncStorage.setItem('@is_dark', value)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
 
     const request = async () => {
         console.log(id + pwd)
@@ -83,7 +94,27 @@ const Login = () => {
         }
     }
 
+
+
+
+    const getDark = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@is_dark')
+            if (value !== null) {
+                return value
+            } else {
+                return 'light'
+            }
+        } catch (e) {
+            // error reading value
+        }
+    }
+
     useEffect(() => {
+        getDark().then((res) => {
+            setAtdarkmode(res)
+        })
+
         getData().then((res) => {
             if (res == 'first') {
                 console.log(res)
@@ -93,9 +124,7 @@ const Login = () => {
                 console.log('기존 사용자')
                 setAtid(res)
 
-                setTimeout(() => {
-                    navigation.navigate('실제 메인')
-                }, 100);
+                navigation.navigate('실제 메인')
             }
         })
     }, [])

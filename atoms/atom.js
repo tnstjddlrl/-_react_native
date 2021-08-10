@@ -4,7 +4,7 @@ import {
 
 export const darkmode = atom({
     key: 'darkmode',
-    default: 'false',
+    default: 'light',
 });
 
 export const imagebase64 = atom({

@@ -3,13 +3,11 @@ import {
     Alert,
     View,
     BackHandler,
-    ActivityIndicator,
     SafeAreaView,
     ScrollView,
     Text,
     Dimensions,
     TouchableWithoutFeedback,
-    StyleSheet,
     Image,
     Modal,
     PermissionsAndroid
@@ -21,8 +19,11 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 import { useNavigation } from '@react-navigation/native';
-import { buypname, pid, plist, repcategory, repexp, repexpDate, repname, repNo } from '../atoms/atom';
+import { buypname, darkmode, pid, plist, repcategory, repexp, repexpDate, repname, repNo } from '../atoms/atom';
 import { useRecoilState } from 'recoil';
 
 
@@ -88,6 +89,31 @@ const Realmain = () => {
     const [atid, setAtid] = useRecoilState(pid); //사용자 아이디
 
     const [atlist, setatlist] = useRecoilState(plist)
+
+    const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode);
+
+    const storeDark = async (value) => {
+        try {
+            await AsyncStorage.setItem('@is_dark', value)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    function darkbtn() {
+        if (atdarkmode == 'light') {
+            setAtdarkmode('dark')
+            storeDark('dark')
+
+            console.log('다크')
+
+        } else {
+            setAtdarkmode('light')
+            storeDark('light')
+
+            console.log('라이트')
+        }
+    }
 
 
 
@@ -384,12 +410,12 @@ const Realmain = () => {
             <TouchableWithoutFeedback onPress={() => { console.log('클릭'), clickpp() }}>
                 <View style={{ alignItems: 'center', }}>
                     <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                        <Text style={{ width: chwidth - 190 }} numberOfLines={1}>{prop.name}</Text>
+                        <Text style={{ width: chwidth - 190, color: atdarkmode === 'light' ? 'black' : 'white' }} numberOfLines={1}>{prop.name}</Text>
                         <Text style={{ color: 'rgb(13,120,159)' }}>{btDay}일 남음</Text>
                     </View>
-                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: 'rgb(233,233,233)' }}></View>
+                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(233,233,233)' : 'rgb(47,47,47)' }}></View>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback >
         )
     }
 
@@ -425,6 +451,9 @@ const Realmain = () => {
                     no={atlist[i].no}
                     name={atlist[i].name}
                     expiration={atlist[i].expiration}
+                    alert_config={atlist[i].alert_config}
+                    alert_date={atlist[i].alert_date}
+
                     category={atlist[i].category}
                     img={atlist[i].img}>
                 </TextItem>)
@@ -481,6 +510,9 @@ const Realmain = () => {
                     no={atlist[i].no}
                     name={atlist[i].name}
                     expiration={atlist[i].expiration}
+                    alert_config={atlist[i].alert_config}
+                    alert_date={atlist[i].alert_date}
+
                     category={atlist[i].category}
                     img={atlist[i].img}>
 
@@ -501,6 +533,9 @@ const Realmain = () => {
                     no={atlist[i].no}
                     name={atlist[i].name}
                     expiration={atlist[i].expiration}
+                    alert_config={atlist[i].alert_config}
+                    alert_date={atlist[i].alert_date}
+
                     category={atlist[i].category}
                     img={atlist[i].img}>
 
@@ -512,10 +547,10 @@ const Realmain = () => {
     }
 
     return (
-        <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
+        <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
 
             {/* 헤더 시작 */}
-            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 15, backgroundColor: 'white' }}>
+            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 15, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(34,34,34)' }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <AutoHeightImage source={logo} width={140}></AutoHeightImage>
                     <AutoHeightImage source={tuto} width={35}></AutoHeightImage>
@@ -524,21 +559,21 @@ const Realmain = () => {
             {/* 헤더 끝 */}
 
             {/* 본문 시작 */}
-            <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(49,49,49)' }}>
 
                 {version ?
                     <View style={{ flex: 1 }}>
 
-                        <View style={{ width: chwidth, height: '49%', backgroundColor: 'white' }}>
+                        <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
                             <ScrollView style={{}} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImageuPush></ImageuPush>
                             </ScrollView>
                         </View>
 
-                        <View style={{ width: chwidth, height: '2%', backgroundColor: 'rgb(242,242,242)' }}></View>
+                        <View style={{ width: chwidth, height: '2%', backgroundColor: atdarkmode === 'light' ? 'rgb(236,236,236)' : 'rgb(34,34,34)' }}></View>
 
 
-                        <View style={{ width: chwidth, height: '49%', backgroundColor: 'white' }}>
+                        <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
                             <ScrollView style={{}} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImagedPush></ImagedPush>
                             </ScrollView>
@@ -547,13 +582,13 @@ const Realmain = () => {
                     </View>
 
                     :
-                    <View style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-around' }}>
+                    <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around' }}>
                         <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
-                            <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
-                                <Text style={{ color: '#ffffff', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>위 칸 화장품 목록</Text>
+                            <View style={{ backgroundColor: atdarkmode === 'light' ? 'black' : 'rgb(81,81,81)', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
+                                <Text style={{ color: '#ffffff', margin: 10, marginLeft: 20, fontSize: 17, fontWeight: 'bold' }}>위 칸 화장품 목록</Text>
                             </View>
 
-                            <ScrollView style={{ backgroundColor: 'rgb(245,245,245)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
+                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(39,39,39)', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }} showsVerticalScrollIndicator={false}>
 
                                 <TextuPush></TextuPush>
 
@@ -564,11 +599,11 @@ const Realmain = () => {
 
 
                         <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
-                            <View style={{ backgroundColor: 'black', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
-                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 18, fontWeight: 'bold' }}>아래 칸 화장품 목록</Text>
+                            <View style={{ backgroundColor: atdarkmode === 'light' ? 'black' : 'rgb(81,81,81)', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
+                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 17, fontWeight: 'bold' }}>아래 칸 화장품 목록</Text>
                             </View>
 
-                            <ScrollView style={{ backgroundColor: 'rgb(245,245,245)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
+                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(39,39,39)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
 
                                 <TextdPush></TextdPush>
 
@@ -587,43 +622,71 @@ const Realmain = () => {
 
             {/* 날씨 정보 시작 */}
             <View style={{ flexDirection: 'row', marginBottom: -40 }}>
-                <View style={{ width: chwidth / 4, height: 150 }}>
-                    <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
-                        <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                            <Text>자외선</Text>
-                            <AutoHeightImage source={info1} width={chwidth / 9}></AutoHeightImage>
-                            <Text style={{ fontSize: 12, color: '#666666' }}>{Math.round(dayUv)} {uvString}</Text>
+
+                {
+                    atdarkmode === 'light' ?
+                        <View style={{ width: chwidth / 4, height: 150 }}>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
+                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>자외선</Text>
+                                    <AutoHeightImage source={info1} width={chwidth / 9}></AutoHeightImage>
+                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{Math.round(dayUv)} {uvString}</Text>
+                                </View>
+                            </LinearGradient>
                         </View>
-                    </LinearGradient>
-                </View>
+                        :
+                        <View style={{ width: chwidth / 4, height: 150 }}>
+                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'rgb(39,39,40)' }}>
+                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>자외선</Text>
+                                    <AutoHeightImage source={info1} width={chwidth / 9}></AutoHeightImage>
+                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{Math.round(dayUv)} {uvString}</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                }
 
                 <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
                     <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                        <Text>습도</Text>
+                        <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>습도</Text>
                         <AutoHeightImage source={info2} width={chwidth / 11}></AutoHeightImage>
-                        <Text style={{ fontSize: 12, color: '#666666' }}>{curHumi}%</Text>
+                        <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{curHumi}%</Text>
                     </View>
                 </View>
 
-                <View style={{ width: chwidth / 4, height: 150 }}>
-                    <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
-                        <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                            <Text>미세먼지</Text>
-                            <AutoHeightImage source={info3} width={chwidth / 10}></AutoHeightImage>
-                            <Text style={{ fontSize: 12, color: '#666666', letterSpacing: -0.8 }}>{Math.round(pm10)}㎍/m³ {totalAir}</Text>
+                {
+                    atdarkmode === 'light' ?
+                        <View style={{ width: chwidth / 4, height: 150 }}>
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
+                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>미세먼지</Text>
+                                    <AutoHeightImage source={info3} width={chwidth / 10}></AutoHeightImage>
+                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -0.8 }}>{Math.round(pm10)}㎍/m³ {totalAir}</Text>
+                                </View>
+                            </LinearGradient>
                         </View>
-                    </LinearGradient>
-                </View>
+                        :
+                        <View style={{ width: chwidth / 4, height: 150 }}>
+                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'rgb(39,39,40)' }}>
+                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
+                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>미세먼지</Text>
+                                    <AutoHeightImage source={info3} width={chwidth / 10}></AutoHeightImage>
+                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -0.8 }}>{Math.round(pm10)}㎍/m³ {totalAir}</Text>
+                                </View>
+                            </View>
+                        </View>
+                }
 
                 <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
                     <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                        <Text>오늘의 날씨</Text>
+                        <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>오늘의 날씨</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ color: 'skyblue', fontSize: 13 }}>{Math.round(dayMinTemp)}°</Text>
-                            <Text>/</Text>
+                            <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>/</Text>
                             <Text style={{ color: 'red', fontSize: 13 }}>{Math.round(dayMaxTemp)}°</Text>
                         </View>
-                        <Text style={{ fontSize: 12, color: '#666666' }}>{description}</Text>
+                        <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{description}</Text>
 
                     </View>
                 </View>
@@ -634,7 +697,7 @@ const Realmain = () => {
 
 
             {/* 푸터 시작 */}
-            <View style={{ width: '100%', height: 100, borderTopLeftRadius: 40, borderTopRightRadius: 40, backgroundColor: 'rgb(9,24,255)' }}>
+            <View style={{ width: '100%', height: 100, borderTopLeftRadius: 40, borderTopRightRadius: 40, backgroundColor: atdarkmode === 'light' ? 'rgb(9,24,255)' : 'rgb(28,37,178)' }}>
                 <View style={{ width: chwidth - 20, height: '100%', marginLeft: 10, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
 
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '75%' }}>
@@ -658,7 +721,7 @@ const Realmain = () => {
                             }
                         </TouchableWithoutFeedback>
 
-                        <TouchableWithoutFeedback onPress={() => { }}>
+                        <TouchableWithoutFeedback onPress={() => { darkbtn() }}>
                             <View style={{ alignItems: 'center' }}>
                                 <AutoHeightImage source={dark} width={chwidth / 15}></AutoHeightImage>
                                 <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>다크 모드</Text>

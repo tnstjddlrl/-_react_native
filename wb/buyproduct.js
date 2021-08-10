@@ -1,17 +1,9 @@
-import React, { Component, useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect } from 'react';
 import {
     SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
     Text,
-    useColorScheme,
-    View,
     Dimensions,
     BackHandler,
-    Alert, TouchableWithoutFeedback
-
 } from 'react-native';
 
 if (Text.defaultProps == null) Text.defaultProps = {};
@@ -27,11 +19,6 @@ import { buypname, } from '../atoms/atom';
 
 var rnw
 var cbc = false;
-
-const chwidth = Dimensions.get('window').width
-
-const newlogo2 = require('../img/newlogo2.jpg')
-
 
 const Buyproduct = () => {
     const navigation = useNavigation()
@@ -57,7 +44,7 @@ const Buyproduct = () => {
     }, []);
 
     return (
-        <View style={{ width: '100%', height: '100%' }}>
+        <SafeAreaView style={{ width: '100%', height: '100%' }}>
 
             <WebView
                 ref={wb => { rnw = wb }}
@@ -66,8 +53,7 @@ const Buyproduct = () => {
                 onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
             />
 
-
-        </View>
+        </SafeAreaView>
     )
 }
 

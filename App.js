@@ -35,6 +35,7 @@ import Realmain from './src/realmain';
 import Login from './register/login';
 import Register from './register/register';
 import Buyproduct from './wb/buyproduct';
+import ReproductRegist from './resu/reproductRegist';
 
 const Stack = createStackNavigator();
 
@@ -57,6 +58,7 @@ export default APP = () => {
 
           <Stack.Screen name="웹뷰" component={Buyproduct} />
 
+          <Stack.Screen name="제품수정" component={ReproductRegist} />
 
 
 

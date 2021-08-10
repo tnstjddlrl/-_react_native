@@ -14,6 +14,20 @@
 // const [atbuyname, setBuyatname] = useRecoilState(buypname) //웹뷰 제품 이름
 
 
+// const [reatname, setreAtname] = useRecoilState(repname) //수정용 이름
+// const [reatcategory, setreAtcategory] = useRecoilState(repcategory) //수정용 카테고리
+// const [reatexp, setreAtexp] = useRecoilState(repexp) //수정용 유통기한
+// const [reatexpDate, setreAtexpDate] = useRecoilState(repexpDate) //수정용 유통기한 알림 설정일
+
+
+
+
+
+
+
+
+
+
 // async
 
 // const storeData = async (value) => {

@@ -33,7 +33,7 @@ import DatePicker from 'react-native-date-picker'
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
-import { pcategory, pexp, pexpDate, pname } from '../atoms/atom';
+import { darkmode, pcategory, pexp, pexpDate, pname } from '../atoms/atom';
 
 const back = require('../img/light/back.png')
 const dateicon = require('../img/light/date.png')
@@ -56,6 +56,9 @@ const Productregist = () => {
     const [atcategory, setAtcategory] = useRecoilState(pcategory)
     const [atexp, setAtexp] = useRecoilState(pexp)
     const [atexpDate, setAtexpDate] = useRecoilState(pexpDate)
+
+    const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
+
 
     const [name, setName] = useState('')
     const [big, setBig] = useState('')

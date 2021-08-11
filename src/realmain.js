@@ -578,7 +578,7 @@ const Realmain = () => {
                     <View style={{ flex: 1 }}>
 
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-                            <ScrollView style={{}} horizontal showsHorizontalScrollIndicator={false}>
+                            <ScrollView style={{}} horizontal showsHorizontalScrollIndicator={false} pagingEnabled={true}>
                                 <ImageuPush></ImageuPush>
                             </ScrollView>
                         </View>
@@ -595,6 +595,7 @@ const Realmain = () => {
                     </View>
 
                     :
+
                     <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around' }}>
                         <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
                             <View style={{ backgroundColor: atdarkmode === 'light' ? 'black' : 'rgb(81,81,81)', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
@@ -721,23 +722,26 @@ const Realmain = () => {
                                 setversion(true);
                         }}>
                             {version ?
+
                                 <View style={{ alignItems: 'center' }}>
                                     <AutoHeightImage source={text1} width={chwidth / 15}></AutoHeightImage>
                                     <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>텍스트 버전</Text>
                                 </View>
 
                                 :
+
                                 <View style={{ alignItems: 'center' }}>
                                     <AutoHeightImage source={img1} width={chwidth / 15}></AutoHeightImage>
                                     <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>이미지 버전</Text>
                                 </View>
+
                             }
                         </TouchableWithoutFeedback>
 
                         <TouchableWithoutFeedback onPress={() => { darkbtn() }}>
                             <View style={{ alignItems: 'center' }}>
                                 <AutoHeightImage source={atdarkmode === 'light' ? dark : d_menu2_2} width={chwidth / 15}></AutoHeightImage>
-                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>{atdarkmode === 'light' ? '다크 모드' : '일반 모드'}</Text>
+                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>{atdarkmode === 'light' ? '다크 모드' : '라이트 모드'}</Text>
                             </View>
                         </TouchableWithoutFeedback>
 

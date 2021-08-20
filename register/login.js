@@ -14,6 +14,9 @@ import {
     TextInput,
 } from 'react-native';
 
+if (Text.defaultProps == null) Text.defaultProps = {};
+Text.defaultProps.allowFontScaling = false;
+
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -78,6 +81,11 @@ const Login = () => {
             await AsyncStorage.setItem('@user_id', value)
         } catch (e) {
             console.log(e)
+            Alert.alert('오류가 발생하였습니다.', '앱을 다시 시작해주세요.')
+
+            setTimeout(() => {
+                BackHandler.exitApp()
+            }, 1500);
         }
     }
 
@@ -90,12 +98,13 @@ const Login = () => {
                 return 'first'
             }
         } catch (e) {
-            // error reading value
+            Alert.alert('오류가 발생하였습니다.', '앱을 다시 시작해주세요.')
+
+            setTimeout(() => {
+                BackHandler.exitApp()
+            }, 1500);
         }
     }
-
-
-
 
     const getDark = async () => {
         try {
@@ -134,6 +143,7 @@ const Login = () => {
 
             {/* 헤더 시작 */}
             <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
+
                 <View style={{ width: chwidth, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>로그인</Text>
                 </View>

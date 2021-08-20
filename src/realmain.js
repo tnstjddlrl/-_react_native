@@ -13,6 +13,9 @@ import {
     PermissionsAndroid
 } from 'react-native';
 
+if (Text.defaultProps == null) Text.defaultProps = {};
+Text.defaultProps.allowFontScaling = false;
+
 import AutoHeightImage from 'react-native-auto-height-image';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -39,7 +42,6 @@ var endDate = new Date(year, month, day);
 
 
 
-const logo = require('../img/light/logo.png');
 const tuto = require('../img/light/tuto.png');
 const text1 = require('../img/light/menu1_2.png')
 const img1 = require('../img/light/menu1.png')
@@ -70,9 +72,21 @@ const d_del = require('../img/dark/d_del.png');
 
 const d_menu2_2 = require('../img/dark/d_menu2_2.png');
 
-
-
 const icon3 = require('../img/light/icon3.png');
+
+////////////////////////////////////////////////////////
+//새로운 아이콘들/ 위의 아이콘들은 순차적으로 폐기 예정
+//////////////////////////////////////////////////////////
+
+//헤더용 아이콘들
+const logo = require('../newimg/all/logo.png');
+
+const textmode = require('../newimg/light/textmode.png')
+const darkmodeimg = require('../newimg/light/darkmode.png')
+const settings = require('../newimg/light/setting.png')
+//////////////////////
+
+
 
 
 const Realmain = () => {
@@ -566,7 +580,25 @@ const Realmain = () => {
             <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, elevation: 15, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(34,34,34)' }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                     <AutoHeightImage source={logo} width={140}></AutoHeightImage>
-                    <AutoHeightImage source={tuto} width={35}></AutoHeightImage>
+
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', borderRadius: 20, marginRight: 5 }}>
+                            <AutoHeightImage source={textmode} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                        </View>
+
+                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', borderRadius: 20, marginRight: 5 }}>
+                            <AutoHeightImage source={darkmodeimg} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                        </View>
+
+                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', borderRadius: 20 }}>
+                            <AutoHeightImage source={settings} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                        </View>
+
+                    </View>
+
+
+                    {/* <AutoHeightImage source={tuto} width={35}></AutoHeightImage> */}
                 </View>
             </View>
             {/* 헤더 끝 */}
@@ -606,7 +638,6 @@ const Realmain = () => {
 
                                 <TextuPush></TextuPush>
 
-
                             </ScrollView>
 
                         </View>
@@ -620,7 +651,6 @@ const Realmain = () => {
                             <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(39,39,39)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
 
                                 <TextdPush></TextdPush>
-
 
                             </ScrollView>
 

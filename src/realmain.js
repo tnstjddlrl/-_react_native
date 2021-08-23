@@ -532,11 +532,11 @@ const Realmain = () => {
         }
         return (
             <TouchableWithoutFeedback onPress={() => { clickpp() }}>
-                <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', marginLeft: 20 }}>
-                    <View style={{ width: chwidth / 3.3, height: '50%', borderRadius: 200, backgroundColor: 'rgb(204,204,204)', elevation: 20, }}>
-                        <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: chwidth / 3.3, borderRadius: 10, }} ></Image>
+                <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', marginLeft: 20, }}>
+                    <View style={{ width: chwidth / 3.3, height: '60%', borderRadius: 10, backgroundColor: 'rgb(204,204,204)', elevation: 20, }}>
+                        <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: '100%', maxHeight: '100%', borderRadius: 10, }} ></Image>
                     </View>
-                    <View style={{ width: chwidth / 3.3, height: '43%', justifyContent: 'flex-end', alignItems: 'center' }}>
+                    <View style={{ width: chwidth / 3.3, height: '30%', alignItems: 'center', marginTop: 10 }}>
                         <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? '#333333' : '#cccccc' }} numberOfLines={1}>{prop.name}</Text>
                         <Text style={{ fontSize: 12, color: '#8c8c8c' }} numberOfLines={1}>{prop.category}</Text>
                         <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white' }} numberOfLines={1}>{btDay}일 남음</Text>
@@ -739,12 +739,14 @@ const Realmain = () => {
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
 
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+
                                 <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
 
                                 <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
+
                             </View>
 
-                            <ScrollView style={{ marginTop: 5 }} horizontal showsHorizontalScrollIndicator={false}>
+                            <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImageuPush></ImageuPush>
                             </ScrollView>
 
@@ -759,7 +761,7 @@ const Realmain = () => {
                                 <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
                             </View>
 
-                            <ScrollView style={{ marginTop: 5 }} horizontal showsHorizontalScrollIndicator={false}>
+                            <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImagedPush></ImagedPush>
                             </ScrollView>
 
@@ -820,8 +822,8 @@ const Realmain = () => {
             {/* 하단 등록 버튼 시작 */}
 
             <View style={{ width: chwidth, alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
-                <TouchableWithoutFeedback onPress={() => { }}>
-                    <View style={{ width: chwidth - 40, height: 55, marginLeft: 10, borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('바코드체크') }}>
+                    <View style={{ width: chwidth - 40, height: 55, marginLeft: 0, borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ color: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', fontSize: 20, fontWeight: 'bold' }}>등록하기</Text>
                     </View>
                 </TouchableWithoutFeedback>

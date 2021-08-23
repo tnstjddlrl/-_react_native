@@ -136,13 +136,13 @@ export default BarcodeCheck = () => {
             <Text>{product}</Text> */}
 
             {/* 푸터 시작  */}
-            <View style={{ width: '100%', borderTopLeftRadius: 40, borderTopRightRadius: 50, backgroundColor: 'white' }}>
+            <View style={{ width: '100%', backgroundColor: 'white' }}>
                 <View style={{ width: chwidth - 20, height: '100%', marginLeft: 10, alignItems: 'center', marginTop: 20 }}>
                     <Text style={{ width: chwidth - 100, textAlign: 'center', fontSize: 15, }}>인식이 안되거나 바코드가 없는 경우 아래에 {'\n'} 직접등록 버튼을 이용해주세요</Text>
 
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('제품등록') }}>
-                        <View style={{ width: chwidth - 40, marginLeft: 10, marginTop: 20, marginBottom: 20, borderRadius: 50, backgroundColor: 'rgb(9,24,255)', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ color: 'white', fontSize: 22, fontWeight: 'bold', margin: 15 }}>직접등록</Text>
+                        <View style={{ width: chwidth - 40, marginLeft: 10, marginTop: 20, marginBottom: 20, borderRadius: 50, borderWidth: 1.5, borderColor: 'black', backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ color: 'black', fontSize: 22, fontWeight: 'bold', margin: 15 }}>직접등록</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -163,7 +163,7 @@ export default BarcodeCheck = () => {
                     </TouchableWithoutFeedback>
                     {/* < 끝 */}
 
-                    <Text style={{ fontSize: 20, color: 'black', fontWeight: 'bold' }}>바코드를 찍어주세요</Text>
+                    <Text style={{ fontSize: 20, color: 'black', letterSpacing: -0.9 }}>화장품의 바코드를 찍어주세요</Text>
 
 
                     <View style={{ width: 40, height: 40 }}>

@@ -530,6 +530,7 @@ const Realmain = () => {
 
             console.log(modalno)
         }
+
         return (
             <TouchableWithoutFeedback onPress={() => { clickpp() }}>
                 <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', marginLeft: 20, }}>

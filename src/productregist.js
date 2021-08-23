@@ -172,7 +172,7 @@ const Productregist = () => {
     return (
         <NativeBaseProvider>
             <BottomSheetModalProvider>
-                <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>
+                <SafeAreaView style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'black' }}>
 
 
                     {/* 헤더 시작 */}
@@ -188,7 +188,7 @@ const Productregist = () => {
                             </TouchableWithoutFeedback>
                             {/* < 끝 */}
 
-                            <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>
+                            <Text style={{ fontSize: 23, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>등록하기</Text>
 
 
                             <View style={{ width: 40, height: 40 }}>
@@ -205,17 +205,17 @@ const Productregist = () => {
                         {/* 본문 시작 */}
                         <ScrollView>
 
-                            <View style={{ width: chwidth - 40, borderRadius: 20, marginLeft: 20, backgroundColor: 'white', elevation: 10, marginTop: 20, marginBottom: 100 }}>
+                            <View style={{ width: chwidth - 40, borderRadius: 20, marginLeft: 20, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(48,48,48)', elevation: 10, marginTop: 20, marginBottom: 100 }}>
                                 <View style={{ width: chwidth - 80, marginLeft: 20, marginTop: 30, marginBottom: 30 }}>
 
                                     {/*  */}
-                                    <Text style={{ fontSize: 18 }}>제품명</Text>
-                                    <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
+                                    <Text style={{ fontSize: 18, color: atdarkmode === 'light' ? 'black' : 'white' }}>제품명</Text>
+                                    <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(48,48,48)', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', height: 40, marginTop: 10, borderRadius: 3 }}>
                                         <TextInput onChangeText={(txt) => setName(txt)} value={name} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'제품명을 입력해주세요.'}></TextInput>
                                     </View>
 
                                     {/*  */}
-                                    <Text style={{ fontSize: 18, marginTop: 25 }}>화장품 종류</Text>
+                                    <Text style={{ fontSize: 18, marginTop: 25, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품 종류</Text>
 
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
@@ -259,19 +259,19 @@ const Productregist = () => {
                                     </View>
 
                                     {/*  */}
-                                    <Text style={{ fontSize: 18, marginTop: 25 }}>유통기한 설정</Text>
+                                    <Text style={{ fontSize: 18, marginTop: 25, color: atdarkmode === 'light' ? 'black' : 'white' }}>유통기한 설정</Text>
 
                                     <TouchableWithoutFeedback onPress={() => { handlePresentModalPress() }}>
-                                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, alignItems: 'center', }}>
+                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(48,48,48)', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', height: 40, marginTop: 10, borderRadius: 3, alignItems: 'center', }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', width: chwidth - 100, height: 40, justifyContent: 'space-between', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                <Text style={{ fontSize: 15 }}> {dateText} </Text>
+                                                <Text style={{ fontSize: 15, color: atdarkmode === 'light' ? 'black' : 'white' }}> {dateText} </Text>
                                                 <AutoHeightImage source={dateicon} width={18}></AutoHeightImage>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     {/*  */}
-                                    <Text style={{ fontSize: 18, marginTop: 25, marginBottom: 20 }}>유통기한 알람</Text>
+                                    <Text style={{ fontSize: 18, marginTop: 25, marginBottom: 20, color: atdarkmode === 'light' ? 'black' : 'white' }}>유통기한 알람</Text>
 
                                     <Slider
                                         defaultValue={49}
@@ -283,15 +283,15 @@ const Productregist = () => {
                                         </Slider.Track>
                                         <Slider.Thumb bg='rgb(233,31,54)'>
                                             <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: -20 }}>
-                                                <Text style={{}}>{leftmonth} </Text>
+                                                <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>{leftmonth} </Text>
                                             </View>
                                         </Slider.Thumb>
                                     </Slider>
 
                                     <View style={{ flexDirection: 'row', width: chwidth - 75, justifyContent: 'space-between' }}>
-                                        <Text>0개월 전    </Text>
-                                        <Text>6개월 전 </Text>
-                                        <Text>12개월 전</Text>
+                                        <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>0개월 전    </Text>
+                                        <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>6개월 전 </Text>
+                                        <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>12개월 전</Text>
                                     </View>
 
                                 </View>
@@ -306,8 +306,8 @@ const Productregist = () => {
                     <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
                         {/* 파랑버튼 */}
                         <TouchableWithoutFeedback onPress={() => { okclick() }}>
-                            <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 20, }}>
-                                <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
+                            <View style={{ borderRadius: 10, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'black' : 'white', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 20, }}>
+                                <Text style={{ fontSize: 23, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>확인</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>

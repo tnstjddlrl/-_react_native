@@ -19,7 +19,7 @@ import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useRecoilState } from 'recoil';
-import { pname } from '../atoms/atom';
+import { darkmode, pname } from '../atoms/atom';
 import { useNavigation } from '@react-navigation/native';
 
 const chwidth = Dimensions.get('screen').width
@@ -49,6 +49,9 @@ export default BarcodeCheck = () => {
     const [product, setproduct] = useState('')
 
     const [atname, setAtname] = useRecoilState(pname)   //제품이름
+
+    const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
+
 
 
     function barcodeCheck(pp) {
@@ -136,13 +139,13 @@ export default BarcodeCheck = () => {
             <Text>{product}</Text> */}
 
             {/* 푸터 시작  */}
-            <View style={{ width: '100%', backgroundColor: 'white' }}>
+            <View style={{ width: '100%', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(48,48,48)' }}>
                 <View style={{ width: chwidth - 20, height: '100%', marginLeft: 10, alignItems: 'center', marginTop: 20 }}>
-                    <Text style={{ width: chwidth - 100, textAlign: 'center', fontSize: 15, }}>인식이 안되거나 바코드가 없는 경우 아래에 {'\n'} 직접등록 버튼을 이용해주세요</Text>
+                    <Text style={{ width: chwidth - 100, textAlign: 'center', fontSize: 15, color: atdarkmode === 'light' ? 'black' : 'white' }}>인식이 안되거나 바코드가 없는 경우 아래에 {'\n'} 직접등록 버튼을 이용해주세요</Text>
 
                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('제품등록') }}>
-                        <View style={{ width: chwidth - 40, marginLeft: 10, marginTop: 20, marginBottom: 20, borderRadius: 50, borderWidth: 1.5, borderColor: 'black', backgroundColor: 'white', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ color: 'black', fontSize: 22, fontWeight: 'bold', margin: 15 }}>직접등록</Text>
+                        <View style={{ width: chwidth - 40, marginLeft: 10, marginTop: 20, marginBottom: 20, borderRadius: 50, borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'black' : 'white', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(48,48,48)', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white', fontSize: 22, fontWeight: 'bold', margin: 15 }}>직접등록</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>

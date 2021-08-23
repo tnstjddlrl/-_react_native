@@ -18,8 +18,6 @@ Text.defaultProps.allowFontScaling = false;
 
 import AutoHeightImage from 'react-native-auto-height-image';
 
-import LinearGradient from 'react-native-linear-gradient';
-
 import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -82,13 +80,31 @@ const icon3 = require('../img/light/icon3.png');
 const logo = require('../newimg/all/logo.png');
 
 const textmode = require('../newimg/light/textmode.png')
+const imgmode = require('../newimg/light/imgmode.png')
+
 const darkmodeimg = require('../newimg/light/darkmode.png')
 const settings = require('../newimg/light/setting.png')
+
+const d_textmode = require('../newimg/dark/d_textmode.png')
+const d_imgmode = require('../newimg/dark/d_imgmode.png')
+
+const d_lightmodeimg = require('../newimg/dark/d_lightmode.png')
+const d_settings = require('../newimg/dark/d_setting.png')
 //////////////////////
 
 const lotion = require('../newimg/all/lotion.png')
 
+// 모달용 아이콘
+const light_close = require('../newimg/light/close.png')
 
+const dark_close = require('../newimg/dark/d_close.png')
+
+
+const light_review = require('../newimg/light/review.png')
+const light_cart = require('../newimg/light/cart.png')
+const light_delete = require('../newimg/light/delete.png')
+
+///////////////////////////////////////////////////////
 
 
 
@@ -279,7 +295,7 @@ const Realmain = () => {
 
                             switch (response.data.list[0].main.aqi) {
                                 case 1:
-                                    setTotalAir('매우 좋음')
+                                    setTotalAir('좋음')
                                     break;
                                 case 2:
                                     setTotalAir('좋음')
@@ -291,7 +307,7 @@ const Realmain = () => {
                                     setTotalAir('나쁨')
                                     break;
                                 case 5:
-                                    setTotalAir('매우 나쁨')
+                                    setTotalAir('나쁨')
                                     break;
                                 default:
                                     setTotalAir('서버 오류')
@@ -439,11 +455,11 @@ const Realmain = () => {
         return (
             <TouchableWithoutFeedback onPress={() => { console.log('클릭'), clickpp() }}>
                 <View style={{ alignItems: 'center', }}>
-                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 5, marginBottom: 5 }}>
-                        <Text style={{ width: chwidth - 190, color: atdarkmode === 'light' ? 'black' : 'white' }} numberOfLines={1}>{prop.name}</Text>
-                        <Text style={{ color: 'rgb(13,120,159)' }}>{btDay}일 남음</Text>
+                    <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 6, marginBottom: 6 }}>
+                        <Text style={{ width: chwidth - 190, color: atdarkmode === 'light' ? 'black' : 'white', fontSize: 13 }} numberOfLines={1}>{prop.name}</Text>
+                        <Text style={{ color: 'rgb(112,112,112)' }}>{btDay}일 남음</Text>
                     </View>
-                    <View style={{ width: chwidth - 60, borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(233,233,233)' : 'rgb(47,47,47)' }}></View>
+                    <View style={{ width: chwidth - 40, borderWidth: 0.9, borderColor: atdarkmode === 'light' ? 'rgb(233,233,233)' : 'black' }}></View>
                 </View>
             </TouchableWithoutFeedback >
         )
@@ -521,9 +537,9 @@ const Realmain = () => {
                         <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: chwidth / 3.3, borderRadius: 10, }} ></Image>
                     </View>
                     <View style={{ width: chwidth / 3.3, height: '43%', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 13, color: '#333333' }} numberOfLines={1}>{prop.name}</Text>
+                        <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? '#333333' : '#cccccc' }} numberOfLines={1}>{prop.name}</Text>
                         <Text style={{ fontSize: 12, color: '#8c8c8c' }} numberOfLines={1}>{prop.category}</Text>
-                        <Text style={{ fontSize: 13, color: 'black' }} numberOfLines={1}>{btDay}일 남음</Text>
+                        <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white' }} numberOfLines={1}>{btDay}일 남음</Text>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -586,25 +602,42 @@ const Realmain = () => {
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                        <TouchableWithoutFeedback onPress={() => {
-                            if (version)
-                                setversion(false);
-                            else
-                                setversion(true);
-                        }}>
-                            <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', borderRadius: 20, marginRight: 5 }}>
-                                <AutoHeightImage source={textmode} width={14} style={{ margin: 8 }}></AutoHeightImage>
-                            </View>
-                        </TouchableWithoutFeedback>
+                        {version ?
+                            <TouchableWithoutFeedback onPress={() => {
+                                if (version)
+                                    setversion(false);
+                                else
+                                    setversion(true);
+                            }}>
+                                <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
+                                    <AutoHeightImage source={atdarkmode === 'light' ? textmode : d_textmode} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                                </View>
+                            </TouchableWithoutFeedback>
+
+                            :
+
+                            <TouchableWithoutFeedback onPress={() => {
+                                if (version)
+                                    setversion(false);
+                                else
+                                    setversion(true);
+                            }}>
+                                <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
+                                    <AutoHeightImage source={atdarkmode === 'light' ? imgmode : d_imgmode} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        }
+
+
 
                         <TouchableWithoutFeedback onPress={() => { darkbtn() }}>
-                            <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', borderRadius: 20, marginRight: 5 }}>
-                                <AutoHeightImage source={darkmodeimg} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                            <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
+                                <AutoHeightImage source={atdarkmode === 'light' ? darkmodeimg : d_lightmodeimg} width={14} style={{ margin: 8 }}></AutoHeightImage>
                             </View>
                         </TouchableWithoutFeedback>
 
-                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', borderRadius: 20 }}>
-                            <AutoHeightImage source={settings} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
+                            <AutoHeightImage source={atdarkmode === 'light' ? settings : d_settings} width={14} style={{ margin: 8 }}></AutoHeightImage>
                         </View>
 
                     </View>
@@ -612,7 +645,7 @@ const Realmain = () => {
                 </View>
             </View>
             {/* 헤더 끝 */}
-            <View style={{ width: chwidth, borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'black' }}></View>
+            <View style={{ width: chwidth, borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'rgb(39,39,39)' }}></View>
 
             {/* 날씨 표현부 */}
 
@@ -620,8 +653,8 @@ const Realmain = () => {
 
                 <View style={{ width: chwidth - 40, marginLeft: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{}}>
-                        <View style={{ borderBottomWidth: 1 }}>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>오늘 날씨는?</Text>
+                        <View style={{ borderBottomWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>오늘 날씨는?</Text>
                         </View>
                     </View>
 
@@ -658,7 +691,6 @@ const Realmain = () => {
                         {
                             atdarkmode === 'light' ?
                                 <View style={{ flex: 1 }}>
-
                                     <View style={{ height: 80, justifyContent: 'space-around', alignItems: 'center', }}>
                                         <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>미세먼지</Text>
                                         <AutoHeightImage source={info3} width={chwidth / 11}></AutoHeightImage>
@@ -696,10 +728,10 @@ const Realmain = () => {
             {/* 날씨 표현부 끝 */}
 
 
-            <View style={{ width: chwidth, height: 6, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'black' }}></View>
+            <View style={{ width: chwidth, height: 6, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'rgb(39,39,39)' }}></View>
 
             {/* 본문 시작 */}
-            <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(49,49,49)' }}>
+            <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
 
                 {version ?
                     <View style={{ flex: 1 }}>
@@ -707,9 +739,9 @@ const Realmain = () => {
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
 
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
-                                <AutoHeightImage source={lotion} width={15}></AutoHeightImage>
+                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
 
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5 }}>2층 화장품 리스트</Text>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
                             </View>
 
                             <ScrollView style={{ marginTop: 5 }} horizontal showsHorizontalScrollIndicator={false}>
@@ -722,9 +754,9 @@ const Realmain = () => {
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
 
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
-                                <AutoHeightImage source={lotion} width={15}></AutoHeightImage>
+                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
 
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5 }}>1층 화장품 리스트</Text>
+                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
                             </View>
 
                             <ScrollView style={{ marginTop: 5 }} horizontal showsHorizontalScrollIndicator={false}>
@@ -737,13 +769,20 @@ const Realmain = () => {
 
                     :
 
-                    <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
-                            <View style={{ backgroundColor: atdarkmode === 'light' ? 'black' : 'rgb(81,81,81)', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
-                                <Text style={{ color: '#ffffff', margin: 10, marginLeft: 20, fontSize: 17, fontWeight: 'bold' }}>위 칸 화장품 목록</Text>
+                    <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around', marginTop: 10 }}>
+
+
+
+                        <View style={{ width: chwidth - 40, height: '45%', }}>
+
+                            <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
+                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+
+                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
                             </View>
 
-                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(39,39,39)', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }} showsVerticalScrollIndicator={false}>
+
+                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
 
                                 <TextuPush></TextuPush>
 
@@ -752,12 +791,16 @@ const Realmain = () => {
                         </View>
 
 
-                        <View style={{ width: chwidth - 60, height: '45%', borderRadius: 18, elevation: 6, margin: 10 }}>
-                            <View style={{ backgroundColor: atdarkmode === 'light' ? 'black' : 'rgb(81,81,81)', borderTopLeftRadius: 18, borderTopRightRadius: 18 }}>
-                                <Text style={{ color: 'white', margin: 10, marginLeft: 20, fontSize: 17, fontWeight: 'bold' }}>아래 칸 화장품 목록</Text>
+                        <View style={{ width: chwidth - 40, height: '45%', }}>
+
+                            <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
+                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+
+                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
                             </View>
 
-                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(39,39,39)', borderBottomLeftRadius: 18, borderBottomRightRadius: 18 }} showsVerticalScrollIndicator={false}>
+
+                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
 
                                 <TextdPush></TextdPush>
 
@@ -776,146 +819,16 @@ const Realmain = () => {
 
             {/* 하단 등록 버튼 시작 */}
 
-            <View style={{ width: chwidth, alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 10 }}>
+            <View style={{ width: chwidth, alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
                 <TouchableWithoutFeedback onPress={() => { }}>
-                    <View style={{ width: chwidth - 40, height: 55, marginLeft: 10, borderWidth: 1.5, borderColor: 'rgb(28,47,121)', borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ color: 'rgb(28,47,121)', fontSize: 20, fontWeight: 'bold' }}>등록하기</Text>
+                    <View style={{ width: chwidth - 40, height: 55, marginLeft: 10, borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ color: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', fontSize: 20, fontWeight: 'bold' }}>등록하기</Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
 
 
             {/* 하단 등록 버튼 끝 */}
-
-            {/* 날씨 정보 시작 */}
-            {/* <View style={{ flexDirection: 'row', marginBottom: -40 }}>
-
-                {
-                    atdarkmode === 'light' ?
-                        <View style={{ width: chwidth / 4, height: 150 }}>
-                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
-                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>자외선</Text>
-                                    <AutoHeightImage source={info1} width={chwidth / 9}></AutoHeightImage>
-                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{Math.round(dayUv)} {uvString}</Text>
-                                </View>
-                            </LinearGradient>
-                        </View>
-                        :
-                        <View style={{ width: chwidth / 4, height: 150 }}>
-                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'rgb(39,39,40)' }}>
-                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>자외선</Text>
-                                    <AutoHeightImage source={info1} width={chwidth / 9}></AutoHeightImage>
-                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{Math.round(dayUv)} {uvString}</Text>
-                                </View>
-                            </View>
-                        </View>
-
-                }
-
-                <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
-                    <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                        <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>습도</Text>
-                        <AutoHeightImage source={info2} width={chwidth / 11}></AutoHeightImage>
-                        <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{curHumi}%</Text>
-                    </View>
-                </View>
-
-                {
-                    atdarkmode === 'light' ?
-                        <View style={{ width: chwidth / 4, height: 150 }}>
-                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.7 }} colors={['rgba(192,192,192,0)', 'rgba(192,192,192,1)']} style={{ flex: 1, alignItems: 'center' }}>
-                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>미세먼지</Text>
-                                    <AutoHeightImage source={info3} width={chwidth / 10}></AutoHeightImage>
-                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -0.8 }}>{Math.round(pm10)}㎍/m³ {totalAir}</Text>
-                                </View>
-                            </LinearGradient>
-                        </View>
-                        :
-                        <View style={{ width: chwidth / 4, height: 150 }}>
-                            <View style={{ flex: 1, alignItems: 'center', backgroundColor: 'rgb(39,39,40)' }}>
-                                <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                                    <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>미세먼지</Text>
-                                    <AutoHeightImage source={info3} width={chwidth / 10}></AutoHeightImage>
-                                    <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -0.8 }}>{Math.round(pm10)}㎍/m³ {totalAir}</Text>
-                                </View>
-                            </View>
-                        </View>
-                }
-
-                <View style={{ width: chwidth / 4, height: 150, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
-                    <View style={{ height: 100, justifyContent: 'space-around', alignItems: 'center', marginTop: 5 }}>
-                        <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>오늘의 날씨</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: 'skyblue', fontSize: 13 }}>{Math.round(dayMinTemp)}°</Text>
-                            <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>/</Text>
-                            <Text style={{ color: 'red', fontSize: 13 }}>{Math.round(dayMaxTemp)}°</Text>
-                        </View>
-                        <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{description}</Text>
-
-                    </View>
-                </View>
-
-            </View> */}
-            {/* 날씨 정보 끝 */}
-
-
-
-            {/* 푸터 시작 */}
-            {/* <View style={{ width: '100%', height: 100, borderTopLeftRadius: 40, borderTopRightRadius: 40, backgroundColor: atdarkmode === 'light' ? 'rgb(9,24,255)' : 'rgb(28,37,178)' }}>
-                <View style={{ width: chwidth - 20, height: '100%', marginLeft: 10, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
-
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '75%' }}>
-                        <TouchableWithoutFeedback onPress={() => {
-                            if (version)
-                                setversion(false);
-                            else
-                                setversion(true);
-                        }}>
-                            {version ?
-
-                                <View style={{ alignItems: 'center' }}>
-                                    <AutoHeightImage source={text1} width={chwidth / 15}></AutoHeightImage>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>텍스트 버전</Text>
-                                </View>
-
-                                :
-
-                                <View style={{ alignItems: 'center' }}>
-                                    <AutoHeightImage source={img1} width={chwidth / 15}></AutoHeightImage>
-                                    <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>이미지 버전</Text>
-                                </View>
-
-                            }
-                        </TouchableWithoutFeedback>
-
-                        <TouchableWithoutFeedback onPress={() => { darkbtn() }}>
-                            <View style={{ alignItems: 'center' }}>
-                                <AutoHeightImage source={atdarkmode === 'light' ? dark : d_menu2_2} width={chwidth / 15}></AutoHeightImage>
-                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>{atdarkmode === 'light' ? '다크 모드' : '라이트 모드'}</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
-
-                        <TouchableWithoutFeedback onPress={() => { }}>
-                            <View style={{ alignItems: 'center' }}>
-                                <AutoHeightImage source={menu} width={chwidth / 15}></AutoHeightImage>
-                                <Text style={{ color: 'white', marginTop: 10, fontSize: 12 }}>환경설정</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
-                    </View>
-
-                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('바코드체크') }}>
-                        <View style={{ alignItems: 'center' }}>
-                            <AutoHeightImage source={plus} width={chwidth / 3.5}></AutoHeightImage>
-                        </View>
-                    </TouchableWithoutFeedback>
-
-                </View>
-
-            </View> */}
-            {/* 푸터 끝 */}
 
             {/* 화장품 상세보기 모달 시작 */}
             <Modal visible={modalView} animationType={'slide'} transparent={true}>
@@ -925,32 +838,27 @@ const Realmain = () => {
 
 
                 <View style={{ width: '100%', height: '100%', justifyContent: 'flex-end', marginBottom: -1 }}>
-                    <View style={{ width: chwidth, backgroundColor: 'white', borderTopRightRadius: 45, borderTopLeftRadius: 45 }}>
+                    <View style={{ width: chwidth, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(54,54,54)' }}>
 
                         {/* 모달 헤더 시작 */}
-                        <View style={{ backgroundColor: 'rgb(30,43,245)', borderTopRightRadius: 45, borderTopLeftRadius: 45 }}>
+                        <View style={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(54,54,54)' }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 18, marginTop: 25, marginLeft: 25, marginBottom: 18 }}>제품상세 보기</Text>
+                                <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold', fontSize: 18, marginTop: 25, marginLeft: 25, marginBottom: 18 }}>제품상세 보기</Text>
                                 <TouchableWithoutFeedback onPress={() => { setModalView(false) }}>
-                                    <AutoHeightImage source={close} width={30} style={{ marginRight: 25 }}></AutoHeightImage>
+                                    <AutoHeightImage source={atdarkmode === 'light' ? light_close : dark_close} width={30} style={{ marginRight: 25 }}></AutoHeightImage>
                                 </TouchableWithoutFeedback>
                             </View>
                         </View>
+
+                        <View style={{ width: chwidth, borderWidth: 0.5, borderColor: atdarkmode === 'light' ? 'black' : 'white' }}></View>
                         {/* 모달 헤더 끝 */}
 
-                        <View style={{ alignItems: 'center', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(36,36,36)' }}>
+                        <View style={{ alignItems: 'center', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(54,54,54)' }}>
 
                             <View style={{ width: chwidth - 50, marginTop: 15, marginBottom: 30 }}>
-
-                                <Text style={{ fontWeight: 'bold', fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}>{modalname}</Text>
-
-                                <View style={{ width: chwidth - 50, borderWidth: 0.5, marginTop: 15, marginBottom: 15, borderColor: 'rgb(153,153,153)' }}></View>
-
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <AutoHeightImage source={atdarkmode == 'light' ? category : d_category} width={18}></AutoHeightImage>
-                                        <Text style={{ fontSize: 15, color: atdarkmode === 'light' ? 'black' : 'white' }}>  분류 : {modalcategory}</Text>
-                                    </View>
+
+                                    <Text style={{ fontWeight: 'bold', fontSize: 17, color: atdarkmode === 'light' ? 'black' : 'white' }}>{modalname}</Text>
 
                                     <TouchableWithoutFeedback onPress={() => { reproduct_f() }}>
                                         <View style={{ backgroundColor: 'rgb(236,236,236)', borderRadius: 3 }}>
@@ -960,8 +868,17 @@ const Realmain = () => {
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
-
                                 </View>
+
+                                <View style={{ width: chwidth - 50, marginTop: 8, marginBottom: 8, }}></View>
+
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <AutoHeightImage source={atdarkmode == 'light' ? category : d_category} width={18}></AutoHeightImage>
+                                    <Text style={{ fontSize: 15, color: atdarkmode === 'light' ? 'black' : 'white' }}>  분류 : {modalcategory}</Text>
+                                </View>
+
+
+
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -974,28 +891,28 @@ const Realmain = () => {
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
 
                                     <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰') }}>
-                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
-                                                <AutoHeightImage source={atdarkmode == 'light' ? cart_icon : d_cart_icon} width={18}></AutoHeightImage>
-                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 구매하기</Text>
+                                                <AutoHeightImage source={atdarkmode == 'light' ? light_cart : d_cart_icon} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 구매하기</Text>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     <TouchableWithoutFeedback onPress={() => { }}>
-                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
-                                                <AutoHeightImage source={atdarkmode == 'light' ? review_icon : d_review_icon} width={18}></AutoHeightImage>
-                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 후기보기</Text>
+                                                <AutoHeightImage source={atdarkmode == 'light' ? light_review : d_review_icon} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 후기보기</Text>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>
 
                                     <TouchableWithoutFeedback onPress={() => { delprod(modalno) }}>
-                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
+                                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
-                                                <AutoHeightImage source={atdarkmode == 'light' ? icon3 : d_del} width={18}></AutoHeightImage>
-                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'rgb(30,43,245)' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 삭제</Text>
+                                                <AutoHeightImage source={atdarkmode == 'light' ? light_delete : d_del} width={18}></AutoHeightImage>
+                                                <Text style={{ fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', fontWeight: 'bold', marginTop: -3 }}> 삭제</Text>
                                             </View>
                                         </View>
                                     </TouchableWithoutFeedback>

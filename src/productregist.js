@@ -24,6 +24,8 @@ import {
     ChevronLeftIcon
 } from "native-base"
 
+import SelectDropdown from "react-native-select-dropdown";
+
 import {
     BottomSheetModal,
     BottomSheetModalProvider,
@@ -37,6 +39,11 @@ import { darkmode, pcategory, pexp, pexpDate, pname } from '../atoms/atom';
 
 const back = require('../img/light/back.png')
 const dateicon = require('../img/light/date.png')
+
+const select_arrow = require('../newimg/light/select_arrow.png')
+const d_select_arrow = require('../newimg/dark/d_select_arrow.png')
+
+
 
 const chwidth = Dimensions.get('window').width
 
@@ -168,6 +175,23 @@ const Productregist = () => {
         }, 300);
     }
 
+    const [countries, setCountries] = useState([]);
+    const [cities, setCities] = useState([]);
+
+    const citiesDropdownRef = useRef();
+
+    useEffect(() => {
+        setTimeout(() => {
+            setCountries([
+                { title: "Egypt", cities: [{ title: "Cairo" }, { title: "Alex" }] },
+                {
+                    title: "Canada",
+                    cities: [{ title: "Toronto" }, { title: "Quebec City" }],
+                },
+            ]);
+        }, 1000);
+    }, []);
+
 
     return (
         <NativeBaseProvider>
@@ -210,16 +234,16 @@ const Productregist = () => {
 
                                     {/*  */}
                                     <Text style={{ fontSize: 18, color: atdarkmode === 'light' ? 'black' : 'white' }}>제품명</Text>
-                                    <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(48,48,48)', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                                        <TextInput onChangeText={(txt) => setName(txt)} value={name} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'제품명을 입력해주세요.'}></TextInput>
+                                    <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(48,48,48)', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', height: 45, marginTop: 10, borderRadius: 3 }}>
+                                        <TextInput onChangeText={(txt) => setName(txt)} value={name} style={{ height: 45, width: chwidth - 100, marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }} placeholder={'제품명을 입력해주세요.'} placeholderTextColor={atdarkmode === 'light' ? 'black' : 'white'}></TextInput>
                                     </View>
 
                                     {/*  */}
                                     <Text style={{ fontSize: 18, marginTop: 25, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품 종류</Text>
 
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
 
-                                        <View style={{ width: (chwidth - 90) / 2, height: 45, marginTop: 10, borderRadius: 3 }}>
+                                        {/* <View style={{ width: (chwidth - 90) / 2, height: 45, marginTop: 10, borderRadius: 3 }}>
 
                                             <Select
                                                 selectedValue={big}
@@ -234,6 +258,7 @@ const Productregist = () => {
                                                 <Select.Item label="기초화장" value="기초화장" />
 
                                             </Select>
+
                                         </View>
 
                                         <View style={{ width: (chwidth - 90) / 2, height: 45, marginTop: 10, borderRadius: 3 }}>
@@ -244,6 +269,7 @@ const Productregist = () => {
                                                     accessibilityLabel="소분류"
                                                     placeholder="소분류"
                                                     onValueChange={(itemValue) => setSmall(itemValue)}
+
                                                     _selectedItem={{
                                                         bg: "cyan.600",
                                                         endIcon: <CheckIcon size={4} />,
@@ -254,7 +280,91 @@ const Productregist = () => {
                                                     <Select.Item label="로션" value="로션" />
                                                 </Select>
                                             }
-                                        </View>
+                                        </View> */}
+
+                                        <SelectDropdown
+                                            data={countries}
+                                            onSelect={(selectedItem, index) => {
+                                                console.log(selectedItem, index);
+                                                citiesDropdownRef.current.reset();
+                                                setCities([]);
+                                                setCities(selectedItem.cities);
+                                            }}
+                                            defaultButtonText={"대분류"}
+                                            buttonTextAfterSelection={(selectedItem, index) => {
+                                                return selectedItem.title;
+                                            }}
+                                            rowTextForSelection={(item, index) => {
+                                                return item.title;
+                                            }}
+                                            buttonStyle={{
+                                                flex: 1,
+                                                height: 40,
+                                                backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)',
+                                                borderRadius: 3,
+                                                borderWidth: 1,
+                                                borderColor: "#444",
+                                            }}
+                                            buttonTextStyle={{ color: "#444", textAlign: "left", fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}
+                                            renderDropdownIcon={() => {
+                                                if (atdarkmode === 'light') {
+                                                    return (
+                                                        <AutoHeightImage source={select_arrow} width={15}></AutoHeightImage>
+                                                    );
+
+                                                } else {
+                                                    return (
+                                                        <AutoHeightImage source={d_select_arrow} width={15}></AutoHeightImage>
+                                                    );
+
+                                                }
+                                            }}
+                                            dropdownIconPosition={"right"}
+                                            dropdownStyle={styles.dropdown1DropdownStyle}
+                                            rowStyle={styles.dropdown1RowStyle}
+                                            rowTextStyle={styles.dropdown1RowTxtStyle}
+                                        />
+                                        <View style={{ width: 12 }} />
+                                        <SelectDropdown
+                                            ref={citiesDropdownRef}
+                                            data={cities}
+                                            onSelect={(selectedItem, index) => {
+                                                console.log(selectedItem, index);
+                                            }}
+                                            defaultButtonText={"소분류"}
+                                            buttonTextAfterSelection={(selectedItem, index) => {
+                                                return selectedItem.title;
+                                            }}
+                                            rowTextForSelection={(item, index) => {
+                                                return item.title;
+                                            }}
+                                            buttonStyle={{
+                                                flex: 1,
+                                                height: 40,
+                                                backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)',
+                                                borderRadius: 3,
+                                                borderWidth: 1,
+                                                borderColor: "#444",
+                                            }}
+                                            buttonTextStyle={{ color: "#444", textAlign: "left", fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}
+                                            renderDropdownIcon={() => {
+                                                if (atdarkmode === 'light') {
+                                                    return (
+                                                        <AutoHeightImage source={select_arrow} width={15}></AutoHeightImage>
+                                                    );
+
+                                                } else {
+                                                    return (
+                                                        <AutoHeightImage source={d_select_arrow} width={15}></AutoHeightImage>
+                                                    );
+
+                                                }
+                                            }}
+                                            dropdownIconPosition={"right"}
+                                            dropdownStyle={styles.dropdown2DropdownStyle}
+                                            rowStyle={styles.dropdown2RowStyle}
+                                            rowTextStyle={styles.dropdown2RowTxtStyle}
+                                        />
 
                                     </View>
 
@@ -357,6 +467,37 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
     },
+    shadow: {
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 10,
+    },
+
+    dropdown1BtnTxtStyle: { color: "#444", textAlign: "left" },
+    dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
+    dropdown1RowStyle: {
+        backgroundColor: "#EFEFEF",
+        borderBottomColor: "#C5C5C5",
+    },
+    dropdown1RowTxtStyle: { color: "#444", textAlign: "left" },
+
+    dropdown2BtnStyle: {
+        flex: 1,
+        height: 50,
+        backgroundColor: "#FFF",
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#444",
+    },
+    dropdown2BtnTxtStyle: { color: "#444", textAlign: "left" },
+    dropdown2DropdownStyle: { backgroundColor: "#EFEFEF" },
+    dropdown2RowStyle: {
+        backgroundColor: "#EFEFEF",
+        borderBottomColor: "#C5C5C5",
+    },
+    dropdown2RowTxtStyle: { color: "#444", textAlign: "left" },
 });
 
 export default Productregist

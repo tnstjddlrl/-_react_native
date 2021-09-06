@@ -457,11 +457,18 @@ const Realmain = () => {
                 <View style={{ alignItems: 'center', }}>
                     <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 6, marginBottom: 6 }}>
                         <Text style={{ width: chwidth - 190, color: atdarkmode === 'light' ? 'black' : 'white', fontSize: 13 }} numberOfLines={1}>{prop.name}</Text>
-                        <Text style={{ color: 'rgb(112,112,112)' }}>{btDay}일 남음</Text>
+
+                        {
+                            btDay < 0 ?
+                                <Text style={{ color: 'rgb(112,112,112)', letterSpacing: -1 }}>유통기한 지남</Text>
+                                :
+                                <Text style={{ color: 'rgb(112,112,112)', letterSpacing: -0.8 }}>{btDay}일 남음</Text>
+                        }
+
                     </View>
                     <View style={{ width: chwidth - 40, borderWidth: 0.9, borderColor: atdarkmode === 'light' ? 'rgb(233,233,233)' : 'black' }}></View>
                 </View>
-            </TouchableWithoutFeedback >
+            </TouchableWithoutFeedback>
         )
     }
 
@@ -470,20 +477,20 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
-                list.push(<TextItem
-                    key={i}
-                    no={atlist[i].no}
-                    name={atlist[i].name}
-                    expiration={atlist[i].expiration}
-                    alert_config={atlist[i].alert_config}
-                    alert_date={atlist[i].alert_date}
-
-                    category={atlist[i].category}
-                    img={atlist[i].img}>
-                </TextItem>)
+                list.push(
+                    <TextItem
+                        key={i}
+                        no={atlist[i].no}
+                        name={atlist[i].name}
+                        expiration={atlist[i].expiration}
+                        alert_config={atlist[i].alert_config}
+                        alert_date={atlist[i].alert_date}
+                        category={atlist[i].category}
+                        img={atlist[i].img}>
+                    </TextItem>
+                )
             }
         }
-
         return list
     }
 
@@ -492,20 +499,20 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'd') {
-                list.push(<TextItem
-                    key={i}
-                    no={atlist[i].no}
-                    name={atlist[i].name}
-                    expiration={atlist[i].expiration}
-                    alert_config={atlist[i].alert_config}
-                    alert_date={atlist[i].alert_date}
-
-                    category={atlist[i].category}
-                    img={atlist[i].img}>
-                </TextItem>)
+                list.push(
+                    <TextItem
+                        key={i}
+                        no={atlist[i].no}
+                        name={atlist[i].name}
+                        expiration={atlist[i].expiration}
+                        alert_config={atlist[i].alert_config}
+                        alert_date={atlist[i].alert_date}
+                        category={atlist[i].category}
+                        img={atlist[i].img}>
+                    </TextItem>
+                )
             }
         }
-
         return list
     }
 
@@ -540,7 +547,11 @@ const Realmain = () => {
                     <View style={{ width: chwidth / 3.3, height: '30%', alignItems: 'center', marginTop: 10 }}>
                         <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? '#333333' : '#cccccc' }} numberOfLines={1}>{prop.name}</Text>
                         <Text style={{ fontSize: 12, color: '#8c8c8c' }} numberOfLines={1}>{prop.category}</Text>
-                        <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white' }} numberOfLines={1}>{btDay}일 남음</Text>
+                        {btDay < 0 ?
+                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white', letterSpacing: -0.8 }} numberOfLines={1}>유통기한 지남</Text>
+                            :
+                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white' }} numberOfLines={1}>{btDay}일 남음</Text>
+                        }
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -552,18 +563,18 @@ const Realmain = () => {
 
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
-                list.push(<ImageItem
-                    key={i}
-                    no={atlist[i].no}
-                    name={atlist[i].name}
-                    expiration={atlist[i].expiration}
-                    alert_config={atlist[i].alert_config}
-                    alert_date={atlist[i].alert_date}
-
-                    category={atlist[i].category}
-                    img={atlist[i].img}>
-
-                </ImageItem>)
+                list.push(
+                    <ImageItem
+                        key={i}
+                        no={atlist[i].no}
+                        name={atlist[i].name}
+                        expiration={atlist[i].expiration}
+                        alert_config={atlist[i].alert_config}
+                        alert_date={atlist[i].alert_date}
+                        category={atlist[i].category}
+                        img={atlist[i].img}>
+                    </ImageItem>
+                )
             }
         }
 
@@ -575,18 +586,18 @@ const Realmain = () => {
         var list = [];
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'd') {
-                list.push(<ImageItem
-                    key={i}
-                    no={atlist[i].no}
-                    name={atlist[i].name}
-                    expiration={atlist[i].expiration}
-                    alert_config={atlist[i].alert_config}
-                    alert_date={atlist[i].alert_date}
-
-                    category={atlist[i].category}
-                    img={atlist[i].img}>
-
-                </ImageItem>)
+                list.push(
+                    <ImageItem
+                        key={i}
+                        no={atlist[i].no}
+                        name={atlist[i].name}
+                        expiration={atlist[i].expiration}
+                        alert_config={atlist[i].alert_config}
+                        alert_date={atlist[i].alert_date}
+                        category={atlist[i].category}
+                        img={atlist[i].img}>
+                    </ImageItem>
+                )
             }
         }
 
@@ -602,7 +613,6 @@ const Realmain = () => {
                     <AutoHeightImage source={logo} width={120}></AutoHeightImage>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
                         {version ?
                             <TouchableWithoutFeedback onPress={() => {
                                 if (version)
@@ -614,9 +624,7 @@ const Realmain = () => {
                                     <AutoHeightImage source={atdarkmode === 'light' ? textmode : d_textmode} width={14} style={{ margin: 8 }}></AutoHeightImage>
                                 </View>
                             </TouchableWithoutFeedback>
-
                             :
-
                             <TouchableWithoutFeedback onPress={() => {
                                 if (version)
                                     setversion(false);
@@ -628,8 +636,6 @@ const Realmain = () => {
                                 </View>
                             </TouchableWithoutFeedback>
                         }
-
-
 
                         <TouchableWithoutFeedback onPress={() => { darkbtn() }}>
                             <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
@@ -649,9 +655,7 @@ const Realmain = () => {
             <View style={{ width: chwidth, borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'rgb(39,39,39)' }}></View>
 
             {/* 날씨 표현부 */}
-
             <View style={{ width: chwidth, marginTop: 15 }}>
-
                 <View style={{ width: chwidth - 40, marginLeft: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{}}>
                         <View style={{ borderBottomWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>
@@ -721,11 +725,8 @@ const Realmain = () => {
                             </View>
                         </View>
                     </View>
-
                 </View>
-
             </View>
-
             {/* 날씨 표현부 끝 */}
 
 
@@ -735,93 +736,57 @@ const Realmain = () => {
             <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
 
                 {version ?
+                    // 이미지 버전
                     <View style={{ flex: 1 }}>
-
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
-
                                 <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-
                                 <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
-
                             </View>
-
                             <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImageuPush></ImageuPush>
                             </ScrollView>
-
                         </View>
-
-
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
                                 <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-
                                 <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
                             </View>
-
                             <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImagedPush></ImagedPush>
                             </ScrollView>
-
                         </View>
-
                     </View>
 
                     :
-
+                    // 텍스트 버전
                     <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around', marginTop: 10 }}>
-
-
-
                         <View style={{ width: chwidth - 40, height: '45%', }}>
-
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
                                 <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-
                                 <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
                             </View>
 
-
                             <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
-
                                 <TextuPush></TextuPush>
-
                             </ScrollView>
-
                         </View>
-
-
                         <View style={{ width: chwidth - 40, height: '45%', }}>
-
                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
                                 <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
 
                                 <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
                             </View>
-
-
                             <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
-
                                 <TextdPush></TextdPush>
-
                             </ScrollView>
-
                         </View>
-
                     </View>
-
                 }
-
-
             </View>
             {/* 본문 끝 */}
 
-
             {/* 하단 등록 버튼 시작 */}
-
             <View style={{ width: chwidth, alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
                 <TouchableWithoutFeedback onPress={() => { navigation.navigate('바코드체크') }}>
                     <View style={{ width: chwidth - 40, height: 55, marginLeft: 0, borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>

@@ -168,7 +168,7 @@ const ProductAddr = () => {
                         </View>
                     </TouchableWithoutFeedback>
                     {/* < 끝 */}
-                    <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>
+                    <Text style={{ fontSize: 23, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>등록하기</Text>
                     <View style={{ width: 40, height: 40 }}>
                     </View>
 
@@ -180,33 +180,61 @@ const ProductAddr = () => {
 
                 <ScrollView style={{}} showsVerticalScrollIndicator={false}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                        <Text style={{ fontSize: 18, marginTop: 10 }}>화장품을 놓은 칸을 터치해주세요.</Text>
+                        <Text style={{ fontSize: 18, marginTop: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품을 보관할 층을 터치하세요!</Text>
                     </View>
 
                     {/* 윗칸 */}
                     <TouchableWithoutFeedback onPress={() => setu1('u')}>
-                        <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
-                            <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                        {atdarkmode === 'light' ?
 
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    {u1 == 'u' ?
-                                        <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
-                                        :
-                                        <View></View>
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
 
-                                    }
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, }}>2층</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'u' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>2층</Text>
+
+                                    </View>
+
+                                    {/* 개별 화장품 부분 */}
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageUPush></ImageUPush>
+                                    </View>
+                                    {/* 개별 화장품 부분  끝*/}
 
                                 </View>
-
-                                {/* 개별 화장품 부분 */}
-                                <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
-                                    <ImageUPush></ImageUPush>
-                                </View>
-                                {/* 개별 화장품 부분  끝*/}
-
                             </View>
-                        </View>
+
+                            :
+
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'white' : 'black', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'u' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>2층</Text>
+
+                                    </View>
+
+                                    {/* 개별 화장품 부분 */}
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageUPush></ImageUPush>
+                                    </View>
+                                    {/* 개별 화장품 부분  끝*/}
+
+                                </View>
+                            </View>
+                        }
                     </TouchableWithoutFeedback>
                     {/* 윗칸 끝 */}
 
@@ -214,28 +242,54 @@ const ProductAddr = () => {
                     {/* 아래 칸 */}
                     <TouchableWithoutFeedback onPress={() => setu1('d')}>
 
-                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', borderColor: u1 == 'd' ? 'black' : 'white', borderWidth: 2.5, marginLeft: 20, marginTop: 5, elevation: 10, marginBottom: 20 }}>
 
-                            <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    {u1 == 'd' ?
-                                        <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
-                                        :
-                                        <View></View>
+                        {atdarkmode === 'light' ?
+                            <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', borderColor: u1 == 'd' ? 'black' : 'white', borderWidth: 2.5, marginLeft: 20, marginTop: 5, elevation: 10, marginBottom: 20 }}>
 
-                                    }
-                                    <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, }}>1층</Text>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'd' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
 
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>1층</Text>
+
+                                    </View>
+
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+
+                                        <ImageDPush></ImageDPush>
+
+                                    </View>
                                 </View>
 
-                                <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
-
-                                    <ImageDPush></ImageDPush>
-
-                                </View>
                             </View>
+                            :
+                            <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', borderColor: u1 == 'd' ? 'white' : 'black', borderWidth: 2.5, marginLeft: 20, marginTop: 5, elevation: 10, marginBottom: 20 }}>
 
-                        </View>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'd' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>1층</Text>
+
+                                    </View>
+
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+
+                                        <ImageDPush></ImageDPush>
+
+                                    </View>
+                                </View>
+
+                            </View>
+                        }
 
                     </TouchableWithoutFeedback>
                     {/* 아래칸 끝 */}

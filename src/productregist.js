@@ -54,7 +54,6 @@ const Productregist = () => {
     const navigation = useNavigation()
     const bottomSheetModalRef = useRef(< BottomSheetModal ></BottomSheetModal>);
 
-
     const [date, setDate] = useState(new Date(Date.now()));
 
     const [leftmonth, setLeftmonth] = useState(0)
@@ -80,9 +79,6 @@ const Productregist = () => {
             setName(atname)
         }, 300);
     }, [])
-
-
-
 
 
     // variables
@@ -183,10 +179,13 @@ const Productregist = () => {
     useEffect(() => {
         setTimeout(() => {
             setCountries([
-                { title: "Egypt", cities: [{ title: "Cairo" }, { title: "Alex" }] },
                 {
-                    title: "Canada",
-                    cities: [{ title: "Toronto" }, { title: "Quebec City" }],
+                    title: "스킨케어",
+                    cities: [{ title: "로션" }, { title: "토너" }, { title: "스킨" }, { title: "미스트" }, { title: "마스크팩" }, { title: "선크림" }]
+                },
+                {
+                    title: "바디케어",
+                    cities: [{ title: "바디로션" }, { title: "바디미스트" }],
                 },
             ]);
         }, 1000);
@@ -243,49 +242,11 @@ const Productregist = () => {
 
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
 
-                                        {/* <View style={{ width: (chwidth - 90) / 2, height: 45, marginTop: 10, borderRadius: 3 }}>
-
-                                            <Select
-                                                selectedValue={big}
-                                                accessibilityLabel="대분류"
-                                                placeholder="대분류"
-                                                onValueChange={(itemValue) => setBig(itemValue)}
-                                                _selectedItem={{
-                                                    bg: "cyan.600",
-                                                    endIcon: <CheckIcon size={4} />,
-                                                }}
-                                            >
-                                                <Select.Item label="기초화장" value="기초화장" />
-
-                                            </Select>
-
-                                        </View>
-
-                                        <View style={{ width: (chwidth - 90) / 2, height: 45, marginTop: 10, borderRadius: 3 }}>
-
-                                            {(big == '기초화장') &&
-                                                <Select
-                                                    selectedValue={small}
-                                                    accessibilityLabel="소분류"
-                                                    placeholder="소분류"
-                                                    onValueChange={(itemValue) => setSmall(itemValue)}
-
-                                                    _selectedItem={{
-                                                        bg: "cyan.600",
-                                                        endIcon: <CheckIcon size={4} />,
-                                                    }}
-                                                >
-                                                    <Select.Item label="스킨" value="스킨" />
-                                                    <Select.Item label="토너" value="토너" />
-                                                    <Select.Item label="로션" value="로션" />
-                                                </Select>
-                                            }
-                                        </View> */}
-
                                         <SelectDropdown
                                             data={countries}
                                             onSelect={(selectedItem, index) => {
-                                                console.log(selectedItem, index);
+                                                console.log(selectedItem.title, index);
+                                                setBig(selectedItem.title);
                                                 citiesDropdownRef.current.reset();
                                                 setCities([]);
                                                 setCities(selectedItem.cities);
@@ -303,9 +264,9 @@ const Productregist = () => {
                                                 backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)',
                                                 borderRadius: 3,
                                                 borderWidth: 1,
-                                                borderColor: "#444",
+                                                borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(48,48,48)',
                                             }}
-                                            buttonTextStyle={{ color: "#444", textAlign: "left", fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}
+                                            buttonTextStyle={{ textAlign: "left", fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}
                                             renderDropdownIcon={() => {
                                                 if (atdarkmode === 'light') {
                                                     return (
@@ -320,16 +281,17 @@ const Productregist = () => {
                                                 }
                                             }}
                                             dropdownIconPosition={"right"}
-                                            dropdownStyle={styles.dropdown1DropdownStyle}
-                                            rowStyle={styles.dropdown1RowStyle}
-                                            rowTextStyle={styles.dropdown1RowTxtStyle}
+                                            dropdownStyle={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)' }}
+                                            rowStyle={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', borderBottomColor: 'black' }}
+                                            rowTextStyle={{ color: atdarkmode === 'light' ? 'black' : 'white', textAlign: 'left' }}
                                         />
                                         <View style={{ width: 12 }} />
                                         <SelectDropdown
                                             ref={citiesDropdownRef}
                                             data={cities}
                                             onSelect={(selectedItem, index) => {
-                                                console.log(selectedItem, index);
+                                                console.log(selectedItem.title, index);
+                                                setSmall(selectedItem.title)
                                             }}
                                             defaultButtonText={"소분류"}
                                             buttonTextAfterSelection={(selectedItem, index) => {
@@ -344,9 +306,9 @@ const Productregist = () => {
                                                 backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)',
                                                 borderRadius: 3,
                                                 borderWidth: 1,
-                                                borderColor: "#444",
+                                                borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(48,48,48)',
                                             }}
-                                            buttonTextStyle={{ color: "#444", textAlign: "left", fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}
+                                            buttonTextStyle={{ textAlign: "left", fontSize: 16, color: atdarkmode === 'light' ? 'black' : 'white' }}
                                             renderDropdownIcon={() => {
                                                 if (atdarkmode === 'light') {
                                                     return (
@@ -361,9 +323,9 @@ const Productregist = () => {
                                                 }
                                             }}
                                             dropdownIconPosition={"right"}
-                                            dropdownStyle={styles.dropdown2DropdownStyle}
-                                            rowStyle={styles.dropdown2RowStyle}
-                                            rowTextStyle={styles.dropdown2RowTxtStyle}
+                                            dropdownStyle={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)' }}
+                                            rowStyle={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', borderBottomColor: 'black' }}
+                                            rowTextStyle={{ color: atdarkmode === 'light' ? 'black' : 'white', textAlign: 'left' }}
                                         />
 
                                     </View>
@@ -429,19 +391,26 @@ const Productregist = () => {
                         ref={bottomSheetModalRef}
                         index={1}
                         snapPoints={snapPoints}
-                        onChange={handleSheetChanges}>
-                        <View style={{ flex: 1, }}>
+                        onChange={handleSheetChanges}
+                        handleComponent={() =>
+                            <View style={{ height: 30, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(61,61,61)', borderTopLeftRadius: 15, borderTopRightRadius: 15 }}>
+                            </View>
+                        }
+                    >
+                        <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(61,61,61)' }}>
                             <DatePicker
-                                style={{ width: chwidth, marginTop: 50 }}
+                                style={{ width: chwidth, flex: 1, }}
                                 date={date}
                                 onDateChange={(date) => { setDate(date), console.log(date) }}
                                 mode={'date'}
                                 locale='ko_KR'
+                                fadeToColor={atdarkmode === 'light' ? 'white' : 'rgb(61,61,61)'}
+                                textColor={atdarkmode === 'light' ? 'black' : 'white'}
                             />
-                            <View style={{ justifyContent: 'flex-end', flex: 1 }}>
+                            <View style={{ justifyContent: 'flex-end' }}>
                                 <TouchableWithoutFeedback onPress={() => handlePresentModalcancel()}>
-                                    <View style={{ width: chwidth, height: 60, backgroundColor: 'rgb(9,24,255)', alignItems: 'center', justifyContent: 'center' }}>
-                                        <Text style={{ fontSize: 18, color: 'white' }}>완료</Text>
+                                    <View style={{ width: chwidth, height: 60, backgroundColor: atdarkmode === 'light' ? 'rgb(9,24,255)' : 'black', alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text style={{ fontSize: 18, color: atdarkmode === 'light' ? 'white' : 'white' }}>완료</Text>
                                     </View>
                                 </TouchableWithoutFeedback>
                             </View>

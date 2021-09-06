@@ -17,7 +17,7 @@ import {
 
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useRecoilState } from 'recoil';
-import { plist, pid, replacation, repexpDate, repexp, repcategory, repname, repNo } from '../atoms/atom';
+import { plist, pid, replacation, repexpDate, repexp, repcategory, repname, repNo, darkmode } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -32,7 +32,6 @@ const ReProductAddr = () => {
 
     const [u1, setu1] = useState('a');
 
-
     const [atid, setAtid] = useRecoilState(pid); //사용자 아이디
 
 
@@ -42,9 +41,7 @@ const ReProductAddr = () => {
     const [reatexp, setreAtexp] = useRecoilState(repexp)
     const [reatexpDate, setreAtexpDate] = useRecoilState(repexpDate)
 
-
-
-
+    const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
 
     const [atlist, setatlist] = useRecoilState(plist) //제품 리스트
 
@@ -61,7 +58,6 @@ const ReProductAddr = () => {
             Alert.alert('칸 선택이 되지 않았습니다.')
             return
         } else {
-
             setTimeout(() => {
                 try {
                     axios.get('http://ip1004.hostingbox.co.kr/', {
@@ -159,7 +155,8 @@ const ReProductAddr = () => {
 
     return (
 
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>
+
+        <SafeAreaView style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'black' }}>
 
             {/* 헤더 시작 */}
             <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
@@ -171,7 +168,7 @@ const ReProductAddr = () => {
                         </View>
                     </TouchableWithoutFeedback>
                     {/* < 끝 */}
-                    <Text style={{ fontSize: 23, color: 'black', fontWeight: 'bold' }}>등록하기</Text>
+                    <Text style={{ fontSize: 23, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>등록하기</Text>
                     <View style={{ width: 40, height: 40 }}>
                     </View>
 
@@ -183,40 +180,107 @@ const ReProductAddr = () => {
 
                 <ScrollView style={{}} showsVerticalScrollIndicator={false}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                        <AutoHeightImage source={loca_img} width={30}></AutoHeightImage>
-                        <Text style={{ fontSize: 18, marginTop: 10 }}>화장품을 놓은 칸을 터치해주세요.</Text>
+                        <Text style={{ fontSize: 18, marginTop: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품을 보관할 층을 터치하세요!</Text>
                     </View>
 
+                    {/* 윗칸 */}
                     <TouchableWithoutFeedback onPress={() => setu1('u')}>
-                        <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'rgb(30,40,245)' : 'white', borderWidth: 2.5, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
-                            <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>위 칸</Text>
+                        {atdarkmode === 'light' ?
 
-                                {/* 개별 화장품 부분 */}
-                                <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
-                                    <ImageUPush></ImageUPush>
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'u' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>2층</Text>
+
+                                    </View>
+
+                                    {/* 개별 화장품 부분 */}
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageUPush></ImageUPush>
+                                    </View>
+                                    {/* 개별 화장품 부분  끝*/}
+
                                 </View>
-                                {/* 개별 화장품 부분  끝*/}
-
                             </View>
-                        </View>
+
+                            :
+
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'white' : 'black', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'u' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>2층</Text>
+
+                                    </View>
+
+                                    {/* 개별 화장품 부분 */}
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageUPush></ImageUPush>
+                                    </View>
+                                    {/* 개별 화장품 부분  끝*/}
+
+                                </View>
+                            </View>
+                        }
                     </TouchableWithoutFeedback>
+                    {/* 윗칸 끝 */}
 
 
+                    {/* 아래 칸 */}
                     <TouchableWithoutFeedback onPress={() => setu1('d')}>
-                        <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', borderColor: u1 == 'd' ? 'rgb(30,40,245)' : 'white', borderWidth: 2.5, marginLeft: 20, marginTop: 5, elevation: 10, marginBottom: 20 }}>
-                            <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 18, fontWeight: 'bold' }}>아래 칸</Text>
+                        {atdarkmode === 'light' ?
+                            <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', borderColor: u1 == 'd' ? 'black' : 'white', borderWidth: 2.5, marginLeft: 20, marginTop: 5, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'd' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>1층</Text>
+                                    </View>
 
-                                <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageDPush></ImageDPush>
+                                    </View>
+                                </View>
 
-                                    <ImageDPush></ImageDPush>
+                            </View>
 
+                            :
+
+                            <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', borderColor: u1 == 'd' ? 'white' : 'black', borderWidth: 2.5, marginLeft: 20, marginTop: 5, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 'd' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>1층</Text>
+                                    </View>
+
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageDPush></ImageDPush>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
+                        }
                     </TouchableWithoutFeedback>
-
+                    {/* 아래칸 끝 */}
 
                 </ScrollView>
 
@@ -226,12 +290,11 @@ const ReProductAddr = () => {
             <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
                 {/* 파랑버튼 */}
                 <TouchableWithoutFeedback onPress={() => { clickOK() }}>
-                    <View style={{ borderRadius: 10, backgroundColor: 'rgb(30,40,245)', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
-                        <Text style={{ fontSize: 23, color: 'white', fontWeight: 'bold' }}>확인</Text>
+                    <View style={{ borderRadius: 10, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'black' : 'white', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
+                        <Text style={{ fontSize: 23, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>확인</Text>
                     </View>
                 </TouchableWithoutFeedback>
             </View>
-
             {/* 하단 버튼 끝 */}
 
         </SafeAreaView >

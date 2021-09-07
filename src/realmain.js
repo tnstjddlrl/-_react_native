@@ -339,7 +339,6 @@ const Realmain = () => {
     useEffect(() => {
         return () => unsubscribe();
     });
-
     //제품 불러오기
     function getproduct() {
         axios.get('http://ip1004.hostingbox.co.kr/', {
@@ -348,16 +347,15 @@ const Realmain = () => {
                 id: atid,
             }
         }).then(async (res) => {
-
             if (res.data == 'empty') {
                 setatlist([])
                 Alert.alert('화장품을 등록해보세요!')
             } else {
                 setatlist(res.data)
             }
-
+        }).catch(error => {
+            Alert.alert('서버 연동을 실패하였습니다.')
         })
-
     }
 
     //제품 삭제
@@ -401,20 +399,15 @@ const Realmain = () => {
     const [reatexpDate, setreAtexpDate] = useRecoilState(repexpDate)
 
     function reproduct_f() {
-
         setreAtno(modalno)
         setreAtname(modalname)
         setreAtcategory(modalcategory)
         setreAtexp(modaldate)
 
         setTimeout(() => {
-
             navigation.navigate('제품수정')
-
         }, 200);
     }
-
-
 
     //모달용 usestate
     const [modalno, setModalno] = useState('')
@@ -425,12 +418,11 @@ const Realmain = () => {
 
     const [atbuyname, setBuyatname] = useRecoilState(buypname)   //웹뷰 제품 이름
 
+    // 텍스트 버전 처리
+    ////////////////////////////////////////////////////////////////
     const TextItem = (prop) => {
-
         var exp = prop.expiration.split('-')
-
         var stDate = new Date(exp[0], exp[1], exp[2]);
-
         var btMs = stDate.getTime() - endDate.getTime();
         var btDay = btMs / (1000 * 60 * 60 * 24);
 
@@ -441,6 +433,7 @@ const Realmain = () => {
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
             setBuyatname(prop.name)
+
             setModalView(true)
             console.log(modalno)
         }
@@ -450,14 +443,12 @@ const Realmain = () => {
                 <View style={{ alignItems: 'center', }}>
                     <View style={{ width: chwidth - 100, flexDirection: 'row', justifyContent: 'space-between', marginTop: 6, marginBottom: 6 }}>
                         <Text style={{ width: chwidth - 190, color: atdarkmode === 'light' ? 'black' : 'white', fontSize: 13 }} numberOfLines={1}>{prop.name}</Text>
-
                         {
                             btDay < 0 ?
                                 <Text style={{ color: 'rgb(112,112,112)', letterSpacing: -1 }}>유통기한 지남</Text>
                                 :
                                 <Text style={{ color: 'rgb(112,112,112)', letterSpacing: -0.8 }}>{btDay}일 남음</Text>
                         }
-
                     </View>
                     <View style={{ width: chwidth - 40, borderWidth: 0.9, borderColor: atdarkmode === 'light' ? 'rgb(233,233,233)' : 'black' }}></View>
                 </View>
@@ -467,7 +458,6 @@ const Realmain = () => {
 
     const TextuPush = () => {
         var list = [];
-
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
                 list.push(
@@ -489,7 +479,6 @@ const Realmain = () => {
 
     const TextdPush = () => {
         var list = [];
-
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'd') {
                 list.push(
@@ -508,7 +497,10 @@ const Realmain = () => {
         }
         return list
     }
+    ///////////////////////////////////////////////////////////////////////////////////
 
+    // 이미지 버전 처리
+    ///////////////////////////////////////////////////////////////////////////////////
     const ImageItem = (prop) => {
         var exp = prop.expiration.split('-')
         var stDate = new Date(exp[0], exp[1], exp[2]);
@@ -567,7 +559,6 @@ const Realmain = () => {
         return list
     }
 
-
     const ImagedPush = () => {
         var list = [];
         for (var i = 0; i < atlist.length; i++) {
@@ -589,10 +580,11 @@ const Realmain = () => {
 
         return list
     }
+    ///////////////////////////////////////////////////////////////////////////////////
+
 
     return (
         <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-
             {/* 헤더 시작 */}
             <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 0, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -649,6 +641,7 @@ const Realmain = () => {
                         </View>
                     </View>
 
+                    {/*  */}
                     <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10, marginTop: -8, alignItems: 'center', marginBottom: 10 }}>
                         {
                             atdarkmode === 'light' ?
@@ -707,14 +700,14 @@ const Realmain = () => {
                                     <Text style={{ color: 'red', fontSize: 13 }}>{Math.round(dayMaxTemp)}°</Text>
                                 </View>
                                 <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{description}</Text>
-
                             </View>
                         </View>
+                        {/*  */}
+
                     </View>
                 </View>
             </View>
             {/* 날씨 표현부 끝 */}
-
 
             <View style={{ width: chwidth, height: 6, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'rgb(39,39,39)' }}></View>
 
@@ -743,7 +736,6 @@ const Realmain = () => {
                             </ScrollView>
                         </View>
                     </View>
-
                     :
                     // 텍스트 버전
                     <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around', marginTop: 10 }}>
@@ -790,7 +782,6 @@ const Realmain = () => {
                     <View style={{ width: '100%', height: '100%', backgroundColor: 'rgba(64, 64, 64,0.5)', position: 'absolute' }}></View>
                 </TouchableWithoutFeedback>
 
-
                 <View style={{ width: '100%', height: '100%', justifyContent: 'flex-end', marginBottom: -1 }}>
                     <View style={{ width: chwidth, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(54,54,54)' }}>
 
@@ -830,9 +821,6 @@ const Realmain = () => {
                                     <AutoHeightImage source={atdarkmode == 'light' ? category : d_category} width={18}></AutoHeightImage>
                                     <Text style={{ fontSize: 15, color: atdarkmode === 'light' ? 'black' : 'white' }}>  분류 : {modalcategory}</Text>
                                 </View>
-
-
-
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 5 }}>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -875,7 +863,6 @@ const Realmain = () => {
 
                             </View>
 
-
                         </View>
 
                     </View>
@@ -883,8 +870,7 @@ const Realmain = () => {
             </Modal>
             {/* 화장품 상세보기 모달 끝 */}
 
-
-        </SafeAreaView >
+        </SafeAreaView>
     )
 }
 

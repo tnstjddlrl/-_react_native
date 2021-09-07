@@ -130,7 +130,6 @@ const Realmain = () => {
     const [totalAir, setTotalAir] = useState('측정중')
 
     const [description, setdescription] = useState('')
-    // 
 
     const [atid, setAtid] = useRecoilState(pid); //사용자 아이디
 
@@ -329,12 +328,9 @@ const Realmain = () => {
                     },
                     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
                 );
-
             }
         });
-
     }, [])
-
 
     //화면 감지 될때마다 제품 목록 받아오기
     const unsubscribe = navigation.addListener('focus', () => {
@@ -444,12 +440,9 @@ const Realmain = () => {
             setModalcategory(prop.category)
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
-
             setBuyatname(prop.name)
-
             setModalView(true)
             console.log(modalno)
-
         }
 
         return (
@@ -518,9 +511,7 @@ const Realmain = () => {
 
     const ImageItem = (prop) => {
         var exp = prop.expiration.split('-')
-
         var stDate = new Date(exp[0], exp[1], exp[2]);
-
         var btMs = stDate.getTime() - endDate.getTime();
         var btDay = btMs / (1000 * 60 * 60 * 24);
 
@@ -530,18 +521,15 @@ const Realmain = () => {
             setModalcategory(prop.category)
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
-
             setBuyatname(prop.name)
-
             setModalView(true)
-
             console.log(modalno)
         }
 
         return (
             <TouchableWithoutFeedback onPress={() => { clickpp() }}>
                 <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', marginLeft: 20, }}>
-                    <View style={{ width: chwidth / 3.3, height: '60%', borderRadius: 10, backgroundColor: 'rgb(204,204,204)', elevation: 20, }}>
+                    <View style={{ width: chwidth / 3.3, height: '60%', borderRadius: 10, backgroundColor: 'rgb(204,204,204)', elevation: 10, }}>
                         <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: '100%', maxHeight: '100%', borderRadius: 10, }} ></Image>
                     </View>
                     <View style={{ width: chwidth / 3.3, height: '30%', alignItems: 'center', marginTop: 10 }}>
@@ -560,7 +548,6 @@ const Realmain = () => {
 
     const ImageuPush = () => {
         var list = [];
-
         for (var i = 0; i < atlist.length; i++) {
             if (atlist[i].location == 'u') {
                 list.push(
@@ -577,7 +564,6 @@ const Realmain = () => {
                 )
             }
         }
-
         return list
     }
 

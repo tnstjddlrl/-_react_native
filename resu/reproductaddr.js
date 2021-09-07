@@ -154,10 +154,7 @@ const ReProductAddr = () => {
     }
 
     return (
-
-
         <SafeAreaView style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'black' }}>
-
             {/* 헤더 시작 */}
             <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
                 <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -171,18 +168,15 @@ const ReProductAddr = () => {
                     <Text style={{ fontSize: 23, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>등록하기</Text>
                     <View style={{ width: 40, height: 40 }}>
                     </View>
-
                 </View>
             </View>
             {/* 헤더 끝 */}
 
             <View style={{ flex: 1 }}>
-
                 <ScrollView style={{}} showsVerticalScrollIndicator={false}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
                         <Text style={{ fontSize: 18, marginTop: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품을 보관할 층을 터치하세요!</Text>
                     </View>
-
                     {/* 윗칸 */}
                     <TouchableWithoutFeedback onPress={() => setu1('u')}>
                         {atdarkmode === 'light' ?

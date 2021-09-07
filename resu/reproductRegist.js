@@ -237,25 +237,18 @@ const ReproductRegist = () => {
                     {/* 헤더 끝 */}
 
                     <View style={{ flex: 1 }}>
-
                         {/* 본문 시작 */}
                         <ScrollView>
-
                             <View style={{ width: chwidth - 40, borderRadius: 20, marginLeft: 20, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(48,48,48)', elevation: 10, marginTop: 20, marginBottom: 100 }}>
-
                                 <View style={{ width: chwidth - 80, marginLeft: 20, marginTop: 30, marginBottom: 30 }}>
-
                                     {/*  */}
                                     <Text style={{ fontSize: 18, color: atdarkmode === 'light' ? 'black' : 'white' }}>제품명</Text>
                                     <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(48,48,48)', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', height: 45, marginTop: 10, borderRadius: 3 }}>
                                         <TextInput onChangeText={(txt) => setName(txt)} value={name} style={{ height: 45, width: chwidth - 100, marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }} placeholder={'제품명을 입력해주세요.'} placeholderTextColor={atdarkmode === 'light' ? 'black' : 'white'}></TextInput>
                                     </View>
-
                                     {/*  */}
                                     <Text style={{ fontSize: 18, marginTop: 25, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품 종류</Text>
-
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
-
                                         <SelectDropdown
                                             data={countries}
                                             onSelect={(selectedItem, index) => {
@@ -328,12 +321,10 @@ const ReproductRegist = () => {
                                                     return (
                                                         <AutoHeightImage source={select_arrow} width={15}></AutoHeightImage>
                                                     );
-
                                                 } else {
                                                     return (
                                                         <AutoHeightImage source={d_select_arrow} width={15}></AutoHeightImage>
                                                     );
-
                                                 }
                                             }}
                                             dropdownIconPosition={"right"}
@@ -341,7 +332,6 @@ const ReproductRegist = () => {
                                             rowStyle={{ backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(60,60,60)', borderBottomColor: 'black' }}
                                             rowTextStyle={{ color: atdarkmode === 'light' ? 'black' : 'white', textAlign: 'left' }}
                                         />
-
                                     </View>
 
                                     {/*  */}
@@ -399,8 +389,6 @@ const ReproductRegist = () => {
                     </View>
 
                     {/* 하단 버튼 끝 */}
-
-
                     <BottomSheetModal
                         ref={bottomSheetModalRef}
                         index={1}
@@ -409,8 +397,7 @@ const ReproductRegist = () => {
                         handleComponent={() =>
                             <View style={{ height: 30, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(61,61,61)', borderTopLeftRadius: 15, borderTopRightRadius: 15 }}>
                             </View>
-                        }
-                    >
+                        }>
                         <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(61,61,61)' }}>
                             <DatePicker
                                 style={{ width: chwidth, flex: 1, }}
@@ -429,26 +416,15 @@ const ReproductRegist = () => {
                                 </TouchableWithoutFeedback>
                             </View>
                         </View>
-
                     </BottomSheetModal>
 
                 </SafeAreaView>
+
             </BottomSheetModalProvider>
+
         </NativeBaseProvider>
     )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 24,
-        justifyContent: 'center',
-        backgroundColor: 'grey',
-    },
-    contentContainer: {
-        flex: 1,
-        alignItems: 'center',
-    },
-});
 
 export default ReproductRegist

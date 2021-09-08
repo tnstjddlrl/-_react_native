@@ -89,54 +89,7 @@ const Login = () => {
         }
     }
 
-    const getData = async () => {
-        try {
-            const value = await AsyncStorage.getItem('@user_id')
-            if (value !== null) {
-                return value
-            } else {
-                return 'first'
-            }
-        } catch (e) {
-            Alert.alert('오류가 발생하였습니다.', '앱을 다시 시작해주세요.')
 
-            setTimeout(() => {
-                BackHandler.exitApp()
-            }, 1500);
-        }
-    }
-
-    const getDark = async () => {
-        try {
-            const value = await AsyncStorage.getItem('@is_dark')
-            if (value !== null) {
-                return value
-            } else {
-                return 'light'
-            }
-        } catch (e) {
-            // error reading value
-        }
-    }
-
-    useEffect(() => {
-        getDark().then((res) => {
-            setAtdarkmode(res)
-        })
-
-        getData().then((res) => {
-            if (res == 'first') {
-                console.log(res)
-                console.log('첫사용자')
-            } else {
-                console.log(res)
-                console.log('기존 사용자')
-                setAtid(res)
-
-                navigation.navigate('실제 메인')
-            }
-        })
-    }, [])
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'rgb(240,240,240)' }}>

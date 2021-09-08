@@ -45,14 +45,12 @@ const Buyproduct = () => {
 
     return (
         <SafeAreaView style={{ width: '100%', height: '100%' }}>
-
             <WebView
                 ref={wb => { rnw = wb }}
                 source={{ uri: uri }}
                 style={{ width: '100%', height: '100%' }}
                 onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
             />
-
         </SafeAreaView>
     )
 }

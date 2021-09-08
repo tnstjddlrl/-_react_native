@@ -79,14 +79,18 @@ const ReproductRegist = () => {
         }, 100);
     }, [])
 
-    //화면 감지 될때마다 제품 목록 받아오기
-    const unsubscribe = navigation.addListener('focus', () => {
 
-    });
+    const backAction = () => {
+        navigation.goBack()
+        return true;
+    };
+
     useEffect(() => {
-        return () => unsubscribe();
-    });
+        BackHandler.addEventListener("hardwareBackPress", backAction);
 
+        return () =>
+            BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }, []);
 
 
 

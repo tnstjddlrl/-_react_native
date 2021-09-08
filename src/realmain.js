@@ -577,7 +577,6 @@ const Realmain = () => {
                 )
             }
         }
-
         return list
     }
     ///////////////////////////////////////////////////////////////////////////////////
@@ -635,7 +634,7 @@ const Realmain = () => {
             {/* 날씨 표현부 */}
             <View style={{ width: chwidth, marginTop: 15 }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <View style={{}}>
+                    <View>
                         <View style={{ borderBottomWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>
                             <Text style={{ fontSize: 16, fontWeight: 'bold', color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>오늘 날씨는?</Text>
                         </View>
@@ -724,6 +723,7 @@ const Realmain = () => {
                             </View>
                             <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImageuPush></ImageuPush>
+                                <View style={{ width: 15 }}></View>
                             </ScrollView>
                         </View>
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
@@ -733,6 +733,7 @@ const Realmain = () => {
                             </View>
                             <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImagedPush></ImagedPush>
+                                <View style={{ width: 15 }}></View>
                             </ScrollView>
                         </View>
                     </View>
@@ -805,7 +806,7 @@ const Realmain = () => {
 
                                     <Text style={{ fontWeight: 'bold', fontSize: 17, color: atdarkmode === 'light' ? 'black' : 'white' }}>{modalname}</Text>
 
-                                    <TouchableWithoutFeedback onPress={() => { reproduct_f() }}>
+                                    <TouchableWithoutFeedback onPress={() => { reproduct_f(), setModalView(false) }}>
                                         <View style={{ backgroundColor: 'rgb(236,236,236)', borderRadius: 3 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', margin: 5, marginLeft: 10, marginright: 10 }}>
                                                 <AutoHeightImage source={edit} width={15}></AutoHeightImage>
@@ -832,7 +833,7 @@ const Realmain = () => {
 
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 20 }}>
 
-                                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰') }}>
+                                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰'), setModalView(false) }}>
                                         <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
                                                 <AutoHeightImage source={atdarkmode == 'light' ? light_cart : d_cart_icon} width={18}></AutoHeightImage>

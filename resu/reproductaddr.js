@@ -46,12 +46,6 @@ const ReProductAddr = () => {
     const [atlist, setatlist] = useRecoilState(plist) //제품 리스트
 
 
-    // 상태 불러오기!
-    useEffect(() => {
-
-    }, [])
-
-
     // 각각 클릭이벤트 통합
     function clickOK() {
         if (u1 === 'a') {
@@ -96,7 +90,6 @@ const ReProductAddr = () => {
                             Alert.alert('서버 오류입니다.', '잠시후 다시 시도해주세요.')
                         }
                     })
-
                 } catch (error) {
                     console.log(error)
                 }
@@ -105,7 +98,6 @@ const ReProductAddr = () => {
         }
     }
 
-
     const ImageItem = (prop) => {
         return (
             <View style={{ width: chwidth / 9, height: 110, borderRadius: 50, backgroundColor: 'rgb(204,204,204)' }}>
@@ -113,8 +105,6 @@ const ReProductAddr = () => {
             </View>
         )
     }
-
-
 
     const ImageUPush = () => {
         var list = []
@@ -126,7 +116,6 @@ const ReProductAddr = () => {
                 pushs++
             }
         }
-
         for (var i = 0; i < 6 - pushs; i++) {
             list.push(<ImageItem key={i} img={'none'}></ImageItem>)
         }

@@ -37,6 +37,7 @@ import Register from './register/register';
 import Buyproduct from './wb/buyproduct';
 import ReproductRegist from './resu/reproductRegist';
 import ReProductAddr from './resu/reproductaddr';
+import Load from './register/load';
 
 const Stack = createStackNavigator();
 
@@ -46,9 +47,9 @@ export default APP = () => {
     <RecoilRoot>
       <NavigationContainer>
         <Stack.Navigator headerMode={'none'}>
-          <Stack.Screen name="로그인" component={Login} />
-          {/* <Stack.Screen name="메인" component={testMain} /> */}
+          <Stack.Screen name="로딩" component={Load} />
 
+          <Stack.Screen name="로그인" component={Login} />
 
           <Stack.Screen name="바코드체크" component={barcodeCheck} />
           <Stack.Screen name="제품등록" component={Productregist} />

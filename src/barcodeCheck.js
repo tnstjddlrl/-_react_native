@@ -56,45 +56,36 @@ export default BarcodeCheck = () => {
 
     function barcodeCheck(pp) {
         // 8809482500662
-        var regex = /[a-z0-9]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+        var regex = /[]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
 
         axios.get('http://www.koreannet.or.kr/home/hpisSrchGtin.gs1?gtin=' + pp,
         ).then(function (response) {
 
             const $ = cheerio.load(response.data);
 
-            // console.log($('div.productDetailView').find('div.productTit').text().indexOf(pp))
-
             var test = $('div.productDetailView').find('div.productTit').text();
 
             var arr = test.trim().substring(13, test.length).trim().split(' ')
             var target = arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text())
 
-            // console.log('회사명 불러오기' + $('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text())
-
-
-            // console.log(test.substring(25, test.length).split(' '))
-            // setAtomImg($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
-
 
             if (arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text()) < 0) {
-                //회사명 미포함
-                // console.log('회사명 미포함')
 
-
-                setAtname(arr.join(' ').replace(regex, ''))
+                setAtname(arr.join(' '))
 
                 setTimeout(() => {
                     navigation.navigate('제품등록')
                 }, 300);
             } else {
-                //회사명 포함
-                // console.log('회사명 포함 : ' + target)
-
                 arr.splice(arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text()), 1)
                 // arr.splice(arr.length - 1, 1, arr[arr.length - 1].replace(/ /g, ""))
 
-                setAtname(arr.join(' ').replace(regex, ''))
+                if (arr.join(' ') == '') {
+                    Alert.alert('등록된 정보가 없습니다.')
+                    return;
+                }
+
+                setAtname(arr.join(' '))
 
                 setTimeout(() => {
                     navigation.navigate('제품등록')
@@ -124,19 +115,14 @@ export default BarcodeCheck = () => {
                     buttonPositive: '확인',
                     buttonNegative: '거절',
                 }}
-
                 onBarCodeRead={(data) => {
-                    setTimeout(() => {
-                        barcodeCheck(data.data)
-                    }, 500);
+                    barcodeCheck(data.data)
+
                 }}>
                 <BarcodeMask
                     width={300} height={200} showAnimatedLine={true} outerMaskOpacity={0.4} animatedLineColor={'red'}
                 />
             </RNCamera>
-
-            {/* <Text>{barcc}</Text>
-            <Text>{product}</Text> */}
 
             {/* 푸터 시작  */}
             <View style={{ width: '100%', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(48,48,48)' }}>
@@ -182,7 +168,3 @@ export default BarcodeCheck = () => {
         </SafeAreaView>
     )
 }
-
-
-const styles = StyleSheet.create({
-});

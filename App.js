@@ -38,6 +38,7 @@ import Buyproduct from './wb/buyproduct';
 import ReproductRegist from './resu/reproductRegist';
 import ReProductAddr from './resu/reproductaddr';
 import Load from './register/load';
+import ReviewWb from './wb/reviewWb';
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,8 @@ export default APP = () => {
           <Stack.Screen name="사진촬영" component={pictureTake} />
 
           <Stack.Screen name="웹뷰" component={Buyproduct} />
+          <Stack.Screen name="리뷰웹뷰" component={ReviewWb} />
+
 
           <Stack.Screen name="제품수정" component={ReproductRegist} />
           <Stack.Screen name="제품위치수정" component={ReProductAddr} />

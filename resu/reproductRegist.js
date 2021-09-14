@@ -116,46 +116,32 @@ const ReproductRegist = () => {
     const [onChangeValue, setOnChangeValue] = React.useState(49)
     useEffect(() => {
         console.log(onChangeValue)
-        switch (onChangeValue) {
-            case 0:
-                setLeftmonth(0)
-                break;
-            case 9:
-                setLeftmonth(1)
-                break;
-            case 17:
-                setLeftmonth(2)
-                break;
-            case 25:
-                setLeftmonth(3)
-                break;
-            case 34:
-                setLeftmonth(4)
-                break;
-            case 41:
-                setLeftmonth(5)
-                break;
-            case 49:
-                setLeftmonth(6)
-                break;
-            case 57:
-                setLeftmonth(7)
-                break;
-            case 64:
-                setLeftmonth(8)
-                break;
-            case 73:
-                setLeftmonth(9)
-                break;
-            case 80:
-                setLeftmonth(10)
-                break;
-            case 88:
-                setLeftmonth(11)
-                break;
-            case 96:
-                setLeftmonth(12)
-                break;
+        if (onChangeValue === 0) {
+            setLeftmonth(0)
+        } else if (onChangeValue <= 9) {
+            setLeftmonth(1)
+        } else if (onChangeValue <= 17) {
+            setLeftmonth(2)
+        } else if (onChangeValue <= 25) {
+            setLeftmonth(3)
+        } else if (onChangeValue <= 34) {
+            setLeftmonth(4)
+        } else if (onChangeValue <= 41) {
+            setLeftmonth(5)
+        } else if (onChangeValue <= 49) {
+            setLeftmonth(6)
+        } else if (onChangeValue <= 57) {
+            setLeftmonth(7)
+        } else if (onChangeValue <= 64) {
+            setLeftmonth(8)
+        } else if (onChangeValue <= 73) {
+            setLeftmonth(9)
+        } else if (onChangeValue <= 80) {
+            setLeftmonth(10)
+        } else if (onChangeValue <= 88) {
+            setLeftmonth(11)
+        } else if (onChangeValue <= 96) {
+            setLeftmonth(12)
         }
 
     }, [onChangeValue])

@@ -380,6 +380,18 @@ const Realmain = () => {
         })
     }
 
+    function delprodAlert(no) {
+        Alert.alert("삭제", "제품을 삭제하시겠습니까?", [
+            {
+                text: "취소",
+                onPress: () => null,
+                style: "cancel"
+            },
+            { text: "삭제", onPress: () => delprod(no) }
+        ]);
+
+    }
+
     //로컬 알림 함수
     const LocalNotification = () => {
         PushNotification.localNotificationSchedule({
@@ -645,7 +657,6 @@ const Realmain = () => {
                         {
                             atdarkmode === 'light' ?
                                 <View style={{ flex: 1 }}>
-
                                     <View style={{ height: 80, justifyContent: 'space-around', alignItems: 'center', }}>
                                         <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>자외선</Text>
                                         <AutoHeightImage source={info1} width={chwidth / 10}></AutoHeightImage>
@@ -660,7 +671,6 @@ const Realmain = () => {
                                         <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -1.2 }}>{Math.round(dayUv)} {uvString}</Text>
                                     </View>
                                 </View>
-
                         }
 
                         <View style={{ flex: 1, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
@@ -723,7 +733,7 @@ const Realmain = () => {
                             </View>
                             <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImageuPush></ImageuPush>
-                                <View style={{ width: 15 }}></View>
+                                <View style={{ width: 20 }}></View>
                             </ScrollView>
                         </View>
                         <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
@@ -733,7 +743,7 @@ const Realmain = () => {
                             </View>
                             <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
                                 <ImagedPush></ImagedPush>
-                                <View style={{ width: 15 }}></View>
+                                <View style={{ width: 20 }}></View>
                             </ScrollView>
                         </View>
                     </View>
@@ -842,7 +852,7 @@ const Realmain = () => {
                                         </View>
                                     </TouchableWithoutFeedback>
 
-                                    <TouchableWithoutFeedback onPress={() => { }}>
+                                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('리뷰웹뷰'), setModalView(false) }}>
                                         <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
                                                 <AutoHeightImage source={atdarkmode == 'light' ? light_review : d_review_icon} width={18}></AutoHeightImage>
@@ -851,7 +861,7 @@ const Realmain = () => {
                                         </View>
                                     </TouchableWithoutFeedback>
 
-                                    <TouchableWithoutFeedback onPress={() => { delprod(modalno) }}>
+                                    <TouchableWithoutFeedback onPress={() => { delprodAlert(modalno) }}>
                                         <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : 'rgb(180, 180, 180)', marginTop: 10, borderRadius: 6, width: chwidth / 3.8 }}>
                                             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', margin: 13 }}>
                                                 <AutoHeightImage source={atdarkmode == 'light' ? light_delete : d_del} width={18}></AutoHeightImage>

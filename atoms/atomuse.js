@@ -22,6 +22,7 @@
 
 //  const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
 //
+// const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
 
 
 
@@ -58,6 +59,14 @@
 // const storeData = async (value) => {
 //     try {
 //         await AsyncStorage.setItem('@dark_mode', value)
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
+
+// const setfloor3rd = async (value) => {
+//     try {
+//         await AsyncStorage.setItem('@floor3rd', value)
 //     } catch (e) {
 //         console.log(e)
 //     }

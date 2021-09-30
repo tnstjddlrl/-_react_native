@@ -16,7 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import { buypname, } from '../atoms/atom';
 
-
 var rnw
 var cbc = false;
 
@@ -27,7 +26,6 @@ const Buyproduct = () => {
 
     var uri = 'https://msearch.shopping.naver.com/search/all?query=' + atbuyname
 
-
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             "hardwareBackPress",
@@ -37,6 +35,8 @@ const Buyproduct = () => {
                     return true;
                 } else {
                     navigation.goBack();
+                    return true;
+
                 }
             }
         );

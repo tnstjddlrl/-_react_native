@@ -92,3 +92,8 @@ export const buypname = atom({ //웹뷰용 제품 이름
     key: 'buypname',
     default: '',
 });
+
+export const floor3rd = atom({ //웹뷰용 제품 이름
+    key: 'floor3rd',
+    default: 'off',
+});

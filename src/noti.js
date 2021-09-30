@@ -2,34 +2,6 @@ import PushNotification, { Importance } from "react-native-push-notification";
 
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
-PushNotification.configure({
-    onRegister: function (token) {
-        console.log("TOKEN:", token);
-    },
-    onNotification: function (notification) {
-        console.log("NOTIFICATION:", notification);
-
-        notification.finish(PushNotificationIOS.FetchResult.NoData);
-    },
-    onAction: function (notification) {
-        console.log("ACTION:", notification.action);
-        console.log("NOTIFICATION:", notification);
-
-        // process the action
-    },
-    onRegistrationError: function (err) {
-        console.error(err.message, err);
-    },
-    permissions: {
-        alert: true,
-        badge: true,
-        sound: true,
-    },
-    popInitialNotification: true,
-
-    requestPermissions: Platform.OS === 'ios',
-});
-
 PushNotification.createChannel(
     {
         channelId: 'com.notify', // (required)
@@ -44,8 +16,7 @@ PushNotification.createChannel(
 );
 
 
-
-export const LocalNotification = () => {
+const LocalNotification = () => {
     PushNotification.localNotificationSchedule({
         channelId: 'com.notify',
         title: '테스트',

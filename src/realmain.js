@@ -26,6 +26,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { buypname, darkmode, pid, plist, repcategory, repexp, repexpDate, repname, repNo } from '../atoms/atom';
 import { useRecoilState } from 'recoil';
+import PushNotification from 'react-native-push-notification';
 
 
 const chwidth = Dimensions.get('window').width
@@ -159,6 +160,8 @@ const Realmain = () => {
             console.log('라이트')
         }
     }
+
+
 
 
 
@@ -632,9 +635,11 @@ const Realmain = () => {
                             </View>
                         </TouchableWithoutFeedback>
 
-                        <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
-                            <AutoHeightImage source={atdarkmode === 'light' ? settings : d_settings} width={14} style={{ margin: 8 }}></AutoHeightImage>
-                        </View>
+                        <TouchableWithoutFeedback onPress={() => { navigation.navigate('설정') }}>
+                            <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
+                                <AutoHeightImage source={atdarkmode === 'light' ? settings : d_settings} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                            </View>
+                        </TouchableWithoutFeedback>
 
                     </View>
 
@@ -659,7 +664,7 @@ const Realmain = () => {
                                 <View style={{ flex: 1 }}>
                                     <View style={{ height: 80, justifyContent: 'space-around', alignItems: 'center', }}>
                                         <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>자외선</Text>
-                                        <AutoHeightImage source={info1} width={chwidth / 10}></AutoHeightImage>
+                                        <AutoHeightImage source={info1} width={(chwidth / 10) > 50 ? 50 : chwidth / 10}></AutoHeightImage>
                                         <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -0.8 }}>{Math.round(dayUv)} {uvString}</Text>
                                     </View>
                                 </View>
@@ -667,7 +672,7 @@ const Realmain = () => {
                                 <View style={{ flex: 1 }}>
                                     <View style={{ height: 80, justifyContent: 'space-around', alignItems: 'center', }}>
                                         <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>자외선</Text>
-                                        <AutoHeightImage source={info1} width={chwidth / 10}></AutoHeightImage>
+                                        <AutoHeightImage source={info1} width={(chwidth / 10) > 50 ? 50 : chwidth / 10}></AutoHeightImage>
                                         <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -1.2 }}>{Math.round(dayUv)} {uvString}</Text>
                                     </View>
                                 </View>
@@ -676,7 +681,7 @@ const Realmain = () => {
                         <View style={{ flex: 1, backgroundColor: 'rgba(242,242,242,0)', alignItems: 'center' }}>
                             <View style={{ height: 80, justifyContent: 'space-around', alignItems: 'center', }}>
                                 <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>습도</Text>
-                                <AutoHeightImage source={info2} width={chwidth / 15}></AutoHeightImage>
+                                <AutoHeightImage source={info2} width={(chwidth / 15) > 30 ? 30 : chwidth / 15}></AutoHeightImage>
                                 <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white' }}>{curHumi}%</Text>
                             </View>
                         </View>
@@ -686,7 +691,7 @@ const Realmain = () => {
                                 <View style={{ flex: 1 }}>
                                     <View style={{ height: 80, justifyContent: 'space-around', alignItems: 'center', }}>
                                         <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>미세먼지</Text>
-                                        <AutoHeightImage source={info3} width={chwidth / 11}></AutoHeightImage>
+                                        <AutoHeightImage source={info3} width={(chwidth / 11) > 40 ? 40 : chwidth / 11}></AutoHeightImage>
                                         <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -1.2 }}>{Math.round(pm10)}㎍/m³ {totalAir}</Text>
                                     </View>
                                 </View>
@@ -694,7 +699,7 @@ const Realmain = () => {
                                 <View style={{ flex: 1 }}>
                                     <View style={{ height: 80, justifyContent: 'space-around', alignItems: 'center', }}>
                                         <Text style={{ color: atdarkmode === 'light' ? 'black' : 'white' }}>미세먼지</Text>
-                                        <AutoHeightImage source={info3} width={chwidth / 11}></AutoHeightImage>
+                                        <AutoHeightImage source={info3} width={(chwidth / 11) > 40 ? 40 : chwidth / 11}></AutoHeightImage>
                                         <Text style={{ fontSize: 12, color: atdarkmode === 'light' ? 'rgb(49,49,49)' : 'white', letterSpacing: -1.2 }}>{Math.round(pm10)}㎍/m³ {totalAir}</Text>
                                     </View>
                                 </View>
@@ -812,8 +817,8 @@ const Realmain = () => {
                         <View style={{ alignItems: 'center', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(54,54,54)' }}>
 
                             <View style={{ width: chwidth - 50, marginTop: 15, marginBottom: 30 }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
 
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <Text style={{ fontWeight: 'bold', fontSize: 17, color: atdarkmode === 'light' ? 'black' : 'white' }}>{modalname}</Text>
 
                                     <TouchableWithoutFeedback onPress={() => { reproduct_f(), setModalView(false) }}>

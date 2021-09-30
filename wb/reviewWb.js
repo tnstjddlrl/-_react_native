@@ -37,6 +37,7 @@ const ReviewWb = () => {
                     return true;
                 } else {
                     navigation.goBack();
+                    return true;
                 }
             }
         );

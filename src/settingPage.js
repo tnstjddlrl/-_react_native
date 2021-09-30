@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     SafeAreaView,
     Text,
@@ -46,6 +46,8 @@ const SettingPage = () => {
 
     const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
     const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
+
+    const [expAlert, setExpAlert] = useState(true);
 
 
 
@@ -112,11 +114,14 @@ const SettingPage = () => {
                     <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }}>유통기한 알림</Text>
                         <ToggleSwitch
-                            isOn={true}
+                            isOn={expAlert}
                             onColor="blue"
                             offColor="gray"
                             size="small"
-                            onToggle={isOn => console.log("changed to : ", isOn)}
+                            onToggle={isOn => {
+                                console.log("changed to : ", isOn)
+                                setExpAlert(isOn);
+                            }}
                         />
                     </View>
                 </View>

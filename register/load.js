@@ -16,13 +16,15 @@ import {
     TextInput,
 } from 'react-native';
 import { useRecoilState } from 'recoil';
-import { darkmode, pid } from '../atoms/atom';
+import { darkmode, floor3rd, pid } from '../atoms/atom';
 
 const Load = () => {
     const navigation = useNavigation()
 
     const [atid, setAtid] = useRecoilState(pid);
     const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode);
+    const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
+
 
     const backAction = () => {
         navigation.goBack()
@@ -46,10 +48,6 @@ const Load = () => {
             }
         } catch (e) {
             Alert.alert('오류가 발생하였습니다.', '앱을 다시 시작해주세요.')
-
-            // setTimeout(() => {
-            //     BackHandler.exitApp()
-            // }, 1500);
         }
     }
 
@@ -66,9 +64,27 @@ const Load = () => {
         }
     }
 
+    const get3rd = async () => {
+        try {
+            const value = await AsyncStorage.getItem('@floor3rd')
+            if (value !== null) {
+                return value
+            } else {
+                return 'off'
+            }
+        } catch (e) {
+            Alert.alert('오류가 발생하였습니다.', '앱을 다시 시작해주세요.')
+        }
+    }
+
     useEffect(() => {
         getDark().then((res) => {
             setAtdarkmode(res)
+        })
+
+        get3rd().then((res) => {
+            console.log('????????????3rd' + res)
+            setatfloor3rd(res)
         })
 
         getData().then((res) => {

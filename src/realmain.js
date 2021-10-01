@@ -24,7 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { useNavigation } from '@react-navigation/native';
-import { buypname, darkmode, pid, plist, repcategory, repexp, repexpDate, repname, repNo } from '../atoms/atom';
+import { buypname, darkmode, floor3rd, pid, plist, repcategory, repexp, repexpDate, repname, repNo } from '../atoms/atom';
 import { useRecoilState } from 'recoil';
 import PushNotification from 'react-native-push-notification';
 
@@ -137,6 +137,7 @@ const Realmain = () => {
     const [atlist, setatlist] = useRecoilState(plist)
 
     const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode);
+    const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
 
     const storeDark = async (value) => {
         try {
@@ -145,6 +146,10 @@ const Realmain = () => {
             console.log(e)
         }
     }
+
+    useEffect(() => {
+        console.log(atfloor3rd)
+    }, [])
 
     function darkbtn() {
         if (atdarkmode == 'light') {
@@ -571,6 +576,18 @@ const Realmain = () => {
                 )
             }
         }
+
+        if (list == '') {
+            // Alert.alert('3층 비었음')
+            list.push(
+                <View style={{ padding: 20 }}>
+                    <Text>제품을 등록해주세요</Text>
+                </View>)
+
+
+        } else {
+            // Alert.alert('' + list)
+        }
         return list
     }
 
@@ -592,7 +609,53 @@ const Realmain = () => {
                 )
             }
         }
+
+        if (list == '') {
+            // Alert.alert('3층 비었음')
+            list.push(
+                <View style={{ padding: 20 }}>
+                    <Text>제품을 등록해주세요</Text>
+                </View>)
+
+
+        } else {
+            // Alert.alert('' + list)
+        }
         return list
+    }
+
+    const ImagetPush = () => {
+        var list = [];
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 't') {
+                list.push(
+                    <ImageItem
+                        key={i}
+                        no={atlist[i].no}
+                        name={atlist[i].name}
+                        expiration={atlist[i].expiration}
+                        alert_config={atlist[i].alert_config}
+                        alert_date={atlist[i].alert_date}
+                        category={atlist[i].category}
+                        img={atlist[i].img}>
+                    </ImageItem>
+                )
+            }
+        }
+
+        if (list == '') {
+            // Alert.alert('3층 비었음')
+            list.push(
+                <View style={{ padding: 20 }}>
+                    <Text>제품을 등록해주세요</Text>
+                </View>
+            )
+
+
+        } else {
+            // Alert.alert('' + list)
+        }
+        return (list)
     }
     ///////////////////////////////////////////////////////////////////////////////////
 
@@ -727,56 +790,67 @@ const Realmain = () => {
 
             {/* 본문 시작 */}
             <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                <ScrollView>
+                    {version ?
+                        // 이미지 버전
+                        <View style={{ flex: 1 }}>
+                            <View style={{ width: chwidth, height: chwidth / 1.7, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>3층 화장품 리스트</Text>
+                                </View>
+                                <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
+                                    <ImagetPush></ImagetPush>
+                                    <View style={{ width: 20 }}></View>
+                                </ScrollView>
+                            </View>
+                            <View style={{ width: chwidth, height: chwidth / 1.7, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
+                                </View>
+                                <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
+                                    <ImageuPush></ImageuPush>
+                                    <View style={{ width: 20 }}></View>
+                                </ScrollView>
+                            </View>
+                            <View style={{ width: chwidth, height: chwidth / 1.7, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
+                                </View>
+                                <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
+                                    <ImagedPush></ImagedPush>
+                                    <View style={{ width: 20 }}></View>
+                                </ScrollView>
+                            </View>
+                        </View>
+                        :
+                        // 텍스트 버전
+                        <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around', marginTop: 10 }}>
+                            <View style={{ width: chwidth - 40, height: '45%', }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
+                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
+                                </View>
 
-                {version ?
-                    // 이미지 버전
-                    <View style={{ flex: 1 }}>
-                        <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
-                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
+                                <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
+                                    <TextuPush></TextuPush>
+                                </ScrollView>
                             </View>
-                            <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
-                                <ImageuPush></ImageuPush>
-                                <View style={{ width: 20 }}></View>
-                            </ScrollView>
-                        </View>
-                        <View style={{ width: chwidth, height: '49%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
-                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
-                            </View>
-                            <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
-                                <ImagedPush></ImagedPush>
-                                <View style={{ width: 20 }}></View>
-                            </ScrollView>
-                        </View>
-                    </View>
-                    :
-                    // 텍스트 버전
-                    <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around', marginTop: 10 }}>
-                        <View style={{ width: chwidth - 40, height: '45%', }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
-                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
-                            </View>
+                            <View style={{ width: chwidth - 40, height: '45%', }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
+                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
 
-                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
-                                <TextuPush></TextuPush>
-                            </ScrollView>
-                        </View>
-                        <View style={{ width: chwidth - 40, height: '45%', }}>
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
-                                <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-
-                                <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
+                                </View>
+                                <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
+                                    <TextdPush></TextdPush>
+                                </ScrollView>
                             </View>
-                            <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
-                                <TextdPush></TextdPush>
-                            </ScrollView>
                         </View>
-                    </View>
-                }
+                    }
+                </ScrollView>
             </View>
             {/* 본문 끝 */}
 

@@ -154,6 +154,24 @@ const ProductAddr = () => {
         return list
     }
 
+    const ImageTPush = () => {
+        var list = []
+        var pushs = 0
+
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 't' && pushs < 6) {
+                list.push(<ImageItem key={i} img={atlist[i].img}></ImageItem>)
+                pushs++
+            }
+        }
+
+        for (var i = 0; i < 6 - pushs; i++) {
+            list.push(<ImageItem key={i} img={'none'}></ImageItem>)
+        }
+
+        return list
+    }
+
     return (
 
         <SafeAreaView style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'black' }}>
@@ -182,6 +200,61 @@ const ProductAddr = () => {
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
                         <Text style={{ fontSize: 18, marginTop: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품을 보관할 층을 터치하세요!</Text>
                     </View>
+
+                    {/* 3층! */}
+                    <TouchableWithoutFeedback onPress={() => setu1('t')}>
+                        {atdarkmode === 'light' ?
+
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 't' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 't' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>3층</Text>
+
+                                    </View>
+
+                                    {/* 개별 화장품 부분 */}
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageTPush></ImageTPush>
+                                    </View>
+                                    {/* 개별 화장품 부분  끝*/}
+
+                                </View>
+                            </View>
+
+                            :
+
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 't' ? 'white' : 'black', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
+
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        {u1 == 't' ?
+                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                            :
+                                            <View></View>
+
+                                        }
+                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>2층</Text>
+
+                                    </View>
+
+                                    {/* 개별 화장품 부분 */}
+                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                        <ImageUPush></ImageUPush>
+                                    </View>
+                                    {/* 개별 화장품 부분  끝*/}
+
+                                </View>
+                            </View>
+                        }
+                    </TouchableWithoutFeedback>
+                    {/* 윗칸 끝 */}
 
                     {/* 윗칸 */}
                     <TouchableWithoutFeedback onPress={() => setu1('u')}>

@@ -14,6 +14,8 @@ import { useNavigation } from '@react-navigation/core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AutoHeightImage from 'react-native-auto-height-image';
 import ToggleSwitch from 'toggle-switch-react-native'
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+
 
 import { useRecoilState } from 'recoil';
 import { darkmode, floor3rd } from '../atoms/atom';
@@ -26,10 +28,29 @@ const rightarrow = require('../newimg/all/rightarrow.png')
 const settingAxe_light = require('../newimg/light/settingAxe.png')
 const settingAxe_dark = require('../newimg/dark/settingAxe.png')
 
-
+var radio_props = [
+    { label: '2층', value: 0 },
+    { label: '3층', value: 1 }
+];
 
 const SettingPage = () => {
     const navigation = useNavigation()
+
+    const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
+    const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
+
+    const [expAlert, setExpAlert] = useState(true);
+
+    const [whoRadio, setWhoRadio] = useState(0)
+
+    useEffect(() => {
+        // console.log(atfloor3rd)s
+        if (atfloor3rd == 'off') {
+            setWhoRadio(0)
+        } else {
+            setWhoRadio(1)
+        }
+    }, [])
 
     // 백핸들러
     const backAction = () => {
@@ -44,11 +65,6 @@ const SettingPage = () => {
     }, []);
     // 백핸들러 끝
 
-    const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
-    const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
-
-    const [expAlert, setExpAlert] = useState(true);
-
 
 
     const setfloor3rd = async (value) => {
@@ -56,6 +72,29 @@ const SettingPage = () => {
             await AsyncStorage.setItem('@floor3rd', value)
         } catch (e) {
             console.log(e)
+        }
+    }
+
+    function radioClick(i) {
+        console.log(i)
+        setWhoRadio(i)
+
+        if (i == 0) {
+            setatfloor3rd('off')
+            try {
+                setfloor3rd('off')
+            } catch (error) {
+                console.log(error)
+            }
+            console.log('off')
+        } else {
+            setatfloor3rd('on')
+            console.log('on')
+            try {
+                setfloor3rd('on')
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -95,19 +134,51 @@ const SettingPage = () => {
                         <AutoHeightImage source={rightarrow} width={10}></AutoHeightImage>
                     </View>
                 </View>
-                <View style={{ width: '100%', borderWidth: 0.2, borderColor: 'gray' }}></View>
+                <View style={{ width: '100%', borderWidth: 0.5, borderColor: '#f2f2f2' }}></View>
                 {/* // */}
 
                 {/*  */}
-                <View style={{ width: chwidth - 60, height: 80, marginLeft: 30 }}>
+                <View style={{ width: chwidth - 60, height: 90, marginLeft: 30 }}>
                     <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'space-evenly' }}>
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }}>냉장고 칸수 설정</Text>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }}>냉장고 칸수 설정</Text>
+
+                        <View style={{ marginLeft: -10 }}>
+                            <RadioForm
+                                formHorizontal={true}
+                                animation={true}>
+                                {
+                                    radio_props.map((obj, i) => (
+                                        <RadioButton labelHorizontal={true} key={i} >
+                                            <RadioButtonInput
+                                                obj={obj}
+                                                index={i}
+                                                isSelected={whoRadio === i}
+                                                onPress={() => { radioClick(i) }}
+                                                borderWidth={0.7}
+                                                buttonInnerColor={'rgb(37,55,126)'}
+                                                buttonOuterColor={whoRadio === i ? 'rgb(37,55,126)' : 'gray'}
+                                                buttonSize={12}
+                                                buttonOuterSize={20}
+                                                buttonStyle={{}}
+                                                buttonWrapStyle={{ marginLeft: 10 }}
+                                            />
+                                            <RadioButtonLabel
+                                                obj={obj}
+                                                index={i}
+                                                labelHorizontal={true}
+                                                onPress={() => { radioClick(i) }}
+                                                labelStyle={{ fontSize: 13, color: '#000' }}
+                                                labelWrapStyle={{}}
+                                            />
+                                        </RadioButton>
+                                    ))
+                                }
+                            </RadioForm>
+                        </View>
 
                     </View>
-
                 </View>
-                <View style={{ width: '100%', borderWidth: 0.2, borderColor: 'gray' }}></View>
+                <View style={{ width: '100%', borderWidth: 0.5, borderColor: '#f2f2f2' }}></View>
                 {/* // */}
 
                 <View style={{ width: chwidth - 60, height: 60, marginLeft: 30 }}>
@@ -115,7 +186,7 @@ const SettingPage = () => {
                         <Text style={{ fontWeight: 'bold', fontSize: 15 }}>유통기한 알림</Text>
                         <ToggleSwitch
                             isOn={expAlert}
-                            onColor="blue"
+                            onColor="rgb(37,55,126)"
                             offColor="gray"
                             size="small"
                             onToggle={isOn => {

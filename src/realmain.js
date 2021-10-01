@@ -517,6 +517,27 @@ const Realmain = () => {
         }
         return list
     }
+
+    const TexttPush = () => {
+        var list = [];
+        for (var i = 0; i < atlist.length; i++) {
+            if (atlist[i].location == 't') {
+                list.push(
+                    <TextItem
+                        key={i}
+                        no={atlist[i].no}
+                        name={atlist[i].name}
+                        expiration={atlist[i].expiration}
+                        alert_config={atlist[i].alert_config}
+                        alert_date={atlist[i].alert_date}
+                        category={atlist[i].category}
+                        img={atlist[i].img}>
+                    </TextItem>
+                )
+            }
+        }
+        return list
+    }
     ///////////////////////////////////////////////////////////////////////////////////
 
     // 이미지 버전 처리
@@ -827,27 +848,41 @@ const Realmain = () => {
                         </View>
                         :
                         // 텍스트 버전
-                        <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-around', marginTop: 10 }}>
-                            <View style={{ width: chwidth - 40, height: '45%', }}>
+                        <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
+
+                            <View style={{ width: chwidth - 40, height: chwidth / 2, }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
+                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>3층 화장품 리스트</Text>
+                                </View>
+
+                                <ScrollView nestedScrollEnabled style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
+                                    <TexttPush></TexttPush>
+                                </ScrollView>
+                            </View>
+
+                            <View style={{ width: chwidth - 40, height: chwidth / 2, }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
                                     <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
                                     <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
                                 </View>
 
-                                <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
+                                <ScrollView nestedScrollEnabled style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
                                     <TextuPush></TextuPush>
                                 </ScrollView>
                             </View>
-                            <View style={{ width: chwidth - 40, height: '45%', }}>
+
+                            <View style={{ width: chwidth - 40, height: chwidth / 2, }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
                                     <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
 
                                     <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
                                 </View>
-                                <ScrollView style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
+                                <ScrollView nestedScrollEnabled style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
                                     <TextdPush></TextdPush>
                                 </ScrollView>
                             </View>
+
                         </View>
                     }
                 </ScrollView>

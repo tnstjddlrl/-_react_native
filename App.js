@@ -40,6 +40,7 @@ import ReProductAddr from './resu/reproductaddr';
 import Load from './register/load';
 import ReviewWb from './wb/reviewWb';
 import SettingPage from './src/settingPage';
+import PwdChangePage from './src/pwdChangePage';
 
 const Stack = createStackNavigator();
 
@@ -68,7 +69,7 @@ export default APP = () => {
           <Stack.Screen name="제품위치수정" component={ReProductAddr} />
 
           <Stack.Screen name="설정" component={SettingPage} />
-
+          <Stack.Screen name="비밀번호수정" component={PwdChangePage} />
 
 
 

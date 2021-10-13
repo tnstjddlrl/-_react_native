@@ -140,7 +140,7 @@ const Productregist = () => {
 
 
     function okclick() {
-        if (name == '' && big == '' && small == '') {
+        if (name == '' || big == '' || small == '') {
             Alert.alert('제품명 혹은 종류를 설정해주세요.')
             return
         }

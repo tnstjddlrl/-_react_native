@@ -100,7 +100,7 @@ const SettingPage = () => {
 
 
     return (
-        <SafeAreaView style={{ backgroundColor: 'white', width: '100%', height: '100%' }}>
+        <SafeAreaView style={{ backgroundColor: (atdarkmode == 'light' ? 'white' : 'black'), width: '100%', height: '100%' }}>
             {/* 헤더 시작 */}
             <View style={{ width: '100%', height: 60, justifyContent: 'center' }}>
 
@@ -114,7 +114,7 @@ const SettingPage = () => {
                     {/* < 시작 */}
                     <TouchableWithoutFeedback onPress={() => { navigation.goBack(); }}>
                         <View style={{ width: 40, height: 40, borderRadius: 25, alignItems: 'center', justifyContent: 'center', }}>
-                            <AutoHeightImage source={settingAxe_light} width={18}></AutoHeightImage>
+                            <AutoHeightImage source={atdarkmode == 'light' ? settingAxe_light : settingAxe_dark} width={18}></AutoHeightImage>
                         </View>
                     </TouchableWithoutFeedback>
                     {/* < 끝 */}
@@ -128,19 +128,21 @@ const SettingPage = () => {
             <View style={{ flex: 1 }}>
 
                 {/*  */}
-                <View style={{ width: chwidth - 60, height: 60, marginLeft: 30, marginTop: 20, }}>
-                    <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }}>비밀번호 변경</Text>
-                        <AutoHeightImage source={rightarrow} width={10}></AutoHeightImage>
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('비밀번호수정') }}>
+                    <View style={{ width: chwidth - 60, height: 60, marginLeft: 30, marginTop: 20, }}>
+                        <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 16, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>비밀번호 변경</Text>
+                            <AutoHeightImage source={rightarrow} width={10}></AutoHeightImage>
+                        </View>
                     </View>
-                </View>
-                <View style={{ width: '100%', borderWidth: 0.5, borderColor: '#f2f2f2' }}></View>
+                </TouchableWithoutFeedback>
+                <View style={{ width: '100%', borderWidth: 0.3, borderColor: '#f2f2f2' }}></View>
                 {/* // */}
 
                 {/*  */}
                 <View style={{ width: chwidth - 60, height: 90, marginLeft: 30 }}>
                     <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'space-evenly' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }}>냉장고 칸수 설정</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>냉장고 칸수 설정</Text>
 
                         <View style={{ marginLeft: -10 }}>
                             <RadioForm
@@ -167,7 +169,7 @@ const SettingPage = () => {
                                                 index={i}
                                                 labelHorizontal={true}
                                                 onPress={() => { radioClick(i) }}
-                                                labelStyle={{ fontSize: 13, color: '#000' }}
+                                                labelStyle={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}
                                                 labelWrapStyle={{}}
                                             />
                                         </RadioButton>
@@ -178,12 +180,12 @@ const SettingPage = () => {
 
                     </View>
                 </View>
-                <View style={{ width: '100%', borderWidth: 0.5, borderColor: '#f2f2f2' }}></View>
+                <View style={{ width: '100%', borderWidth: 0.3, borderColor: '#f2f2f2' }}></View>
                 {/* // */}
 
                 <View style={{ width: chwidth - 60, height: 60, marginLeft: 30 }}>
                     <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 15 }}>유통기한 알림</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>유통기한 알림</Text>
                         <ToggleSwitch
                             isOn={expAlert}
                             onColor="rgb(37,55,126)"

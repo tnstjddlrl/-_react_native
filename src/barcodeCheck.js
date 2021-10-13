@@ -12,7 +12,8 @@ import {
     Dimensions,
     Alert,
     TouchableWithoutFeedback,
-    BackHandler
+    BackHandler,
+    Modal
 } from 'react-native';
 
 import { RNCamera } from 'react-native-camera';
@@ -26,6 +27,8 @@ const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
 
 const back = require('../img/light/back.png')
+const noiconLight = require('../img/light/no_icon.png')
+const noiconBlack = require('../img/dark/d_no_icon.png')
 
 
 
@@ -51,6 +54,8 @@ export default BarcodeCheck = () => {
     const [atname, setAtname] = useRecoilState(pname)   //제품이름
 
     const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
+
+    const [modalview, setModalView] = useState(false)
 
 
 
@@ -81,7 +86,12 @@ export default BarcodeCheck = () => {
                 // arr.splice(arr.length - 1, 1, arr[arr.length - 1].replace(/ /g, ""))
 
                 if (arr.join(' ') == '') {
-                    Alert.alert('등록된 정보가 없습니다.')
+
+                    // Alert.alert('등록된 정보가 없습니다.')
+                    setModalView(true)
+                    setTimeout(() => {
+                        setModalView(false)
+                    }, 1000)
                     return;
                 }
 
@@ -164,6 +174,23 @@ export default BarcodeCheck = () => {
 
             </View>
             {/* 헤더 끝 */}
+
+            <Modal visible={modalview} transparent={true}>
+                <SafeAreaView style={{ alignItems: 'center', width: '100%' }}>
+                    <View style={{ alignItems: 'center', marginTop: '50%', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(48,48,48)', borderRadius: 10 }}>
+                        <AutoHeightImage source={atdarkmode === 'light' ? noiconLight : noiconBlack} style={{ marginTop: 20 }} width={30}></AutoHeightImage>
+                        <View style={{ alignItems: 'center', padding: 20 }}>
+                            <Text style={{ fontSize: 15, letterSpacing: -1 }}>바코드가 코리아넷에 존재하지 않습니다.</Text>
+                            <Text style={{ fontSize: 15, letterSpacing: -1 }}>하단의 직접등록 버튼을 이용해주세요.</Text>
+
+                        </View>
+
+
+                    </View>
+
+                </SafeAreaView>
+
+            </Modal>
 
         </SafeAreaView>
     )

@@ -28,11 +28,9 @@ import { buypname, darkmode, floor3rd, pid, plist, repcategory, repexp, repexpDa
 import { useRecoilState } from 'recoil';
 import PushNotification from 'react-native-push-notification';
 
-
 const chwidth = Dimensions.get('window').width
 
 var now = new Date();
-
 var year = now.getFullYear();   // 연도
 var month = now.getMonth() + 1;   // 월    
 var day = now.getDate();        // 일
@@ -139,6 +137,8 @@ const Realmain = () => {
     const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode);
     const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
 
+    const [region, setRegion] = useState('')
+
     const storeDark = async (value) => {
         try {
             await AsyncStorage.setItem('@is_dark', value)
@@ -203,14 +203,13 @@ const Realmain = () => {
         }
     }
 
-
     useEffect(() => {
         requestPermission().then(result => {
             console.log({ result });
             if (result === "granted") {
                 Geolocation.getCurrentPosition(
                     (position) => {
-
+                        console.log(position);
                         //오늘 최고 최저 온도 받아오기 및 자외선 지수
                         axios.get('https://api.openweathermap.org/data/2.5/onecall?lat=' + Math.round(position.coords.latitude * 100) / 100 + '&lon=' + Math.round(position.coords.longitude * 100) / 100 + '&exclude=current&appid=4c0e7c89ac35917a4adadc0c95b8392c',
                         ).then(function (response) {
@@ -328,6 +327,19 @@ const Realmain = () => {
                             // always executed
                         });
 
+                        console.log(position.coords.longitude)
+                        axios({
+                            method: 'get',
+                            url: `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${position.coords.longitude}&y=${position.coords.latitude}`,
+                            headers: { 'Authorization': 'KakaoAK 1fca8682191d27067ab092d740c45ecf' },
+                        }).then((addr) => {
+                            console.log(addr.data.documents[0].region_1depth_name)
+                            if (addr.data.documents[0].region_1depth_name.length === 4) {
+                                setRegion(addr.data.documents[0].region_2depth_name)
+                            } else {
+                                setRegion(addr.data.documents[0].region_1depth_name)
+                            }
+                        })
 
                     },
                     (error) => {
@@ -337,6 +349,8 @@ const Realmain = () => {
                     { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
                 );
             }
+
+
         });
     }, [])
 
@@ -374,7 +388,6 @@ const Realmain = () => {
                 no: no,
             }
         }).then(async (res) => {
-
             if (res.data == 'del_suc') {
                 Alert.alert('삭제완료!')
                 setModalView(false)
@@ -384,7 +397,6 @@ const Realmain = () => {
                 setModalView(false)
                 getproduct()
             }
-
         })
     }
 
@@ -565,13 +577,13 @@ const Realmain = () => {
                     <View style={{ width: chwidth / 3.3, height: '60%', borderRadius: 10, backgroundColor: 'rgb(204,204,204)', elevation: 10, }}>
                         <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: '100%', maxHeight: '100%', borderRadius: 10, }} ></Image>
                     </View>
-                    <View style={{ width: chwidth / 3.3, height: '30%', alignItems: 'center', marginTop: 10 }}>
-                        <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? '#333333' : '#cccccc' }} numberOfLines={1}>{prop.name}</Text>
-                        <Text style={{ fontSize: 12, color: '#8c8c8c' }} numberOfLines={1}>{prop.category}</Text>
+                    <View style={{ width: chwidth / 3.3, alignItems: 'center', marginTop: 10 }}>
+                        <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? '#333333' : '#cccccc', marginTop: -2 }} numberOfLines={1}>{prop.name}</Text>
+                        <Text style={{ fontSize: 12, color: '#8c8c8c', marginTop: -2 }} numberOfLines={1}>{prop.category}</Text>
                         {btDay < 0 ?
-                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white', letterSpacing: -0.8 }} numberOfLines={1}>유통기한 지남</Text>
+                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white', letterSpacing: -0.8, marginTop: -2 }} numberOfLines={1}>유통기한 지남</Text>
                             :
-                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white' }} numberOfLines={1}>{btDay}일 남음</Text>
+                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white', marginTop: -2 }} numberOfLines={1}>{btDay}일 남음</Text>
                         }
                     </View>
                 </View>
@@ -598,17 +610,17 @@ const Realmain = () => {
             }
         }
 
-        if (list == '') {
-            // Alert.alert('3층 비었음')
-            list.push(
-                <View style={{ padding: 20 }}>
-                    <Text>제품을 등록해주세요</Text>
-                </View>)
+        // if (list == '') {
+        //     // Alert.alert('3층 비었음')
+        //     list.push(
+        //         <View style={{ padding: 20 }}>
+        //             <Text>제품을 등록해주세요</Text>
+        //         </View>)
 
 
-        } else {
-            // Alert.alert('' + list)
-        }
+        // } else {
+        //     // Alert.alert('' + list)
+        // }
         return list
     }
 
@@ -631,17 +643,17 @@ const Realmain = () => {
             }
         }
 
-        if (list == '') {
-            // Alert.alert('3층 비었음')
-            list.push(
-                <View style={{ padding: 20 }}>
-                    <Text>제품을 등록해주세요</Text>
-                </View>)
+        // if (list == '') {
+        //     // Alert.alert('3층 비었음')
+        //     list.push(
+        //         <View style={{ padding: 20 }}>
+        //             <Text>제품을 등록해주세요</Text>
+        //         </View>)
 
 
-        } else {
-            // Alert.alert('' + list)
-        }
+        // } else {
+        //     // Alert.alert('' + list)
+        // }
         return list
     }
 
@@ -664,18 +676,16 @@ const Realmain = () => {
             }
         }
 
-        if (list == '') {
-            // Alert.alert('3층 비었음')
-            list.push(
-                <View style={{ padding: 20 }}>
-                    <Text>제품을 등록해주세요</Text>
-                </View>
-            )
-
-
-        } else {
-            // Alert.alert('' + list)
-        }
+        // if (list == '') {
+        //     // Alert.alert('3층 비었음')
+        //     list.push(
+        //         <View style={{ padding: 20 }}>
+        //             <Text>제품을 등록해주세요</Text>
+        //         </View>
+        //     )
+        // } else {
+        //     // Alert.alert('' + list)
+        // }
         return (list)
     }
     ///////////////////////////////////////////////////////////////////////////////////
@@ -739,6 +749,7 @@ const Realmain = () => {
                         <View style={{ borderBottomWidth: 1, borderColor: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>
                             <Text style={{ fontSize: 16, fontWeight: 'bold', color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>오늘 날씨는?</Text>
                         </View>
+                        <Text style={{ fontSize: 14, color: atdarkmode === 'light' ? 'black' : '#f2f2f2', textAlign: 'right', marginTop: 10 }}>{region}</Text>
                     </View>
 
                     {/*  */}
@@ -815,32 +826,40 @@ const Realmain = () => {
                     {version ?
                         // 이미지 버전
                         <View style={{ flex: 1 }}>
-                            <View style={{ width: chwidth, height: chwidth / 1.7, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
-                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>3층 화장품 리스트</Text>
+                            {atfloor3rd === 'on' ?
+                                <View style={{ width: chwidth, height: chwidth / 2, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+                                        <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+                                        <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>3층 화장품 리스트</Text>
+                                    </View>
+                                    <ScrollView style={{ marginTop: 0 }} horizontal showsHorizontalScrollIndicator={false}>
+                                        <ImagetPush></ImagetPush>
+                                        <View style={{ width: 20 }}></View>
+                                    </ScrollView>
                                 </View>
-                                <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
-                                    <ImagetPush></ImagetPush>
-                                    <View style={{ width: 20 }}></View>
-                                </ScrollView>
-                            </View>
-                            <View style={{ width: chwidth, height: chwidth / 1.7, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+
+                                :
+                                <View></View>
+                            }
+                            {atfloor3rd !== 'on' && <View style={{ marginTop: 15 }}></View>}
+
+                            <View style={{ width: chwidth, height: atfloor3rd === 'on' ? chwidth / 2 : chwidth / 1.6, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 0 }}>
                                     <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
                                     <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
                                 </View>
-                                <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
+                                <ScrollView style={{ marginTop: 0 }} horizontal showsHorizontalScrollIndicator={false}>
                                     <ImageuPush></ImageuPush>
                                     <View style={{ width: 20 }}></View>
                                 </ScrollView>
                             </View>
-                            <View style={{ width: chwidth, height: chwidth / 1.7, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+
+                            <View style={{ width: chwidth, height: atfloor3rd === 'on' ? chwidth / 2 : chwidth / 1.6, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 0 }}>
                                     <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
                                     <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
                                 </View>
-                                <ScrollView style={{ marginTop: 10 }} horizontal showsHorizontalScrollIndicator={false}>
+                                <ScrollView style={{ marginTop: 0 }} horizontal showsHorizontalScrollIndicator={false}>
                                     <ImagedPush></ImagedPush>
                                     <View style={{ width: 20 }}></View>
                                 </ScrollView>
@@ -850,17 +869,20 @@ const Realmain = () => {
                         // 텍스트 버전
                         <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
 
-                            <View style={{ width: chwidth - 40, height: chwidth / 2, }}>
-                                <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
-                                    <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
-                                    <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>3층 화장품 리스트</Text>
+                            {atfloor3rd === 'on' ?
+                                <View style={{ width: chwidth - 40, height: chwidth / 2, }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
+                                        <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
+                                        <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>3층 화장품 리스트</Text>
+                                    </View>
+
+                                    <ScrollView nestedScrollEnabled style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
+                                        <TexttPush></TexttPush>
+                                    </ScrollView>
                                 </View>
-
-                                <ScrollView nestedScrollEnabled style={{ backgroundColor: atdarkmode === 'light' ? 'rgb(245,245,245)' : 'rgb(39,39,39)', borderRadius: 10, marginTop: 20, marginBottom: 20 }} showsVerticalScrollIndicator={false}>
-                                    <TexttPush></TexttPush>
-                                </ScrollView>
-                            </View>
-
+                                :
+                                <View></View>
+                            }
                             <View style={{ width: chwidth - 40, height: chwidth / 2, }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end', }}>
                                     <AutoHeightImage source={lotion} width={14}></AutoHeightImage>

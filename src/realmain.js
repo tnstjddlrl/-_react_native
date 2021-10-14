@@ -509,6 +509,7 @@ const Realmain = () => {
         return list
     }
 
+
     const TextdPush = () => {
         var list = [];
         for (var i = 0; i < atlist.length; i++) {

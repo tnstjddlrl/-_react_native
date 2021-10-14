@@ -59,9 +59,12 @@ const Login = () => {
                 type: 'login',
                 id: id,
                 pw: pwd
-            }
+            },
+            data: undefined
+        }).catch((err) => {
+            console.log(err)
         }).then(async (res) => {
-
+            console.log({ res })
             console.log('리턴 : ' + res.data)
             if (res.data == 'login_fail') {
                 Alert.alert('아이디 혹은 비밀번호 오류입니다!')

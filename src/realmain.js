@@ -193,7 +193,7 @@ const Realmain = () => {
     async function requestPermission() {
         try {
             if (Platform.OS === "ios") {
-                return await Geolocation.requestAuthorization("always");
+                return await Geolocation.requestAuthorization("whenInUse");
             } // 안드로이드 위치 정보 수집 권한 요청 
             if (Platform.OS === "android") {
                 return await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,);
@@ -334,8 +334,8 @@ const Realmain = () => {
                             headers: { 'Authorization': 'KakaoAK 1fca8682191d27067ab092d740c45ecf' },
                         }).then((addr) => {
                             console.log(addr.data.documents[0].region_1depth_name)
-                            if (addr.data.documents[0].region_1depth_name.length === 4) {
-                                setRegion(addr.data.documents[0].region_2depth_name)
+                            if (addr.data.documents[0].region_1depth_name.length === 4 || addr.data.documents[0].region_1depth_name === '경기도') {
+                                setRegion(addr.data.documents[0].region_2depth_name.split(' ')[0])
                             } else {
                                 setRegion(addr.data.documents[0].region_1depth_name)
                             }

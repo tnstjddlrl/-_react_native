@@ -103,8 +103,31 @@ const light_review = require('../newimg/light/review.png')
 const light_cart = require('../newimg/light/cart.png')
 const light_delete = require('../newimg/light/delete.png')
 
+const newlogo = require('../newimg/asd.png')
+
+
 ///////////////////////////////////////////////////////
 
+const storeDate = async (value) => {
+    try {
+        await AsyncStorage.setItem('@date_first', value)
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+const getDate = async () => {
+    try {
+        const value = await AsyncStorage.getItem('@date_first')
+        if (value !== null) {
+            return value
+        } else {
+            return 'first'
+        }
+    } catch (e) {
+        // error reading value
+    }
+}
 
 
 const Realmain = () => {
@@ -148,7 +171,10 @@ const Realmain = () => {
     }
 
     useEffect(() => {
-        console.log(atfloor3rd)
+        storeDate(String(new Date().format("yyyy-MM-dd")))
+        getDate().then((res) => {
+            Alert.alert('' + (new Date(res)))
+        })
     }, [])
 
     function darkbtn() {
@@ -697,7 +723,7 @@ const Realmain = () => {
             {/* 헤더 시작 */}
             <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 0, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <AutoHeightImage source={logo} width={120}></AutoHeightImage>
+                    <AutoHeightImage source={newlogo} width={45}></AutoHeightImage>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         {version ?

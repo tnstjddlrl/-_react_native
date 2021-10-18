@@ -43,6 +43,14 @@
 //     }
 // }
 
+// const storeDate = async (value) => {
+//     try {
+//         await AsyncStorage.setItem('@date_first', value)
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
+
 // const getData = async () => {
 //     try {
 //         const value = await AsyncStorage.getItem('@user_id')

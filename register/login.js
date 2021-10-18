@@ -51,6 +51,25 @@ const Login = () => {
         }
     }
 
+    const backAction = () => {
+        Alert.alert("앱 종료", "앱을 종료하시겠습니까?", [
+            {
+                text: "취소",
+                onPress: () => null,
+                style: "cancel"
+            },
+            { text: "확인", onPress: () => BackHandler.exitApp() }
+        ]);
+        return true;
+    };
+
+    useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+
+        return () =>
+            BackHandler.removeEventListener("hardwareBackPress", backAction);
+    }, []);
+
 
     const request = async () => {
         console.log(id + pwd)

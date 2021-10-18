@@ -106,7 +106,13 @@ const SettingPage = () => {
 
                 <View style={{ marginLeft: 20, width: chwidth - 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
 
-                    <View style={{ width: 40, height: 40 }}>
+                    <View style={{}}>
+                        <TouchableWithoutFeedback onPress={() => {
+                            console.log('클릭')
+                            navigation.navigate('로그인')
+                        }}>
+                            <Text style={{ fontWeight: 'bold', color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>로그아웃</Text>
+                        </TouchableWithoutFeedback>
                     </View>
 
                     <Text style={{ fontSize: 21, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>설정</Text>

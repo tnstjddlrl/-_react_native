@@ -38,7 +38,6 @@ var day = now.getDate();        // 일
 var endDate = new Date(year, month, day);
 
 
-
 const tuto = require('../img/light/tuto.png');
 const text1 = require('../img/light/menu1_2.png')
 const img1 = require('../img/light/menu1.png')
@@ -129,6 +128,8 @@ const getDate = async () => {
     }
 }
 
+var alertTxt = ''
+
 
 const Realmain = () => {
 
@@ -171,10 +172,7 @@ const Realmain = () => {
     }
 
     useEffect(() => {
-        storeDate(String(new Date().format("yyyy-MM-dd")))
-        getDate().then((res) => {
-            Alert.alert('' + (new Date(res)))
-        })
+
     }, [])
 
     function darkbtn() {
@@ -247,18 +245,6 @@ const Realmain = () => {
                             setdayMinTemp(response.data.daily[0].temp.min - 273.15)
                             // setdescription(response.data.daily[0].weather[0].icon)
 
-                            if (response.data.daily[0].uvi < 2) {
-                                setUvString('낮음')
-                            } else if (response.data.daily[0].uvi >= 2 && response.data.daily[0].uvi < 5) {
-                                setUvString('보통')
-                            } else if (response.data.daily[0].uvi >= 5 && response.data.daily[0].uvi <= 7) {
-                                setUvString('높음')
-                            } else if (response.data.daily[0].uvi > 7) {
-                                setUvString('매우 높음')
-                            } else {
-                                setUvString('서버 오류')
-                            }
-
                             switch (response.data.daily[0].weather[0].icon) {
                                 case '01d':
                                 case '01n':
@@ -283,16 +269,21 @@ const Realmain = () => {
                                 case '09d':
                                 case '09n':
                                     setdescription('소나기')
+                                    alertTxt += '\n우산을 챙기세요!'
                                     break;
 
                                 case '10d':
                                 case '10n':
                                     setdescription('비')
+                                    alertTxt += '\n우산을 챙기세요!'
+
                                     break;
 
                                 case '11d':
                                 case '11n':
                                     setdescription('뇌우')
+                                    alertTxt += '\n우산을 챙기세요!'
+
                                     break;
 
                                 case '13d':
@@ -306,6 +297,21 @@ const Realmain = () => {
                                     break;
 
                             }
+
+                            if (response.data.daily[0].uvi < 2) {
+                                setUvString('낮음')
+                            } else if (response.data.daily[0].uvi >= 2 && response.data.daily[0].uvi < 5) {
+                                setUvString('보통')
+                            } else if (response.data.daily[0].uvi >= 5 && response.data.daily[0].uvi <= 7) {
+                                setUvString('높음')
+                                alertTxt += '\n외출시 자외선 크림을 사용하세요'
+                            } else if (response.data.daily[0].uvi > 7) {
+                                setUvString('매우 높음')
+                                alertTxt += '\n외출시 자외선 크림을 사용하세요'
+                            } else {
+                                setUvString('서버 오류')
+                            }
+
 
                         }).catch(function (error) {
                             // handle error
@@ -337,9 +343,13 @@ const Realmain = () => {
                                     break;
                                 case 4:
                                     setTotalAir('나쁨')
+                                    alertTxt += '\n귀가후 폼클렌징을 사용하세요'
+
                                     break;
                                 case 5:
                                     setTotalAir('나쁨')
+                                    alertTxt += '\n귀가후 폼클렌징을 사용하세요'
+
                                     break;
                                 default:
                                     setTotalAir('서버 오류')
@@ -366,6 +376,24 @@ const Realmain = () => {
                                 setRegion(addr.data.documents[0].region_1depth_name)
                             }
                         })
+
+
+                        setTimeout(() => {
+                            getDate().then((res) => {
+                                var dd = new Date(res)
+                                if (res === 'first' || (new Date(dd.getFullYear(), dd.getMonth(), dd.getDate()).valueOf() !== new Date(endDate).valueOf())) {
+                                    // Alert.alert(dd + '')=
+
+                                    if (alertTxt === '') {
+                                        Alert.alert('좋은 하루입니다!')
+                                    } else {
+                                        Alert.alert('좋은 하루입니다!', alertTxt)
+                                    }
+                                }
+                            });
+
+                            storeDate(String(new Date(endDate)))
+                        }, 1000);
 
                     },
                     (error) => {

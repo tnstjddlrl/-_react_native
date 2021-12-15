@@ -17,7 +17,7 @@ import {
 
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useRecoilState } from 'recoil';
-import { imagebase64, pcategory, pexp, pexpDate, placation, pname, plist, pid, darkmode } from '../atoms/atom';
+import { imagebase64, pcategory, pexp, pexpDate, placation, pname, plist, pid, darkmode, floor3rd } from '../atoms/atom';
 
 const chwidth = Dimensions.get('window').width
 
@@ -47,6 +47,7 @@ const ProductAddr = () => {
 
     const [atdarkmode, setAtdarkmode] = useRecoilState(darkmode); //다크모드
 
+    const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
 
 
     // 상태 불러오기!
@@ -202,65 +203,67 @@ const ProductAddr = () => {
                     </View>
 
                     {/* 3층! */}
-                    <TouchableWithoutFeedback onPress={() => setu1('t')}>
-                        {atdarkmode === 'light' ?
+                    {atfloor3rd == 'on' &&
+                        <TouchableWithoutFeedback onPress={() => setu1('t')}>
+                            {atdarkmode === 'light' ?
 
-                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 't' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
-                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
+                                <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 't' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 0 }}>
+                                    <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        {u1 == 't' ?
-                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
-                                            :
-                                            <View></View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            {u1 == 't' ?
+                                                <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                                :
+                                                <View></View>
+                                            }
+                                            <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>3층</Text>
 
-                                        }
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>3층</Text>
+                                        </View>
+
+                                        {/* 개별 화장품 부분 */}
+                                        <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                            <ImageTPush></ImageTPush>
+                                        </View>
+                                        {/* 개별 화장품 부분  끝*/}
 
                                     </View>
-
-                                    {/* 개별 화장품 부분 */}
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
-                                        <ImageTPush></ImageTPush>
-                                    </View>
-                                    {/* 개별 화장품 부분  끝*/}
-
                                 </View>
-                            </View>
 
-                            :
+                                :
 
-                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 't' ? 'white' : 'black', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
-                                <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
+                                <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 't' ? 'white' : 'black', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 0 }}>
+                                    <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
 
-                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        {u1 == 't' ?
-                                            <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
-                                            :
-                                            <View></View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            {u1 == 't' ?
+                                                <AutoHeightImage source={check_img} width={20}></AutoHeightImage>
+                                                :
+                                                <View></View>
 
-                                        }
-                                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>2층</Text>
+                                            }
+                                            <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>3층</Text>
+
+                                        </View>
+
+                                        {/* 개별 화장품 부분 */}
+                                        <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
+                                            <ImageUPush></ImageUPush>
+                                        </View>
+                                        {/* 개별 화장품 부분  끝*/}
 
                                     </View>
-
-                                    {/* 개별 화장품 부분 */}
-                                    <View style={{ width: chwidth - 100, flexDirection: 'row', marginBottom: 20, marginTop: 30, justifyContent: 'space-between' }}>
-                                        <ImageUPush></ImageUPush>
-                                    </View>
-                                    {/* 개별 화장품 부분  끝*/}
-
                                 </View>
-                            </View>
-                        }
-                    </TouchableWithoutFeedback>
+                            }
+                        </TouchableWithoutFeedback>
+                    }
+
                     {/* 윗칸 끝 */}
 
                     {/* 윗칸 */}
                     <TouchableWithoutFeedback onPress={() => setu1('u')}>
                         {atdarkmode === 'light' ?
 
-                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'black' : 'white', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 20, elevation: 10, marginBottom: 20 }}>
                                 <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
 
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -285,7 +288,7 @@ const ProductAddr = () => {
 
                             :
 
-                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'white' : 'black', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                            <View style={{ width: chwidth - 40, borderRadius: 15, borderColor: u1 == 'u' ? 'white' : 'black', borderWidth: 2.5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(26,26,26)', marginLeft: 20, marginTop: 20, elevation: 10, marginBottom: 20 }}>
                                 <View style={{ width: chwidth - 60, marginLeft: 10, marginTop: 20, alignItems: 'center', justifyContent: 'center', }}>
 
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>

@@ -103,6 +103,8 @@ const light_cart = require('../newimg/light/cart.png')
 const light_delete = require('../newimg/light/delete.png')
 
 const newlogo = require('../newimg/asd.png')
+const newlogo_light = require('../newimg/asdf.png')
+
 
 
 ///////////////////////////////////////////////////////
@@ -276,14 +278,12 @@ const Realmain = () => {
                                 case '10n':
                                     setdescription('비')
                                     alertTxt += '\n우산을 챙기세요!'
-
                                     break;
 
                                 case '11d':
                                 case '11n':
                                     setdescription('뇌우')
                                     alertTxt += '\n우산을 챙기세요!'
-
                                     break;
 
                                 case '13d':
@@ -295,7 +295,6 @@ const Realmain = () => {
                                 case '50n':
                                     setdescription('안개')
                                     break;
-
                             }
 
                             if (response.data.daily[0].uvi < 2) {
@@ -519,7 +518,6 @@ const Realmain = () => {
             setModaldate(prop.expiration)
             setModalexpLeft(btDay)
             setBuyatname(prop.name)
-
             setModalView(true)
             console.log(modalno)
         }
@@ -629,18 +627,20 @@ const Realmain = () => {
         return (
             <TouchableWithoutFeedback onPress={() => { clickpp() }}>
                 <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', marginLeft: 20, }}>
-                    <View style={{ width: chwidth / 3.3, height: '60%', borderRadius: 10, backgroundColor: 'rgb(204,204,204)', elevation: 10, }}>
-                        <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: '100%', maxHeight: '100%', borderRadius: 10, }} ></Image>
+                    <View style={{ width: chwidth / 3.3, height: '80%', borderRadius: 10, elevation: 0, marginBottom: 5 }}>
+                        <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: '80%', maxHeight: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} ></Image>
+
+                        <View style={{ width: chwidth / 3.3, alignItems: 'center', marginTop: -10, backgroundColor: 'rgb(94,131,222)', borderRadius: 10, padding: 5 }}>
+                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'white' : 'white', marginTop: -2 }} numberOfLines={1}>{prop.name}</Text>
+                            <Text style={{ fontSize: 12, color: 'white', marginTop: -2 }} numberOfLines={1}>{prop.category}</Text>
+                            {btDay < 0 ?
+                                <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'white' : 'white', letterSpacing: -0.8, marginTop: -2 }} numberOfLines={1}>유통기한 지남</Text>
+                                :
+                                <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'white' : 'white', marginTop: -2 }} numberOfLines={1}>{btDay}일 남음</Text>
+                            }
+                        </View>
                     </View>
-                    <View style={{ width: chwidth / 3.3, alignItems: 'center', marginTop: 10 }}>
-                        <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? '#333333' : '#cccccc', marginTop: -2 }} numberOfLines={1}>{prop.name}</Text>
-                        <Text style={{ fontSize: 12, color: '#8c8c8c', marginTop: -2 }} numberOfLines={1}>{prop.category}</Text>
-                        {btDay < 0 ?
-                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white', letterSpacing: -0.8, marginTop: -2 }} numberOfLines={1}>유통기한 지남</Text>
-                            :
-                            <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'black' : 'white', marginTop: -2 }} numberOfLines={1}>{btDay}일 남음</Text>
-                        }
-                    </View>
+
                 </View>
             </TouchableWithoutFeedback>
         )
@@ -747,11 +747,11 @@ const Realmain = () => {
 
 
     return (
-        <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+        <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(44,39,34)' }}>
             {/* 헤더 시작 */}
-            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+            <View style={{ width: '100%', justifyContent: 'center', marginBottom: 10, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(44,39,34)' }}>
                 <View style={{ width: chwidth - 40, marginLeft: 20, marginTop: 20, marginBottom: 0, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <AutoHeightImage source={newlogo} width={45}></AutoHeightImage>
+                    <AutoHeightImage source={atdarkmode === 'light' ? newlogo_light : newlogo} width={120}></AutoHeightImage>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         {version ?
@@ -873,17 +873,17 @@ const Realmain = () => {
             </View>
             {/* 날씨 표현부 끝 */}
 
-            <View style={{ width: chwidth, height: 6, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'rgb(39,39,39)' }}></View>
+            <View style={{ width: chwidth, height: 1, backgroundColor: atdarkmode === 'light' ? 'rgb(240,240,240)' : 'rgb(39,39,39)' }}></View>
 
             {/* 본문 시작 */}
-            <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+            <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(44,39,34)' }}>
                 <ScrollView>
                     {version ?
                         // 이미지 버전
                         <View style={{ flex: 1 }}>
                             {atfloor3rd === 'on' ?
-                                <View style={{ width: chwidth, height: chwidth / 2, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 15 }}>
+                                <View style={{ width: chwidth, height: chwidth / 2, marginBottom: 15 }}>
+                                    <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 0 }}>
                                         <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
                                         <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>3층 화장품 리스트</Text>
                                     </View>
@@ -896,9 +896,9 @@ const Realmain = () => {
                                 :
                                 <View></View>
                             }
-                            {atfloor3rd !== 'on' && <View style={{ marginTop: 15 }}></View>}
+                            {/* {atfloor3rd == 'on' && <View style={{ marginTop: 35 }}></View>} */}
 
-                            <View style={{ width: chwidth, height: atfloor3rd === 'on' ? chwidth / 2 : chwidth / 1.6, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                            <View style={{ width: chwidth, height: atfloor3rd === 'on' ? chwidth / 2 : chwidth / 1.6, marginTop: 10 }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 0 }}>
                                     <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
                                     <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>2층 화장품 리스트</Text>
@@ -909,7 +909,7 @@ const Realmain = () => {
                                 </ScrollView>
                             </View>
 
-                            <View style={{ width: chwidth, height: atfloor3rd === 'on' ? chwidth / 2 : chwidth / 1.6, backgroundColor: atdarkmode === 'light' ? 'white' : 'black' }}>
+                            <View style={{ width: chwidth, height: atfloor3rd === 'on' ? chwidth / 2 : chwidth / 1.6, marginTop: 20, marginBottom: 20 }}>
                                 <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginLeft: 20, marginTop: 0 }}>
                                     <AutoHeightImage source={lotion} width={14}></AutoHeightImage>
                                     <Text style={{ fontSize: 17, fontWeight: 'bold', marginLeft: 5, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>1층 화장품 리스트</Text>
@@ -922,7 +922,7 @@ const Realmain = () => {
                         </View>
                         :
                         // 텍스트 버전
-                        <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
+                        <View style={{ flex: 1, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(44,39,34)', alignItems: 'center', justifyContent: 'space-between', marginTop: 10 }}>
 
                             {atfloor3rd === 'on' ?
                                 <View style={{ width: chwidth - 40, height: chwidth / 2, }}>
@@ -967,7 +967,7 @@ const Realmain = () => {
             {/* 본문 끝 */}
 
             {/* 하단 등록 버튼 시작 */}
-            <View style={{ width: chwidth, alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+            <View style={{ width: chwidth, alignItems: 'center', justifyContent: 'center', marginBottom: 10, opacity: 1 }}>
                 <TouchableWithoutFeedback onPress={() => { navigation.navigate('바코드체크') }}>
                     <View style={{ width: chwidth - 40, height: 55, marginLeft: 0, borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ color: atdarkmode === 'light' ? 'rgb(28,47,121)' : '#f2f2f2', fontSize: 20, fontWeight: 'bold' }}>등록하기</Text>

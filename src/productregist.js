@@ -93,11 +93,9 @@ const Productregist = () => {
         bottomSheetModalRef.current?.dismiss();
     }, []);
 
-
     const handleSheetChanges = useCallback((index) => {
         console.log('handleSheetChanges', index);
     }, []);
-
 
     const [onChangeValue, setOnChangeValue] = React.useState(49)
     useEffect(() => {
@@ -135,9 +133,6 @@ const Productregist = () => {
     useEffect(() => {
         setDateText(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
     }, [date])
-
-
-
 
     function okclick() {
         if (name == '' || big == '' || small == '') {

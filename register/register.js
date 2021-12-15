@@ -118,44 +118,45 @@ const Register = () => {
                 </View>
                 {/* 헤더 끝 */}
 
+                <ScrollView>
+                    <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
+                        <View style={{ width: chwidth - 80, marginLeft: 20, marginTop: 20, justifyContent: 'center' }}>
 
-                <View style={{ width: chwidth - 40, borderRadius: 15, backgroundColor: 'white', marginLeft: 20, marginTop: 40, elevation: 10, marginBottom: 20 }}>
-                    <View style={{ width: chwidth - 80, marginLeft: 20, marginTop: 20, justifyContent: 'center' }}>
+                            {/* 아이디 */}
+                            <Text style={{ fontSize: 18, marginTop: 10, color: 'black' }}>아이디</Text>
+                            <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
+                                <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'아이디를 입력해주세요.'}></TextInput>
+                            </View>
 
-                        {/* 아이디 */}
-                        <Text style={{ fontSize: 18, marginTop: 10, color: 'black' }}>아이디</Text>
-                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                            <TextInput onChangeText={setid} value={id} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'아이디를 입력해주세요.'}></TextInput>
+                            {/* 아이디끝 */}
+
+                            {/* 비밀번호 */}
+                            <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
+                            <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
+                                <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
+                            </View>
+
+                            {/* 비밀번호끝 */}
+
+                            {/* 비밀번호 */}
+                            <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호 확인</Text>
+                            <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 0 }}>
+                                <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwdc} value={pwdc} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
+                            </View>
+
+                            {/* 비밀번호끝 */}
+
+                            {/* 비밀번호 */}
+                            <Text style={{ fontSize: 18, marginTop: 20 }}>이메일</Text>
+                            <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 40 }}>
+                                <TextInput onChangeText={setemail} value={email} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'이메일을 확인해주세요.'}></TextInput>
+                            </View>
+
+                            {/* 비밀번호끝 */}
+
                         </View>
-
-                        {/* 아이디끝 */}
-
-                        {/* 비밀번호 */}
-                        <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
-                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3 }}>
-                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
-                        </View>
-
-                        {/* 비밀번호끝 */}
-
-                        {/* 비밀번호 */}
-                        <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호 확인</Text>
-                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 0 }}>
-                            <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwdc} value={pwdc} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
-                        </View>
-
-                        {/* 비밀번호끝 */}
-
-                        {/* 비밀번호 */}
-                        <Text style={{ fontSize: 18, marginTop: 20 }}>이메일</Text>
-                        <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 40 }}>
-                            <TextInput onChangeText={setemail} value={email} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 확인해주세요.'}></TextInput>
-                        </View>
-
-                        {/* 비밀번호끝 */}
-
                     </View>
-                </View>
+                </ScrollView>
 
 
                 {/* 하단 버튼 시작 */}

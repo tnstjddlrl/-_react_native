@@ -13,6 +13,8 @@ import {
     PermissionsAndroid
 } from 'react-native';
 
+import database from '@react-native-firebase/database';
+
 if (Text.defaultProps == null) Text.defaultProps = {};
 Text.defaultProps.allowFontScaling = false;
 
@@ -177,9 +179,32 @@ const Realmain = () => {
         }
     }
 
-    useEffect(() => {
 
+    useEffect(() => {
+        database().ref('/users/' + atid).on('value', snapshot => {
+            console.log('User data: ', snapshot.val());
+            if (snapshot.val() == null) {
+                database()
+                    .ref('/users/' + atid)
+                    .set('no')
+                    .then(() => {
+                        console.log('Data set.')
+                    });
+            }
+        });
     }, [])
+
+    function CameraClick() {
+        console.log('클릭')
+
+        database()
+            .ref('/users/' + atid)
+            .set('yes')
+            .then(() => {
+                console.log('Data set.')
+                Alert.alert('요청완료', '냉장고에 내부사진 촬영을 요청하였습니다!')
+            });
+    }
 
     function darkbtn() {
         if (atdarkmode == 'light') {
@@ -759,7 +784,7 @@ const Realmain = () => {
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                        <TouchableWithoutFeedback onPress={() => { console.log('클릭') }}>
+                        <TouchableWithoutFeedback onPress={() => { CameraClick() }}>
                             <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
                                 <AutoHeightImage source={atdarkmode === 'light' ? camera_icon : camera_white_icon} width={14} style={{ margin: 8 }}></AutoHeightImage>
                             </View>

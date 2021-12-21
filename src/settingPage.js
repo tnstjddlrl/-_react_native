@@ -205,6 +205,22 @@ const SettingPage = () => {
                     </View>
                 </View>
 
+                <View style={{ width: '100%', borderWidth: 0.3, borderColor: '#f2f2f2' }}></View>
+
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('내부사진보기') }}>
+                    <View style={{ width: chwidth - 60, height: 60, marginLeft: 30, marginTop: 0, }}>
+                        <View style={{ flexDirection: 'row', flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 16, color: atdarkmode === 'light' ? 'black' : '#f2f2f2' }}>내부사진 보기</Text>
+                            <AutoHeightImage source={rightarrow} width={10}></AutoHeightImage>
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+
+
+                <View style={{ width: '100%', borderWidth: 0.3, borderColor: '#f2f2f2' }}></View>
+
+
+
             </View>
             {/* 본문 끝 */}
 

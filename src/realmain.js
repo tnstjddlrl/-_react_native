@@ -70,6 +70,10 @@ const d_menu2_2 = require('../img/dark/d_menu2_2.png');
 
 const icon3 = require('../img/light/icon3.png');
 
+
+const camera_icon = require('../img/camera.png')
+const camera_white_icon = require('../img/camera_white.png')
+
 ////////////////////////////////////////////////////////
 //새로운 아이콘들/ 위의 아이콘들은 순차적으로 폐기 예정
 //////////////////////////////////////////////////////////
@@ -416,7 +420,7 @@ const Realmain = () => {
     });
     //제품 불러오기
     function getproduct() {
-        axios.get('http://ip1004.hostingbox.co.kr/', {
+        axios.get('https://ip0154.cafe24.com/restapi/index.php', {
             params: {
                 type: 'load_product',
                 id: atid,
@@ -435,7 +439,7 @@ const Realmain = () => {
 
     //제품 삭제
     function delprod(no) {
-        axios.get('http://ip1004.hostingbox.co.kr/', {
+        axios.get('https://ip0154.cafe24.com/restapi/index.php', {
             params: {
                 type: 'del_product',
                 no: no,
@@ -628,7 +632,7 @@ const Realmain = () => {
             <TouchableWithoutFeedback onPress={() => { clickpp() }}>
                 <View style={{ height: '100%', justifyContent: 'center', alignItems: 'center', marginLeft: 20, }}>
                     <View style={{ width: chwidth / 3.3, height: '80%', borderRadius: 10, elevation: 0, marginBottom: 5 }}>
-                        <Image source={{ uri: 'http://ip1004.hostingbox.co.kr' + prop.img }} style={{ width: chwidth / 3.3, height: '80%', maxHeight: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} ></Image>
+                        <Image source={{ uri: 'https://ip0154.cafe24.com' + prop.img }} style={{ width: chwidth / 3.3, height: '80%', maxHeight: '100%', borderTopLeftRadius: 10, borderTopRightRadius: 10 }} ></Image>
 
                         <View style={{ width: chwidth / 3.3, alignItems: 'center', marginTop: -10, backgroundColor: 'rgb(94,131,222)', borderRadius: 10, padding: 5 }}>
                             <Text style={{ fontSize: 13, color: atdarkmode === 'light' ? 'white' : 'white', marginTop: -2 }} numberOfLines={1}>{prop.name}</Text>
@@ -754,6 +758,13 @@ const Realmain = () => {
                     <AutoHeightImage source={atdarkmode === 'light' ? newlogo_light : newlogo} width={120}></AutoHeightImage>
 
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                        <TouchableWithoutFeedback onPress={() => { console.log('클릭') }}>
+                            <View style={{ borderWidth: 1, borderColor: atdarkmode === 'light' ? 'rgb(204,204,204)' : 'rgb(46,46,46)', borderRadius: 20, marginRight: 5, backgroundColor: atdarkmode === 'light' ? 'white' : 'rgb(46,46,46)' }}>
+                                <AutoHeightImage source={atdarkmode === 'light' ? camera_icon : camera_white_icon} width={14} style={{ margin: 8 }}></AutoHeightImage>
+                            </View>
+                        </TouchableWithoutFeedback>
+
                         {version ?
                             <TouchableWithoutFeedback onPress={() => {
                                 if (version)

@@ -54,7 +54,7 @@ const ReProductAddr = () => {
         } else {
             setTimeout(() => {
                 try {
-                    axios.get('http://ip1004.hostingbox.co.kr/', {
+                    axios.get('https://ip0154.cafe24.com/restapi/index.php', {
                         params: {
                             type: 're_product',
                             id: atid,

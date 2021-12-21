@@ -25,23 +25,7 @@
 // const [atfloor3rd, setatfloor3rd] = useRecoilState(floor3rd); //3층 설정
 
 
-
-
-
-
-
-
-
-
 // async
-
-// const storeData = async (value) => {
-//     try {
-//         await AsyncStorage.setItem('@user_id', value)
-//     } catch (e) {
-//         console.log(e)
-//     }
-// }
 
 // const storeDate = async (value) => {
 //     try {
@@ -50,6 +34,14 @@
 //         console.log(e)
 //     }
 // }
+// const storeData = async (value) => {
+//     try {
+//         await AsyncStorage.setItem('@user_id', value)
+//     } catch (e) {
+//         console.log(e)
+//     }
+// }
+
 
 // const getData = async () => {
 //     try {

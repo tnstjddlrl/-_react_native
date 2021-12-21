@@ -73,7 +73,7 @@ const Login = () => {
 
     const request = async () => {
         console.log(id + pwd)
-        await axios.get('http://ip1004.hostingbox.co.kr/', {
+        await axios.get('https://ip0154.cafe24.com/restapi/index.php', {
             params: {
                 type: 'login',
                 id: id,

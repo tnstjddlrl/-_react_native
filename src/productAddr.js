@@ -66,7 +66,7 @@ const ProductAddr = () => {
 
             setTimeout(() => {
                 try {
-                    axios.post('http://ip1004.hostingbox.co.kr/post.php', {
+                    axios.post('https://ip0154.cafe24.com/restapi/post.php', {
                         type: 'new_product',
                         id: atid,
                         name: atname,

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import {
   SafeAreaView,
@@ -41,6 +40,7 @@ import Load from './register/load';
 import ReviewWb from './wb/reviewWb';
 import SettingPage from './src/settingPage';
 import PwdChangePage from './src/pwdChangePage';
+import insideView from './src/insideView';
 
 const Stack = createStackNavigator();
 
@@ -70,7 +70,7 @@ export default APP = () => {
 
           <Stack.Screen name="설정" component={SettingPage} />
           <Stack.Screen name="비밀번호수정" component={PwdChangePage} />
-
+          <Stack.Screen name="내부사진보기" component={insideView} />
 
 
           <Stack.Screen name="사진보기" component={PictureCheck} />

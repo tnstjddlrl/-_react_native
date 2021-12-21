@@ -1,4 +1,4 @@
-package com.camera;
+package com.semicolons.smartRefrig;
 
 import com.facebook.react.ReactActivity;
 

@@ -1,4 +1,4 @@
-package com.camera;
+package com.semicolons.smartRefrig;
 
 import android.app.Application;
 import android.content.Context;

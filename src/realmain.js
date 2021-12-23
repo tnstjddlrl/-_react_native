@@ -190,6 +190,13 @@ const Realmain = () => {
                     .then(() => {
                         console.log('Data set.')
                     });
+            } else if (snapshot.val() == 'yes') {
+                database()
+                    .ref('/users/' + atid)
+                    .set('no')
+                    .then(() => {
+                        console.log('Data set.')
+                    });
             }
         });
     }, [])
@@ -669,7 +676,6 @@ const Realmain = () => {
                             }
                         </View>
                     </View>
-
                 </View>
             </TouchableWithoutFeedback>
         )

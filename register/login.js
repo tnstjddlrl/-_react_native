@@ -24,6 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
 import { darkmode, pid } from '../atoms/atom';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const chwidth = Dimensions.get('window').width
 
@@ -144,11 +145,14 @@ const Login = () => {
 
                     {/* 비밀번호 */}
                     <Text style={{ fontSize: 18, marginTop: 20 }}>비밀번호</Text>
-                    <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 30 }}>
+                    <View style={{ borderWidth: 1, borderColor: 'rgb(204,204,204)', height: 40, marginTop: 10, borderRadius: 3, marginBottom: 13 }}>
                         <TextInput textContentType={'password'} secureTextEntry={true} onChangeText={setpwd} value={pwd} style={{ height: 40, width: chwidth - 100, marginLeft: 10, color: 'black' }} placeholder={'비밀번호를 입력해주세요.'}></TextInput>
                     </View>
-
                     {/* 비밀번호끝 */}
+
+                    <TouchableOpacity>
+                        <Text style={{ marginBottom: 20, textDecorationLine: 'underline', color: 'gray', fontWeight: 'bold', fontSize: 13 }}>비밀번호 찾기</Text>
+                    </TouchableOpacity>
 
                 </View>
             </View>

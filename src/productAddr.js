@@ -15,6 +15,9 @@ import {
     Image,
 } from 'react-native';
 
+import database from '@react-native-firebase/database';
+
+
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useRecoilState } from 'recoil';
 import { imagebase64, pcategory, pexp, pexpDate, placation, pname, plist, pid, darkmode, floor3rd } from '../atoms/atom';
@@ -93,7 +96,15 @@ const ProductAddr = () => {
                             setatlocation('')
                             setatbase64('')
 
-                            navigation.navigate('실제 메인')
+                            database()
+                                .ref('/users/' + atid)
+                                .set('yes')
+                                .then(() => {
+                                    console.log('Data set.')
+                                    // Alert.alert('요청완료', '냉장고에 내부사진 촬영을 요청하였습니다!')
+                                    navigation.navigate('실제 메인')
+                                });
+
                         } else {
                             Alert.alert('서버 오류입니다.', '잠시후 다시 시도해주세요.')
                         }
@@ -199,7 +210,9 @@ const ProductAddr = () => {
 
                 <ScrollView style={{}} showsVerticalScrollIndicator={false}>
                     <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                        <Text style={{ fontSize: 18, marginTop: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품을 보관할 층을 터치하세요!</Text>
+                        <Text style={{ fontSize: 18, marginTop: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>화장품을 냉장고 안에 넣어주세요.</Text>
+                        <Text style={{ fontSize: 18, marginTop: 10, color: atdarkmode === 'light' ? 'black' : 'white' }}>보관한 층을 선택해주세요.</Text>
+
                     </View>
 
                     {/* 3층! */}
@@ -377,7 +390,20 @@ const ProductAddr = () => {
             {/* 하단 버튼 시작 */}
             <View style={{ width: '100%', height: 90, alignItems: 'center', justifyContent: 'center' }}>
                 {/* 파랑버튼 */}
-                <TouchableWithoutFeedback onPress={() => { clickOK() }}>
+                <TouchableWithoutFeedback onPress={() => {
+                    Alert.alert(
+                        "등록",
+                        "화장품을 냉장고 내부에 보관하고 있는지 확인하여 주세요.\n확인 버튼을 누르면 등록과 동시에 내부 사진을 촬영합니다!",
+                        [
+                            {
+                                text: "취소",
+                                onPress: () => console.log("Cancel Pressed"),
+                                style: "cancel"
+                            },
+                            { text: "확인", onPress: () => clickOK() }
+                        ]
+                    );
+                }}>
                     <View style={{ borderRadius: 10, backgroundColor: atdarkmode === 'light' ? 'white' : 'black', borderWidth: 1.5, borderColor: atdarkmode === 'light' ? 'black' : 'white', width: chwidth - 40, height: 60, alignItems: 'center', justifyContent: 'center', elevation: 10, }}>
                         <Text style={{ fontSize: 23, color: atdarkmode === 'light' ? 'black' : 'white', fontWeight: 'bold' }}>확인</Text>
                     </View>
